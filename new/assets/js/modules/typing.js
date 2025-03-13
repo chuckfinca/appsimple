@@ -5,6 +5,7 @@ const TypingModule = (function () {
     text: "",
     targetElement: null,
     speed: 100,
+    initialDelay: 2000, // 1 second delay before typing starts
   };
 
   // Function to create typing animation
@@ -33,9 +34,11 @@ const TypingModule = (function () {
     if (typingElement) {
       // Ensure element is empty before starting
       typingElement.textContent = '';
+      
+      // Add the initial delay before starting the typing animation
       setTimeout(() => {
         typeWriter(typingElement, config.text, config.speed);
-      }, 50); // Small delay to ensure DOM is ready
+      }, config.initialDelay); // 1 second delay to show blinking cursor first
     }
 
     // Return public methods
@@ -43,7 +46,10 @@ const TypingModule = (function () {
       restart: function () {
         if (typingElement) {
           typingElement.textContent = "";
-          typeWriter(typingElement, config.text, config.speed);
+          // Also apply the delay when restarting
+          setTimeout(() => {
+            typeWriter(typingElement, config.text, config.speed);
+          }, config.initialDelay);
         }
       },
     };
