@@ -1,0 +1,44 @@
+  runtime: python27
+  api_version: 1
+  threadsafe: true
+
+  handlers: 
+
+  - url: /(.*\.css)
+    mime_type: text/css
+    static_files: \1
+    upload: (.*\.css)
+
+  - url: /(bodhimind|livewire|guidedmind|mindtimer|privacy|terms)
+    mime_type: text/html
+    static_files: \1.html
+    upload: (.+)
+
+  - url: /
+    static_files: index.html
+    upload: index.html
+
+  - url: /(.+)
+    static_files: \1
+    upload: (.*)
+
+  skip_files:
+  - ^(.*/)?app\.yaml
+  - ^(.*/)?app\.yml
+  - ^(.*/)?#.*#
+  - ^(.*/)?.*~
+  - ^(.*/)?.*\.py[co]
+  - ^(.*/)?.*/RCS/.*
+  - ^(.*/)?\..*
+  - ^(.*/)?tests$
+  - ^(.*/)?test$
+  - ^test/(.*/)?
+  - ^COPYING.LESSER
+  - ^README\..*
+  - \.gitignore
+  - ^\.git/.*
+  - \.*\.lint$
+  - ^fabfile\.py
+  - ^testrunner\.py
+  - ^grunt\.js
+  - ^node_modules/(.*/)?

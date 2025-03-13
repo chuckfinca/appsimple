@@ -1,0 +1,129 @@
+.appIntroContainer {
+	overflow: auto;
+}
+#video {
+	display:block;
+	margin: 0 auto 8rem auto;
+}
+
+#introContainer {
+	margin-left: 10%;
+	width: 34%;
+	float:left;
+	padding: 0 4rem 0 0;
+}
+
+#introText {
+	text-align: right;
+	padding: 0;
+	margin-bottom: 2rem;
+}
+
+.storeLinks {
+	padding: 0rem;
+}
+
+#introContainer .storeLinks {
+	float: right;
+}
+
+.storeLinks a {
+	display:block;
+	overflow:auto;
+	text-align:center;
+	margin: 2rem 0;
+}
+
+.appIntroContainer h2 a {
+	font-size: 3rem;
+	line-height: 125%;
+	margin: 0;
+	width: inherit;
+}
+
+#iconSeparatorContainer {
+	text-align: center;
+	padding: 0;
+	margin: 4rem 0;
+}
+
+
+.line {
+	border-bottom: 1px solid #cccccc;
+	width: 40%;
+	float: right;
+	padding: 2.4rem 0;
+}
+
+#leftLine {
+	float: left;
+	margin-left: 2rem;
+}
+
+#rightLine {
+	float: right;
+	margin-right: 2rem;
+}
+
+#icon {
+	width: 10%;
+}
+
+#screenShotsContainer {
+	overflow: auto;
+	margin-bottom: 4rem;
+}
+
+.screenShotContainer {
+	padding: 0;
+	margin: 1%;
+	width: 22%;
+	border: 1px solid #cccccc;
+	float: left;
+}
+
+.screenShot {
+	max-width: 100%;
+	display: block;
+}
+
+.appDescription {
+	font-size: 2rem;
+	margin: 0;
+	text-align: center;
+	display: block;
+}
+
+.callout {
+	margin: 2rem 0 0 0;
+	display: block;
+	text-align: center;
+	font-size: 3rem;
+	color: #f6d10b;
+}
+
+div.appIntroContainer a.callout {
+	float: right;
+}
+
+.callout + .callout {
+	clear: both;
+	width: 50 rem;
+}
+
+br + .callout {
+	display: block;
+}
+	
+
+#rating {
+	margin: 0 auto 2rem auto;
+	width: 20rem;
+	padding: 0;
+}
+
+#pressKit {
+	display: block;
+	text-align: center;
+	margin-top: 4rem;
+}
