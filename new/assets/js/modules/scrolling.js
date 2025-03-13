@@ -191,27 +191,28 @@ const ScrollModule = (function () {
     window.addEventListener(
       "wheel",
       function (e) {
+        // Only prevent default when we're actually handling the event
+        // This allows other wheel events to propagate normally
+        
         if (!contentVisible) {
           if (e.deltaY > 0) {
             e.preventDefault();
             showContent();
           }
         } else {
-          if (contentElement.scrollTop === 0 && e.deltaY < 0) {
-            if (pendingButtonShow) {
-              clearTimeout(pendingButtonShow);
-              pendingButtonShow = null;
-            }
-
-            if (Math.abs(e.deltaY) > 50) {
+          if (contentElement.scrollTop <= 3 && e.deltaY < 0) {
+            // Only prevent default here if we're actually transitioning
+            if (Math.abs(e.deltaY) > 25) {
               e.preventDefault();
               showHero();
               returnToTopElement.classList.remove("visible");
               buttonLockActive = false;
               scrollUpAttempts = 0;
             } else {
+              // Don't prevent default for small wheel movements
+              // This allows natural scrolling behavior
               scrollUpAttempts++;
-              if (scrollUpAttempts >= 2) {
+              if (scrollUpAttempts >= 1) {
                 if (
                   !returnToTopElement.classList.contains("visible") &&
                   !pendingButtonShow
@@ -220,19 +221,24 @@ const ScrollModule = (function () {
                 }
               }
             }
-          } else if (e.deltaY > 0 && !buttonLockActive) {
-            if (pendingButtonShow) {
-              clearTimeout(pendingButtonShow);
-              pendingButtonShow = null;
-            }
-            returnToTopElement.classList.remove("visible");
-            scrollUpAttempts = 0;
           }
         }
       },
       { passive: false },
     );
-  }
+  }    
+
+  function setupKeyboardShortcuts() {
+    document.addEventListener('keydown', function(e) {
+      // Escape key to return to hero
+      if (e.key === 'Escape' && contentVisible) {
+        showHero();
+        returnToTopElement.classList.remove("visible");
+        buttonLockActive = false;
+        scrollUpAttempts = 0;
+      }
+    });
+  }  
 
   // Initialize module
   function init(options) {
@@ -301,6 +307,18 @@ const ScrollModule = (function () {
 
     // Set up wheel events (desktop)
     setupWheelEvents();
+
+    // Set up keyboard shortcuts
+    setupKeyboardShortcuts();
+    
+    // Add document-level scroll listener for better detection
+    document.addEventListener("scroll", function(e) {
+      if (contentVisible && window.scrollY === 0) {
+        // We're at the very top of the document
+        handleContentScroll();
+      }
+    });
+
 
     // Return public methods and properties for external use
     return {

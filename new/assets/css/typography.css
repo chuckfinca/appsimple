@@ -58,6 +58,6 @@
     margin-left: 0;
     vertical-align: text-bottom;
     position: relative;
-    top: -3px;
+    top: 0px;
     animation: blink 1s infinite;
 }
