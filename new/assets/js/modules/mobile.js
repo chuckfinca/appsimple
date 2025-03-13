@@ -3,30 +3,18 @@ const MobileModule = (function () {
   // Private variables
   let contentElement, heroElement, returnToTopElement;
   let scrollHandler;
-  let toggleElement;
+  let scrollUpAttempts = 0;
 
   // Touch tracking variables
   let touchStartY = 0;
   let touchEndY = 0;
   let touchStartTime = 0;
-  let scrollUpAttempts = 0;
 
   // Mobile detection
   function detectMobile() {
     return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
       navigator.userAgent,
     );
-  }
-
-  // Initialize scrolling direction for mobile
-  function initScrollDirection() {
-    if (toggleElement && detectMobile()) {
-      // Automatically invert scrolling on mobile
-      toggleElement.checked = true;
-      // Trigger the change event to update any listeners
-      const event = new Event('change');
-      toggleElement.dispatchEvent(event);
-    }
   }
 
   // Touch start handler
@@ -140,7 +128,6 @@ const MobileModule = (function () {
     heroElement = options.heroElement;
     returnToTopElement = options.returnToTopElement;
     scrollHandler = options.scrollHandler;
-    toggleElement = document.querySelector("#scroll-direction-toggle");
 
     // Exit if required elements don't exist
     if (
@@ -152,9 +139,6 @@ const MobileModule = (function () {
       console.error("Required elements or scroll handler not provided");
       return;
     }
-
-    // Initialize scroll direction preference for mobile
-    initScrollDirection();
 
     // Set up touch event listeners
     document.addEventListener("touchstart", handleTouchStart, {

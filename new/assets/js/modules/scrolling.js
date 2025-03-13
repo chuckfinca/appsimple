@@ -2,7 +2,6 @@
 const ScrollModule = (function () {
   // Private variables
   let contentElement, heroElement, arrowElement, returnToTopElement;
-  let toggleElement, toggleContainerElement;
   let contentVisible = false;
   let lastScrollTop = 0;
   let scrollUpAttempts = 0;
@@ -27,9 +26,7 @@ const ScrollModule = (function () {
     contentSelector: "#content",
     heroSelector: "#hero",
     arrowSelector: "#arrow",
-    returnToTopSelector: "#return-to-top",
-    invertToggleSelector: "#scroll-direction-toggle",
-    toggleContainerSelector: "#scroll-toggle",
+    returnToTopSelector: "#return-to-top"
   };
 
   // Transition functions
@@ -37,8 +34,6 @@ const ScrollModule = (function () {
     heroElement.classList.add("hidden");
     contentElement.classList.add("visible");
     contentVisible = true;
-
-    toggleContainerElement.classList.add("hidden");
 
     setTimeout(() => {
       // Set both the container and the body to allow scrolling
@@ -65,8 +60,6 @@ const ScrollModule = (function () {
     returnToTopElement.classList.remove("visible");
     scrollUpAttempts = 0;
     buttonLockActive = false;
-
-    toggleContainerElement.classList.remove("hidden");
 
     if (pendingButtonShow) {
       clearTimeout(pendingButtonShow);
@@ -251,10 +244,6 @@ const ScrollModule = (function () {
     heroElement = document.querySelector(config.heroSelector);
     arrowElement = document.querySelector(config.arrowSelector);
     returnToTopElement = document.querySelector(config.returnToTopSelector);
-    toggleElement = document.querySelector(config.invertToggleSelector);
-    toggleContainerElement = document.querySelector(
-      config.toggleContainerSelector,
-    );
 
     // Exit if required elements don't exist
     if (!contentElement || !heroElement) {
@@ -304,17 +293,6 @@ const ScrollModule = (function () {
         returnToTopElement.classList.remove("visible");
         buttonLockActive = false;
         scrollUpAttempts = 0;
-      });
-    }
-
-    // Set up scroll toggle
-    if (toggleElement) {
-      // Default behavior
-      let invertScroll = false;
-      toggleElement.checked = invertScroll;
-
-      toggleElement.addEventListener("change", function () {
-        invertScroll = this.checked;
       });
     }
 

@@ -14,9 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
     contentSelector: "#content",
     heroSelector: "#hero",
     arrowSelector: "#arrow",
-    returnToTopSelector: "#return-to-top",
-    invertToggleSelector: "#scroll-direction-toggle",
-    toggleContainerSelector: "#scroll-toggle",
+    returnToTopSelector: "#return-to-top"
   });
 
   // Initialize mobile event handlers if on mobile device

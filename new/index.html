@@ -44,14 +44,6 @@
                 </div>
             </div>
 
-            <div class="scroll-toggle" id="scroll-toggle">
-                <span>Invert Scroll</span>
-                <label class="toggle-switch">
-                    <input type="checkbox" id="scroll-direction-toggle" />
-                    <span class="toggle-slider"></span>
-                </label>
-            </div>
-
             <div class="return-to-top" id="return-to-top">↑ Return to Top</div>
         </div>
 
@@ -60,77 +52,6 @@
             // Page-specific configuration
             const PAGE_CONFIG = {
                 typingText: "The quick brown fox jumps over the lazy dog.",
-                typingSpeed: 100,
-                // Add other page-specific settings as needed
-            };
-        </script>
-
-        <!-- Load modules -->
-        <script src="assets/js/modules/typing.js"></script>
-        <script src="assets/js/modules/scrolling.js"></script>
-
-        <!-- Main script that initializes everything -->
-        <script src="assets/js/main.js"></script>
-    </body>
-</html>
-
-<!-- page2.html -->
-<!doctype html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Page 2 - Typing Effect Demo</title>
-        <link rel="stylesheet" href="assets/css/main.css" />
-    </head>
-    <body>
-        <div class="container">
-            <div class="hero" id="hero">
-                <div class="typing-container">
-                    <span class="typing-text" id="typing-text"></span
-                    ><span class="cursor"></span>
-                </div>
-                <div class="arrow" id="arrow">↓</div>
-            </div>
-
-            <div class="content" id="content">
-                <div class="content-inner">
-                    <h2>Page 2 Content</h2>
-                    <p>
-                        This is the second page of our demo. The structure
-                        remains the same, but the content is different. The
-                        typing effect, scrolling behavior, and transitions all
-                        work exactly the same way.
-                    </p>
-                    <p>
-                        Because we've separated our concerns into different
-                        files, we can easily maintain this project as it grows.
-                        Adding new pages is as simple as copying this template
-                        and changing the content.
-                    </p>
-                    <p>
-                        We can also easily modify the behavior across all pages
-                        by updating the shared JavaScript modules or CSS files.
-                    </p>
-                </div>
-            </div>
-
-            <div class="scroll-toggle" id="scroll-toggle">
-                <span>Invert Scroll</span>
-                <label class="toggle-switch">
-                    <input type="checkbox" id="scroll-direction-toggle" />
-                    <span class="toggle-slider"></span>
-                </label>
-            </div>
-
-            <div class="return-to-top" id="return-to-top">↑ Return to Top</div>
-        </div>
-
-        <!-- Configuration script - Add page-specific settings here -->
-        <script>
-            // Page-specific configuration
-            const PAGE_CONFIG = {
-                typingText: "Welcome to the second page of our demo.",
                 typingSpeed: 100,
                 // Add other page-specific settings as needed
             };
