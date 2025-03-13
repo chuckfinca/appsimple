@@ -1,0 +1,30 @@
+.content {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    height: 100%;
+    background-color: #333;
+    color: #fff;
+    overflow-y: hidden; /* Start with overflow hidden, will be set to auto on transition */
+    transition: transform 0.5s ease;
+    overscroll-behavior: none; /* Prevent bounce effects */
+    max-height: 100vh; /* Explicitly limit height */
+}
+
+.content.visible {
+    transform: translateY(-100%);
+    overflow-y: auto; /* Enable scrolling when visible */
+}
+
+.content-inner {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+}
+
+@media (max-width: 600px) {
+    .content-inner {
+        padding: 3rem 1.5rem;
+    }
+}
