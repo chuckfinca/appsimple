@@ -1,44 +1,51 @@
-  runtime: python27
-  api_version: 1
-  threadsafe: true
+runtime: python312
 
-  handlers: 
+handlers:
 
-  - url: /(.*\.css)
-    mime_type: text/css
-    static_files: \1
-    upload: (.*\.css)
+- url: /(.*\.css)
+  mime_type: text/css
+  static_files: \1
+  upload: (.*\.css)
 
-  - url: /(bodhimind|livewire|guidedmind|mindtimer|privacy|terms)
-    mime_type: text/html
-    static_files: \1.html
-    upload: (.+)
+# Handle new directory structure
+- url: /new/assets/css/(.*)
+  mime_type: text/css
+  static_files: new/assets/css/\1
+  upload: new/assets/css/(.*)
 
-  - url: /
-    static_files: index.html
-    upload: index.html
+- url: /new/assets/js/(.*)
+  mime_type: application/javascript
+  static_files: new/assets/js/\1
+  upload: new/assets/js/(.*)
 
-  - url: /(.+)
-    static_files: \1
-    upload: (.*)
+- url: /new/assets/js/modules/(.*)
+  mime_type: application/javascript
+  static_files: new/assets/js/modules/\1
+  upload: new/assets/js/modules/(.*)
 
-  skip_files:
-  - ^(.*/)?app\.yaml
-  - ^(.*/)?app\.yml
-  - ^(.*/)?#.*#
-  - ^(.*/)?.*~
-  - ^(.*/)?.*\.py[co]
-  - ^(.*/)?.*/RCS/.*
-  - ^(.*/)?\..*
-  - ^(.*/)?tests$
-  - ^(.*/)?test$
-  - ^test/(.*/)?
-  - ^COPYING.LESSER
-  - ^README\..*
-  - \.gitignore
-  - ^\.git/.*
-  - \.*\.lint$
-  - ^fabfile\.py
-  - ^testrunner\.py
-  - ^grunt\.js
-  - ^node_modules/(.*/)?
+- url: /new/shared/(.*)
+  mime_type: text/html
+  static_files: new/shared/\1
+  upload: new/shared/(.*)
+
+- url: /new
+  static_files: new/index.html
+  upload: new/index.html
+
+- url: /new/(.*)
+  static_files: new/\1
+  upload: new/(.*)
+
+# Original handlers
+- url: /(bodhimind|livewire|guidedmind|mindtimer|privacy|terms)
+  mime_type: text/html
+  static_files: \1.html
+  upload: (.+)
+
+- url: /
+  static_files: index.html
+  upload: index.html
+
+- url: /(.+)
+  static_files: \1
+  upload: (.*)
