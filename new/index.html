@@ -4,8 +4,55 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Typing Effect Demo</title>
-        <base href="new/">
+        <base href="">
         <link rel="stylesheet" href="assets/css/main.css" />
+        <style>
+            /* Content min-height to ensure footer is at bottom */
+            .content {
+                display: flex;
+                flex-direction: column;
+                min-height: 100vh;
+            }
+            
+            .content-inner {
+                flex: 1;
+            }
+            
+            /* Footer styles */
+            .app-footer {
+                padding: 20px 0;
+                text-align: center;
+                font-size: 14px;
+                background-color: #fdfdfd;
+                color: #555;
+                border-top: 1px solid #eee;
+                width: 100%;
+                margin-top: auto; /* Push to bottom of flex container */
+            }
+            
+            .footer-content {
+                max-width: 90rem;
+                margin: 0 auto;
+                padding: 0 20px;
+            }
+            
+            .app-footer a {
+                text-decoration: none;
+                color: #888;
+                transition: color 0.2s ease;
+            }
+            
+            .app-footer a:hover {
+                color: #333;
+            }
+            
+            @media screen and (max-width: 600px) {
+                .app-footer {
+                    padding: 15px 0;
+                    font-size: 12px;
+                }
+            }
+        </style>
     </head>
     <body>
         <div class="container">
@@ -43,6 +90,13 @@
                         amet justo convallis ullamcorper vel vitae purus.
                     </p>
                 </div>
+                
+                <!-- Footer Component positioned at bottom -->
+                <footer class="app-footer">
+                    <div class="footer-content">
+                        <span id="copyright">Copyright © 2025 <a href="/">AppSimple LLC</a> - <a href="mailto:support@appsimple.io">support@appsimple.io</a> - <a href="/privacy">privacy</a> - <a href="/terms">terms</a></span>
+                    </div>
+                </footer>
             </div>
 
             <div class="return-to-top" id="return-to-top">↑ Return to Top</div>
