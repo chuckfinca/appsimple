@@ -1,30 +1,205 @@
+/* Core positioning styles */
+/* Core positioning styles */
 .content {
     position: absolute;
     left: 0;
     right: 0;
     top: 100%;
     height: 100%;
-    background-color: #333;
-    color: #fff;
-    overflow-y: hidden; /* Start with overflow hidden, will be set to auto on transition */
+    background-color: #fff;
+    color: #333;
+    overflow-y: hidden;
     transition: transform 0.5s ease;
-    overscroll-behavior: none; /* Prevent bounce effects */
-    max-height: 100vh; /* Explicitly limit height */
+    overscroll-behavior: none;
+    max-height: 100vh;
 }
 
 .content.visible {
     transform: translateY(-100%);
-    overflow-y: auto; /* Enable scrolling when visible */
+    overflow-y: auto;
 }
 
+/* Content inner container - responsive width */
 .content-inner {
-    max-width: 700px;
-    margin: 0 auto;
-    padding: 4rem 2rem;
+    width: 80%; /* Use percentage instead of fixed width */
+    max-width: 1200px; /* Prevent excessive stretching on large screens */
+    margin-left: auto;
+    margin-right: auto;
+    padding: 2rem 0;
+    position: relative;
 }
 
-@media (max-width: 600px) {
+/* Right-aligned navigation */
+.content-nav {
+    margin-top: 1rem;
+    margin-bottom: 3rem;
+    font-size: 0.95rem;
+    position: absolute;
+    top: 0;
+    right: 0; /* Align to the edge of content-inner */
+    text-align: right;
+}
+
+.content-nav ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    justify-content: flex-end; /* Force items to the right end */
+    float: right; /* Additional right alignment */
+}
+
+.content-nav li {
+    margin-left: 2rem;
+}
+
+.content-nav li:first-child {
+    margin-left: 0;
+}
+
+.content-nav a {
+    text-decoration: none;
+    color: #555;
+    font-weight: 400;
+    display: inline-block;
+    min-width: 60px; /* Fixed width to prevent layout shift when bolding */
+    text-align: center; /* Center text within each nav item */
+    padding: 0; /* Remove padding for minimal height */
+}
+
+.content-nav a:hover,
+.content-nav a.active {
+    color: #333;
+    font-weight: bold;
+}
+
+/* Remove underline animation */
+.content-nav a:after {
+    display: none;
+}
+
+/* Move Return to Top button to right side */
+.return-to-top {
+    right: 15px;
+    left: auto;
+}
+
+/* Ensure service headings are left-aligned */
+.content h2 {
+    text-align: left; /* Override the center alignment */
+}
+
+/* Service items with proper alignment */
+.service-item {
+    margin-bottom: 3.5rem;
+    text-align: left;
+}
+
+/* Add padding to the first service item */
+.service-item:first-of-type {
+    padding-top: 3rem;
+}
+
+/* Inline icon and heading */
+.service-item h3 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    letter-spacing: -0.01em;
+    display: flex;
+    align-items: center;
+}
+
+.service-icon {
+    margin-right: 0.75rem;
+    color: #555;
+    flex-shrink: 0;
+}
+
+/* Left-aligned service lists */
+.service-list {
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.service-list li {
+    margin-bottom: 0.5rem;
+    font-weight: 300;
+    color: #444;
+    line-height: 1.5;
+}
+
+/* Left-aligned link */
+.service-link {
+    display: inline-block;
+    text-decoration: none;
+    color: #333;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s ease;
+    margin-left: 0;
+}
+
+.service-link:hover {
+    border-bottom-color: #333;
+}
+
+/* Mobile optimizations */
+@media (max-width: 700px) {
     .content-inner {
-        padding: 3rem 1.5rem;
+        width: auto; /* Fluid width on mobile */
+        margin-left: 1.5rem; 
+        padding: 3rem 1.5rem 3rem 0;
+    }
+
+    .content-nav {
+        position: static;
+        margin-bottom: 3rem;
+    }
+    
+    .content-nav ul {
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+    
+    .content-nav li {
+        margin: 0 1.5rem 0.5rem 0;
+    }
+    
+    .service-item {
+        margin-bottom: 2.5rem;
+    }
+    
+    .service-item h3 {
+        font-size: 1.3rem;
+    }
+    
+    .content-inner {
+        margin-left: 1.5rem; /* Simpler margin on mobile */
+        padding: 3rem 1.5rem 3rem 0;
+    }
+    
+    .return-to-top {
+        right: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .content-inner {
+        margin-left: 1.25rem;
+        padding: 2.5rem 1.25rem 2.5rem 0;
+    }
+    
+    .content-nav {
+        margin-bottom: 2rem;
+    }
+    
+    .service-list {
+        padding-left: 1.75rem;
+    }
+    
+    .service-link {
+        margin-left: 1.75rem;
     }
 }
