@@ -12,7 +12,7 @@
   .process-section p {
     margin-bottom: 1.75rem; /* Increased from 1.5rem */
     line-height: 1.6;
-    color: #444;
+    color: var(--neutral-600);
   }
   
   .process-steps {
@@ -22,9 +22,20 @@
   
   .process-step {
     position: relative;
-    padding-left: 4rem; /* Increased for more breathing room */
+    padding: 1.5rem;
+    padding-left: 5.5rem; /* Increased for more breathing room + padding */
     margin-bottom: 3rem; /* Increased from 2.5rem */
     counter-increment: step-counter;
+    border-radius: 8px;
+  }
+  
+  /* Add alternating backgrounds for process steps */
+  .process-step:nth-child(odd) {
+    background-color: var(--neutral-50);
+  }
+  
+  .process-step:nth-child(even) {
+    background-color: var(--primary-light);
   }
   
   .process-step::before {
@@ -35,7 +46,7 @@
     width: 2.75rem; /* Slightly larger */
     height: 2.75rem; /* Slightly larger */
     border-radius: 50%;
-    background-color: #3B82F6; /* Updated color */
+    background-color: var(--primary); /* Using color variable */
     color: white;
     display: flex;
     align-items: center;
@@ -65,9 +76,10 @@
     top: 2.75rem;
     left: 1.375rem;
     width: 2px; /* Slightly thicker line */
-    height: calc(100% - 2rem);
-    background-color: #e5e7eb; /* Lighter, more subtle color */
+    height: calc(100% + 1.5rem);
+    background-color: var(--neutral-300); /* Using color variable */
     transform: translateX(-50%);
+    z-index: 1;
   }
   
   /* Timeline styles */
@@ -87,7 +99,7 @@
     text-align: right;
     padding-right: 1.75rem; /* Increased from 1.5rem */
     font-weight: 500;
-    color: #3B82F6; /* Updated color */
+    color: var(--secondary); /* Changed to secondary color */
     position: relative;
   }
   
@@ -99,20 +111,25 @@
     width: 12px; /* Slightly larger */
     height: 12px; /* Slightly larger */
     border-radius: 50%;
-    background-color: #3B82F6; /* Updated color */
+    background-color: var(--secondary); /* Changed to secondary color */
     transform: translateX(50%);
   }
   
   .timeline-content {
     flex: 1;
     padding-left: 1.75rem; /* Increased from 1.5rem */
-    border-left: 2px solid #e5e7eb; /* Slightly thicker, lighter color */
+    padding-bottom: 1.5rem;
+    border-left: 2px solid var(--secondary-light); /* Updated to use secondary color */
   }
   
   .timeline-title {
     font-weight: 500;
     margin-bottom: 0.75rem; /* Increased from 0.5rem */
-    color: #222;
+    color: var(--neutral-800);
+    padding: 0.5rem 1rem;
+    background-color: var(--secondary-light);
+    display: inline-block;
+    border-radius: 4px;
   }
   
   /* About page specific styles */
@@ -138,7 +155,10 @@
   .expertise-icon {
     margin-right: 1.25rem; /* Increased from 1rem */
     flex-shrink: 0;
-    color: #3B82F6; /* Updated color */
+    color: var(--primary); /* Using color variable */
+    background-color: var(--primary-light);
+    padding: 0.5rem;
+    border-radius: 50%;
   }
   
   .expertise-content h3 {
@@ -178,7 +198,10 @@
   
   .contact-icon {
     margin-right: 1rem; /* Increased from 0.75rem */
-    color: #3B82F6; /* Updated color */
+    color: var(--secondary); /* Changed to secondary color */
+    background-color: var(--secondary-light);
+    padding: 0.5rem;
+    border-radius: 50%;
   }
   
   /* Responsive adjustments */

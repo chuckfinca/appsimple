@@ -1,6 +1,7 @@
 /* main.css - Enhanced with improved whitespace and layout */
 
 /* Import other CSS files */
+@import url("colors.css");        /* Import colors first so they can be overridden if needed */
 @import url("typography.css");
 @import url("animations.css");
 @import url("components/hero.css");
@@ -39,7 +40,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #fff;
+  background-color: white;
   transform: translateY(100%);
   transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
   opacity: 0;
@@ -66,7 +67,7 @@ body {
 .content-nav {
   margin-bottom: 3rem; /* Increased spacing below navigation */
   padding: 1.5rem 0;
-  border-bottom: 1px solid #eee; /* Added subtle divider */
+  border-bottom: 1px solid var(--neutral-200); /* Updated color */
 }
 
 .content-nav ul {
@@ -93,7 +94,7 @@ body {
   left: 0;
   width: 0;
   height: 2px;
-  background-color: #3B82F6; /* Updated color */
+  background-color: var(--primary); /* Using color variable */
   transition: width 0.3s ease;
 }
 
@@ -116,12 +117,23 @@ body {
 .process-section:not(:last-child),
 .about-section:not(:last-child),
 .contact-section:not(:last-child) {
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--neutral-200);
 }
 
 /* Service Items */
 .service-item {
   margin-bottom: 3rem;
+  padding: 1.5rem;
+  border-radius: 8px;
+}
+
+/* Add alternating backgrounds for service items */
+.service-item:nth-child(odd) {
+  background-color: var(--neutral-50);
+}
+
+.service-item:nth-child(even) {
+  background-color: var(--primary-light);
 }
 
 .service-item h3 {
@@ -132,7 +144,7 @@ body {
 
 .service-icon {
   margin-right: 1rem;
-  color: #3B82F6; /* Updated color */
+  color: var(--primary); /* Using color variable */
 }
 
 .service-list {
@@ -151,16 +163,20 @@ body {
   bottom: 2rem;
   left: 50%;
   transform: translateX(-50%);
-  background-color: #3B82F6; /* Updated color */
+  background-color: var(--secondary); /* Changed to secondary color for variety */
   color: white;
   padding: 0.75rem 1.25rem;
   border-radius: 2rem;
   cursor: pointer;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
+  transition: opacity 0.3s ease, visibility 0.3s ease, background-color 0.2s ease;
   z-index: 100;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.return-to-top:hover {
+  background-color: var(--secondary-dark);
 }
 
 .return-to-top.visible {
@@ -172,9 +188,9 @@ body {
 .app-footer {
   padding: 2.5rem 0; /* Increased from 20px */
   text-align: center;
-  background-color: #fcfcfc; /* Very subtle background */
-  color: #555;
-  border-top: 1px solid #eee;
+  background-color: var(--neutral-50); /* Using color variable */
+  color: var(--neutral-500);
+  border-top: 1px solid var(--neutral-200);
   width: 100%;
   margin-top: auto; /* Push to bottom of flex container */
 }
@@ -210,7 +226,7 @@ body {
 .form-input:focus,
 .form-textarea:focus {
   outline: none;
-  border-color: #3B82F6; /* Updated color */
+  border-color: var(--primary); /* Using color variable */
   box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
 }
 
@@ -222,7 +238,7 @@ body {
 .form-button {
   display: inline-block;
   padding: 0.875rem 1.75rem;
-  background-color: #3B82F6; /* Updated color */
+  background-color: var(--primary); /* Using color variable */
   color: white;
   border: none;
   border-radius: 4px;
@@ -234,7 +250,7 @@ body {
 }
 
 .form-button:hover {
-  background-color: #1D4ED8;
+  background-color: var(--primary-dark);
   transform: translateY(-1px);
 }
 
