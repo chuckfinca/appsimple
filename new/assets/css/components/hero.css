@@ -80,4 +80,9 @@
         padding-left: 1rem;
         padding-right: 1rem;
     }
+    
+    .arrow {
+        bottom: 4rem;     /* Move higher on small screens */
+        font-size: 2rem;  /* Make it slightly larger */
+    }
 }

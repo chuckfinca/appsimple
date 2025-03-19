@@ -69,10 +69,10 @@ const MobileModule = (function () {
     // If hero is visible and swiping up - fast swipe needs less distance
     if (
       !isContentVisible &&
-      (touchDiff > 50 || (touchDiff > 20 && touchVelocity > 0.5))
+      (touchDiff > 30 || (touchDiff > 20 && touchVelocity > 0.4))
     ) {
       scrollHandler.showContent();
-    } 
+    }
     // If content is visible, at top, and swiping down
     else if (
       isContentVisible &&
