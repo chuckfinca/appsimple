@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Contact - AI Implementation Specialist</title>
+        <link rel="stylesheet" href="../assets/css/main.css" />
+        <link rel="stylesheet" href="../assets/css/components/footer.css" />
+        <link rel="stylesheet" href="../assets/css/components/navigation.css" />
+        <link rel="stylesheet" href="../assets/css/pages/contact.css" />
+    </head>
+    <body>
+        <div class="container">
+            <div class="content" id="content">
+                <div class="content-inner">
+                    <nav class="content-nav">
+                        <ul>
+                            <li><a href="../index.html">Services</a></li>
+                            <li><a href="process.html">Process</a></li>
+                            <li><a href="about.html">About</a></li>
+                            <li><a href="contact.html" class="active">Contact</a></li>
+                        </ul>
+                    </nav>
+
+                    <!-- Contact Section -->
+                    <div class="contact-section">
+                        <h2>Get in Touch</h2>
+                        <p>Ready to explore how AI can transform your business? Have questions about my services? I'd love to hear from you. Choose the method that works best for you.</p>
+                        
+                        <div class="contact-methods">
+                            <div class="contact-method">
+                                <svg class="contact-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                    <polyline points="22,6 12,13 2,6"></polyline>
+                                </svg>
+                                <a href="mailto:hello@appsimple.io">hello@appsimple.io</a>
+                            </div>
+                            
+                            <div class="contact-method">
+                                <svg class="contact-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                                </svg>
+                                <a href="tel:+15551234567">(555) 123-4567</a>
+                            </div>
+                            
+                            <div class="contact-method">
+                                <svg class="contact-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                                    <rect x="2" y="9" width="4" height="12"></rect>
+                                    <circle cx="4" cy="4" r="2"></circle>
+                                </svg>
+                                <a href="https://linkedin.com/in/yourusername" target="_blank">LinkedIn</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contact-section">
+                        <h2>Send a Message</h2>
+                        <p>Fill out the form below, and I'll get back to you within 24 hours.</p>
+                        
+                        <form class="contact-form">
+                            <div class="form-group">
+                                <label class="form-label" for="name">Name</label>
+                                <input type="text" id="name" class="form-input" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label" for="email">Email</label>
+                                <input type="email" id="email" class="form-input" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label" for="company">Company (Optional)</label>
+                                <input type="text" id="company" class="form-input">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label" for="message">How can I help?</label>
+                                <textarea id="message" class="form-textarea" required></textarea>
+                            </div>
+                            
+                            <button type="submit" class="form-button">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+                
+                <!-- Footer Component positioned at bottom -->
+                <footer class="app-footer">
+                    <div class="footer-content">
+                        <span id="copyright">Copyright © 2025 <a href="/">AppSimple LLC</a> - <a href="mailto:support@appsimple.io">support@appsimple.io</a> - <a href="/privacy">privacy</a> - <a href="/terms">terms</a></span>
+                    </div>
+                </footer>
+            </div>
+
+            <div class="return-to-top" id="return-to-top">↑ Return to Top</div>
+        </div>
+
+        <!-- Configuration script - Add page-specific settings here -->
+        <script>
+            // Page-specific configuration
+            const PAGE_CONFIG = {
+                typingText: "Let's discuss how AI can solve your business challenges.",
+                typingSpeed: 100,
+                // Add other page-specific settings as needed
+            };
+        </script>
+
+        <!-- Load modules in the correct order (dependencies first) -->
+        <script src="../assets/js/modules/utils.js"></script>
+        <script src="../assets/js/modules/mobile.js"></script>
+        <script src="../assets/js/modules/typing.js"></script>
+        <script src="../assets/js/modules/scrolling.js"></script>
+
+        <!-- Main script that initializes everything -->
+        <script src="../assets/js/main.js"></script>
+    </body>
+</html>

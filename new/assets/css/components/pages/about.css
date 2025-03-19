@@ -1,0 +1,53 @@
+/* Content min-height to ensure footer is at bottom */
+.content {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.content-inner {
+    flex: 1;
+}
+
+/* About page specific styles */
+.about-section {
+    margin-bottom: 3.5rem;
+}
+
+.about-section h2 {
+    font-size: 1.8rem;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+    color: #333;
+}
+
+.about-section p {
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+    color: #444;
+}
+
+.expertise-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+}
+
+.expertise-icon {
+    margin-right: 1rem;
+    flex-shrink: 0;
+    color: #4682B4;
+}
+
+.expertise-content h3 {
+    font-size: 1.3rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+.expertise-content p {
+    margin: 0;
+    font-weight: 300;
+    color: #444;
+}

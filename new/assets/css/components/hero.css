@@ -1,88 +1,113 @@
+/* Hero section styles */
 .hero {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: flex-start;
-    padding-left: 2rem;
-    text-align: left;
-    background-color: #fff;
-    color: #333;
+    align-items: center;
+    height: 100vh;
+    background-color: #fdfdfd;
+    transition: transform 0.5s ease, opacity 0.5s ease;
     z-index: 1;
-    transition: transform 0.5s ease;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }
 
 .hero.hidden {
     transform: translateY(-100%);
+    opacity: 0;
 }
 
 .typing-container {
-    font-size: 2rem;
-    margin: 0;
-    display: inline-block;
-    text-align: left;
-    width: 80%; /* Use percentage instead of max-width */
-    max-width: 1200px; /* Consistent with content section */
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: #333;
+    text-align: center;
+    max-width: 80%;
+    position: relative;
 }
 
+.cursor {
+    display: inline-block;
+    width: 3px;
+    height: 1.2em;
+    background-color: #333;
+    margin-left: 4px;
+    animation: blink 1s infinite;
+    vertical-align: middle;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
 
 .arrow {
     position: absolute;
-    bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 1.5rem;
+    bottom: 10%;
+    font-size: 2rem;
+    color: #333;
+    opacity: 0.7;
+    animation: bounce 2s infinite;
     cursor: pointer;
-    z-index: 3;
     transition: opacity 0.3s ease;
 }
 
-/* On larger screens, center the content horizontally */
-@media (min-width: 768px) {
-    .hero {
-        padding-left: 0;
-        align-items: center;
-    }
-    
-    .typing-container {
-        margin-left: 0; /* Remove the fixed calculation */
-    }
+.arrow:hover {
+    opacity: 1;
 }
 
-/* Additional responsive adjustments */
-@media (max-width: 1024px) {
-    .content-inner,
-    .typing-container {
-        width: 85%; /* Slightly wider on medium screens */
-    }
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-20px); }
+    60% { transform: translateY(-10px); }
 }
 
-@media (max-width: 700px) {
-    .content-inner {
-        width: 90%; /* Wider on smaller screens */
-        padding: 3rem 1.5rem;
-    }
-    
-    .typing-container {
-        width: 90%;
-        font-size: 1.5rem;
-    }
+/* Return to top button */
+.return-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background-color: #4682B4;
+    color: white;
+    width: auto;
+    height: auto;
+    padding: 0.75rem 1rem;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
+    z-index: 100;
+    font-size: 1rem;
+    font-weight: 500;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-@media (max-width: 480px) {
-    .content-inner,
+.return-to-top.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.return-to-top:hover {
+    background-color: #3A6A8E;
+}
+
+@media screen and (max-width: 768px) {
     .typing-container {
-        width: 95%; /* Almost full width on mobile */
-        padding-left: 1rem;
-        padding-right: 1rem;
+        font-size: 1.8rem;
+        max-width: 90%;
     }
     
-    .arrow {
-        bottom: 4rem;     /* Move higher on small screens */
-        font-size: 2rem;  /* Make it slightly larger */
+    .return-to-top {
+        bottom: 1.5rem;
+        right: 1.5rem;
+        padding: 0.6rem 0.8rem;
+        font-size: 0.9rem;
     }
 }

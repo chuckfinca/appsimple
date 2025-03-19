@@ -1,0 +1,124 @@
+/* Content min-height to ensure footer is at bottom */
+.content {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.content-inner {
+    flex: 1;
+}
+
+/* Contact page specific styles */
+.contact-section {
+    margin-bottom: 3.5rem;
+}
+
+.contact-section h2 {
+    font-size: 1.8rem;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+    color: #333;
+}
+
+.contact-section p {
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+    color: #444;
+}
+
+.contact-methods {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 2.5rem;
+}
+
+.contact-method {
+    display: flex;
+    align-items: center;
+    margin-right: 2rem;
+    margin-bottom: 1rem;
+}
+
+.contact-icon {
+    margin-right: 0.75rem;
+    color: #4682B4;
+}
+
+.contact-method a {
+    text-decoration: none;
+    color: #444;
+    transition: color 0.2s ease;
+}
+
+.contact-method a:hover {
+    color: #4682B4;
+}
+
+/* Form styles */
+.contact-form {
+    max-width: 600px;
+    margin-bottom: 2rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #333;
+}
+
+.form-input,
+.form-textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: "Inter", sans-serif;
+    font-size: 1rem;
+    color: #333;
+    transition: border-color 0.2s ease;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+    outline: none;
+    border-color: #4682B4;
+}
+
+.form-textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.form-button {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background-color: #4682B4;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-family: "Inter", sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.form-button:hover {
+    background-color: #3A6A8E;
+}
+
+@media screen and (max-width: 600px) {
+    .contact-methods {
+        flex-direction: column;
+    }
+    
+    .contact-method {
+        margin-right: 0;
+    }
+}

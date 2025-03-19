@@ -1,0 +1,41 @@
+/* Navigation styles */
+.content-nav {
+    margin-bottom: 2rem;
+}
+
+.content-nav ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.content-nav li {
+    margin-right: 1.5rem;
+}
+
+.content-nav a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    padding: 0.5rem 0;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.content-nav a:hover,
+.content-nav a.active {
+    color: #4682B4;
+    border-bottom-color: #4682B4;
+}
+
+@media screen and (max-width: 600px) {
+    .content-nav ul {
+        flex-wrap: wrap;
+    }
+    
+    .content-nav li {
+        margin-right: 1rem;
+        margin-bottom: 0.5rem;
+    }
+}

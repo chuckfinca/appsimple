@@ -3,56 +3,13 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Typing Effect Demo</title>
-        <base href="new/">
+        <title>Services - AI Implementation Specialist</title>
+        <base href="">
         <link rel="stylesheet" href="assets/css/main.css" />
-        <style>
-            /* Content min-height to ensure footer is at bottom */
-            .content {
-                display: flex;
-                flex-direction: column;
-                min-height: 100vh;
-            }
-            
-            .content-inner {
-                flex: 1;
-            }
-            
-            /* Footer styles */
-            .app-footer {
-                padding: 20px 0;
-                text-align: center;
-                font-size: 14px;
-                background-color: #fdfdfd;
-                color: #555;
-                border-top: 1px solid #eee;
-                width: 100%;
-                margin-top: auto; /* Push to bottom of flex container */
-            }
-            
-            .footer-content {
-                max-width: 90rem;
-                margin: 0 auto;
-                padding: 0 20px;
-            }
-            
-            .app-footer a {
-                text-decoration: none;
-                color: #888;
-                transition: color 0.2s ease;
-            }
-            
-            .app-footer a:hover {
-                color: #333;
-            }
-            
-            @media screen and (max-width: 600px) {
-                .app-footer {
-                    padding: 15px 0;
-                    font-size: 12px;
-                }
-            }
-        </style>
+        <link rel="stylesheet" href="assets/css/components/footer.css" />
+        <link rel="stylesheet" href="assets/css/components/navigation.css" />
+        <link rel="stylesheet" href="assets/css/components/hero.css" />
+        <link rel="stylesheet" href="assets/css/pages/index.css" />
     </head>
     <body>
         <div class="container">
@@ -68,10 +25,10 @@
                 <div class="content-inner">
                     <nav class="content-nav">
                         <ul>
-                            <li><a href="services.html" class="active">Services</a></li>
-                            <li><a href="process.html">Process</a></li>
-                            <li><a href="about.html">About</a></li>
-                            <li><a href="contact.html">Contact</a></li>
+                            <li><a href="index.html" class="active">Services</a></li>
+                            <li><a href="pages/process.html">Process</a></li>
+                            <li><a href="pages/about.html">About</a></li>
+                            <li><a href="pages/contact.html">Contact</a></li>
                         </ul>
                     </nav>
 
@@ -147,7 +104,7 @@
         <script>
             // Page-specific configuration
             const PAGE_CONFIG = {
-                typingText: "The quick brown fox jumps over the lazy dog.",
+                typingText: "Integrating AI into your business processes.",
                 typingSpeed: 100,
                 // Add other page-specific settings as needed
             };

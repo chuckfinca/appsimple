@@ -1,0 +1,67 @@
+/* Content min-height to ensure footer is at bottom */
+.content {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.content-inner {
+    flex: 1;
+}
+
+/* Service items styling */
+.service-item {
+    margin-bottom: 2.5rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid #eee;
+}
+
+.service-item:last-child {
+    border-bottom: none;
+}
+
+.service-item h3 {
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.service-icon {
+    margin-right: 0.75rem;
+    color: #4682B4;
+}
+
+.service-list {
+    list-style-type: none;
+    padding-left: 2.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.service-list li {
+    position: relative;
+    margin-bottom: 0.75rem;
+    color: #444;
+}
+
+.service-list li::before {
+    content: "•";
+    position: absolute;
+    left: -1.25rem;
+    color: #4682B4;
+}
+
+.service-link {
+    display: inline-block;
+    text-decoration: none;
+    color: #4682B4;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.service-link:hover {
+    color: #3A6A8E;
+    text-decoration: underline;
+}

@@ -1,0 +1,139 @@
+/* Content min-height to ensure footer is at bottom */
+.content {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.content-inner {
+    flex: 1;
+}
+
+/* Process page specific styles */
+.process-section {
+    margin-bottom: 3.5rem;
+}
+
+.process-section h2 {
+    font-size: 1.8rem;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+    color: #333;
+}
+
+.process-section p {
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+    color: #444;
+}
+
+.process-steps {
+    counter-reset: step-counter;
+    margin-top: 2.5rem;
+}
+
+.process-step {
+    position: relative;
+    padding-left: 3.5rem;
+    margin-bottom: 2.5rem;
+    counter-increment: step-counter;
+}
+
+.process-step::before {
+    content: counter(step-counter);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background-color: #4682B4;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+}
+
+.process-step h3 {
+    font-size: 1.3rem;
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+    color: #333;
+}
+
+.process-step p {
+    margin-bottom: 0.75rem;
+    color: #444;
+}
+
+.process-step:last-child {
+    margin-bottom: 0;
+}
+
+.process-step:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: 2.5rem;
+    left: 1.25rem;
+    width: 1px;
+    height: calc(100% - 2rem);
+    background-color: #ddd;
+    transform: translateX(-50%);
+}
+
+/* Timeline styles */
+.timeline {
+    position: relative;
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+}
+
+.timeline-item {
+    display: flex;
+    margin-bottom: 2rem;
+}
+
+.timeline-marker {
+    flex: 0 0 100px;
+    text-align: right;
+    padding-right: 1.5rem;
+    font-weight: 500;
+    color: #4682B4;
+    position: relative;
+}
+
+.timeline-marker::after {
+    content: "";
+    position: absolute;
+    top: 0.5rem;
+    right: 0;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #4682B4;
+    transform: translateX(50%);
+}
+
+.timeline-content {
+    flex: 1;
+    padding-left: 1.5rem;
+    border-left: 1px solid #ddd;
+}
+
+.timeline-title {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+@media screen and (max-width: 600px) {
+    .timeline-marker {
+        flex: 0 0 70px;
+        padding-right: 1rem;
+    }
+    
+    .timeline-content {
+        padding-left: 1rem;
+    }
+}
