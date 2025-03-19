@@ -1,209 +1,228 @@
-/* Core positioning styles */
-.content {
+/* content.css - Enhanced content component styles */
+
+/* Process page specific styles */
+.process-section {
+    margin-bottom: 5rem;
+  }
+  
+  .process-section h2 {
+    margin-bottom: 1.75rem; /* Increased from 1.5rem */
+  }
+  
+  .process-section p {
+    margin-bottom: 1.75rem; /* Increased from 1.5rem */
+    line-height: 1.6;
+    color: #444;
+  }
+  
+  .process-steps {
+    counter-reset: step-counter;
+    margin-top: 3rem; /* Increased from 2.5rem */
+  }
+  
+  .process-step {
+    position: relative;
+    padding-left: 4rem; /* Increased for more breathing room */
+    margin-bottom: 3rem; /* Increased from 2.5rem */
+    counter-increment: step-counter;
+  }
+  
+  .process-step::before {
+    content: counter(step-counter);
     position: absolute;
     left: 0;
-    right: 0;
-    top: 100%;
-    height: 100%;
-    width: 100%;
-    background-color: #fff;
-    color: #333;
-    overflow-y: hidden; /* Start with overflow hidden, will be set to auto on transition */
-    overflow-x: hidden; /* Prevent horizontal scrolling */
-    transition: transform 0.5s ease;
-    overscroll-behavior: none; /* Prevent bounce effects */
-    max-height: 100vh; /* Explicitly limit height */
-    box-sizing: border-box; /* Include padding in width calculation */
-}
-
-.content.visible {
-    transform: translateY(-100%);
-    overflow-y: auto; /* Enable scrolling when visible */
-}
-
-/* Content inner container - responsive width */
-.content-inner {
-    width: 80%; /* Use percentage instead of fixed width */
-    max-width: 1200px; /* Prevent excessive stretching on large screens */
-    margin-left: auto;
-    margin-right: auto;
-    padding: 2rem 0;
-    position: relative;
-    box-sizing: border-box; /* Include padding in width calculation */
-}
-
-/* Right-aligned navigation */
-.content-nav {
-    margin-top: 1rem;
-    margin-bottom: 3rem;
-    font-size: 0.95rem;
-    position: absolute;
     top: 0;
-    right: 0; /* Align to the edge of content-inner */
-    text-align: right;
-}
-
-.content-nav ul {
-    display: flex;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    justify-content: flex-end; /* Force items to the right end */
-    float: right; /* Additional right alignment */
-}
-
-.content-nav li {
-    margin-left: 2rem;
-}
-
-.content-nav li:first-child {
-    margin-left: 0;
-}
-
-.content-nav a {
-    text-decoration: none;
-    color: #555;
-    font-weight: 400;
-    display: inline-block;
-    min-width: 60px; /* Fixed width to prevent layout shift when bolding */
-    text-align: center; /* Center text within each nav item */
-    padding: 0; /* Remove padding for minimal height */
-}
-
-.content-nav a:hover,
-.content-nav a.active {
-    color: #333;
-    font-weight: bold;
-}
-
-/* Remove underline animation */
-.content-nav a:after {
-    display: none;
-}
-
-/* Move Return to Top button to right side */
-.return-to-top {
-    right: 15px;
-    left: auto;
-}
-
-/* Ensure service headings are left-aligned */
-.content h2 {
-    text-align: left; /* Override the center alignment */
-}
-
-/* Service items with proper alignment */
-.service-item {
-    margin-bottom: 3.5rem;
-    text-align: left;
-}
-
-/* Add padding to the first service item */
-.service-item:first-of-type {
-    padding-top: 3rem;
-}
-
-/* Inline icon and heading */
-.service-item h3 {
-    font-size: 1.5rem;
-    font-weight: 500;
-    margin-bottom: 1rem;
-    letter-spacing: -0.01em;
+    width: 2.75rem; /* Slightly larger */
+    height: 2.75rem; /* Slightly larger */
+    border-radius: 50%;
+    background-color: #3B82F6; /* Updated color */
+    color: white;
     display: flex;
     align-items: center;
-}
-
-.service-icon {
-    margin-right: 0.75rem;
-    color: #555;
-    flex-shrink: 0;
-}
-
-/* Left-aligned service lists */
-.service-list {
-    padding-left: 1.5rem;
-    margin-bottom: 1rem;
-}
-
-.service-list li {
-    margin-bottom: 0.5rem;
-    font-weight: 300;
-    color: #444;
-    line-height: 1.5;
-}
-
-/* Left-aligned link */
-.service-link {
-    display: inline-block;
-    text-decoration: none;
-    color: #333;
-    font-size: 0.9rem;
+    justify-content: center;
     font-weight: 500;
-    border-bottom: 1px solid transparent;
-    transition: border-color 0.2s ease;
-    margin-left: 0;
-}
-
-.service-link:hover {
-    border-bottom-color: #333;
-}
-
-/* Mobile optimizations */
-@media (max-width: 700px) {
-    .content-nav {
-        position: static;
-        margin-bottom: 3rem;
+    font-size: 1.125rem;
+  }
+  
+  .process-step h3 {
+    font-size: 1.375rem;
+    font-weight: 500;
+    margin-bottom: 1rem; /* Increased from 0.75rem */
+    color: #222;
+  }
+  
+  .process-step p {
+    margin-bottom: 1rem; /* Increased from 0.75rem */
+  }
+  
+  .process-step:last-child {
+    margin-bottom: 0;
+  }
+  
+  .process-step:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: 2.75rem;
+    left: 1.375rem;
+    width: 2px; /* Slightly thicker line */
+    height: calc(100% - 2rem);
+    background-color: #e5e7eb; /* Lighter, more subtle color */
+    transform: translateX(-50%);
+  }
+  
+  /* Timeline styles */
+  .timeline {
+    position: relative;
+    margin-top: 3rem; /* Increased from 2rem */
+    margin-bottom: 4rem; /* Increased from 3rem */
+  }
+  
+  .timeline-item {
+    display: flex;
+    margin-bottom: 2.5rem; /* Increased from 2rem */
+  }
+  
+  .timeline-marker {
+    flex: 0 0 120px; /* Increased width for better proportion */
+    text-align: right;
+    padding-right: 1.75rem; /* Increased from 1.5rem */
+    font-weight: 500;
+    color: #3B82F6; /* Updated color */
+    position: relative;
+  }
+  
+  .timeline-marker::after {
+    content: "";
+    position: absolute;
+    top: 0.5rem;
+    right: 0;
+    width: 12px; /* Slightly larger */
+    height: 12px; /* Slightly larger */
+    border-radius: 50%;
+    background-color: #3B82F6; /* Updated color */
+    transform: translateX(50%);
+  }
+  
+  .timeline-content {
+    flex: 1;
+    padding-left: 1.75rem; /* Increased from 1.5rem */
+    border-left: 2px solid #e5e7eb; /* Slightly thicker, lighter color */
+  }
+  
+  .timeline-title {
+    font-weight: 500;
+    margin-bottom: 0.75rem; /* Increased from 0.5rem */
+    color: #222;
+  }
+  
+  /* About page specific styles */
+  .about-section {
+    margin-bottom: 5rem; /* Increased from 3.5rem */
+  }
+  
+  .about-section h2 {
+    margin-bottom: 1.75rem; /* Increased from 1.5rem */
+  }
+  
+  .about-section p {
+    margin-bottom: 1.75rem; /* Increased from 1.5rem */
+    line-height: 1.6;
+  }
+  
+  .expertise-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 2rem; /* Increased from 1.5rem */
+  }
+  
+  .expertise-icon {
+    margin-right: 1.25rem; /* Increased from 1rem */
+    flex-shrink: 0;
+    color: #3B82F6; /* Updated color */
+  }
+  
+  .expertise-content h3 {
+    margin-bottom: 0.75rem; /* Increased from 0.5rem */
+  }
+  
+  .expertise-content p {
+    margin-bottom: 0; /* No margin on the last paragraph */
+  }
+  
+  /* Contact page specific styles */
+  .contact-section {
+    margin-bottom: 5rem; /* Increased from 3.5rem */
+  }
+  
+  .contact-section h2 {
+    margin-bottom: 1.75rem; /* Increased from 1.5rem */
+  }
+  
+  .contact-section p {
+    margin-bottom: 1.75rem; /* Increased from 1.5rem */
+    line-height: 1.6;
+  }
+  
+  .contact-methods {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 3rem; /* Increased from 2.5rem */
+  }
+  
+  .contact-method {
+    display: flex;
+    align-items: center;
+    margin-right: 2.5rem; /* Increased from 2rem */
+    margin-bottom: 1.25rem; /* Increased from 1rem */
+  }
+  
+  .contact-icon {
+    margin-right: 1rem; /* Increased from 0.75rem */
+    color: #3B82F6; /* Updated color */
+  }
+  
+  /* Responsive adjustments */
+  @media screen and (max-width: 768px) {
+    .process-step {
+      padding-left: 3.5rem;
+      margin-bottom: 2.5rem;
     }
     
-    .content-nav ul {
-        flex-wrap: wrap;
-        justify-content: flex-start;
+    .timeline-marker {
+      flex: 0 0 100px;
+      padding-right: 1.5rem;
     }
     
-    .content-nav li {
-        margin: 0 1.5rem 0.5rem 0;
+    .expertise-item {
+      margin-bottom: 1.75rem;
     }
     
-    .service-item {
-        margin-bottom: 2.5rem;
+    .contact-method {
+      margin-right: 2rem;
+      margin-bottom: 1rem;
+    }
+  }
+  
+  @media screen and (max-width: 480px) {
+    .process-step {
+      padding-left: 3rem;
+      margin-bottom: 2rem;
     }
     
-    .service-item h3 {
-        font-size: 1.3rem;
+    .timeline-marker {
+      flex: 0 0 80px;
+      padding-right: 1.25rem;
     }
     
-    .return-to-top {
-        right: 10px;
+    .timeline-content {
+      padding-left: 1.25rem;
     }
     
-    /* Fix for mobile */
-    .content-inner {
-        width: 90%;
-        padding-left: 0;
-        padding-right: 0;
-    }
-}
-
-@media (max-width: 480px) {
-    .content-inner {
-        width: 95%; /* Almost full width on mobile */
-        margin-left: auto;
-        margin-right: auto;
-        padding-top: 2.5rem;
-        padding-bottom: 2.5rem;
-        padding-left: 0;
-        padding-right: 0;
+    .contact-methods {
+      flex-direction: column;
     }
     
-    .content-nav {
-        margin-bottom: 2rem;
+    .contact-method {
+      margin-right: 0;
     }
-    
-    .service-list {
-        padding-left: 1.75rem;
-    }
-    
-    .service-link {
-        margin-left: 1.75rem;
-    }
-}
+  }
