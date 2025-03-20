@@ -1,123 +1,160 @@
-/* colors.css - Refined color system for modern appeal */
+/* colors.css - Enhanced color system with design variables */
 
-/* Color palette variables for consistent usage throughout all files */
+/* Core design system variables */
 :root {
-    /* Primary colors */
-    --primary: #3B82F6;       /* Modern blue - primary accent */
-    --primary-dark: #1D4ED8;  /* Darker blue for hover states */
-    --primary-light: #DBEAFE; /* Very light blue for backgrounds */
+  /* COLOR SYSTEM */
+  /* Primary colors - blue variations */
+  --primary: #4682B4;       /* Main blue color (Steel Blue) */
+  --primary-dark: #336699;  /* Darker blue for hover states */
+  --primary-light: #E5F0FF; /* Light blue for backgrounds */
   
-    /* Secondary accent color - warm amber */
-    --secondary: #F59E0B;       /* Amber - secondary accent */
-    --secondary-dark: #D97706;  /* Darker amber for hover states */
-    --secondary-light: #FEF3C7; /* Very light amber for backgrounds */
+  /* Secondary colors - accent color */
+  --secondary: #F59E0B;     /* Amber accent color */
+  --secondary-dark: #D97706;/* Darker amber */
+  --secondary-light: #FEF3C7;/* Light amber */
   
-    /* Neutrals */
-    --neutral-50: #F9FAFB;  /* Lightest gray - background */
-    --neutral-100: #F3F4F6; /* Very light gray - alternate background */
-    --neutral-200: #E5E7EB; /* Light gray - borders, dividers */
-    --neutral-300: #D1D5DB; /* Medium light gray - disabled states */
-    --neutral-400: #9CA3AF; /* Medium gray - placeholder text */
-    --neutral-500: #6B7280; /* Medium gray - secondary text */
-    --neutral-600: #4B5563; /* Medium dark gray - body text */
-    --neutral-700: #374151; /* Dark gray - subtitles */
-    --neutral-800: #1F2937; /* Very dark gray - titles */
-    --neutral-900: #111827; /* Almost black - headings */
+  /* Neutral colors - grayscale */
+  --neutral-50: #F9FAFB;    /* Very light gray */
+  --neutral-100: #F3F4F6;   /* Light gray */
+  --neutral-200: #E5E7EB;   /* Light-medium gray - borders */
+  --neutral-300: #D1D5DB;   /* Medium gray */
+  --neutral-400: #9CA3AF;   /* Medium gray - secondary text */
+  --neutral-500: #6B7280;   /* Medium-dark gray */
+  --neutral-600: #4B5563;   /* Dark gray - body text */
+  --neutral-700: #374151;   /* Darker gray */
+  --neutral-800: #1F2937;   /* Very dark gray - headings */
+  --neutral-900: #111827;   /* Almost black */
   
-    /* Success, warning, error colors */
-    --success: #10B981;     /* Green */
-    --warning: #FBBF24;     /* Yellow */
-    --error: #EF4444;       /* Red */
-  }
+  /* Feedback colors */
+  --success: #10B981;       /* Green */
+  --warning: #FBBF24;       /* Yellow */
+  --error: #EF4444;         /* Red */
   
-  /* Apply the new color system to the main elements */
-  body {
-    color: var(--neutral-600);
-    background-color: white;
-  }
+  /* SPACING SYSTEM */
+  --space-xs: 0.5rem;       /* 8px */
+  --space-sm: 1rem;         /* 16px */
+  --space-md: 2rem;         /* 32px */
+  --space-lg: 3rem;         /* 48px */
+  --space-xl: 5rem;         /* 80px */
   
-  h1, h2, h3, h4, h5, h6 {
-    color: var(--neutral-800);
-  }
+  /* LAYOUT SYSTEM */
+  /* Container widths */
+  --container-narrow: 40rem; /* ~640px */
+  --container-default: 50rem;/* ~800px */
+  --container-wide: 75rem;   /* ~1200px */
   
-  a {
-    color: var(--primary);
-    transition: color 0.2s ease;
-  }
+  /* Border radius */
+  --radius-sm: 4px;
+  --radius-md: 8px; 
+  --radius-lg: 12px;
+  --radius-full: 9999px;
   
-  a:hover {
-    color: var(--primary-dark);
-  }
+  /* TYPOGRAPHY */
+  /* Font sizes */
+  --text-xs: 0.875rem;      /* 14px */
+  --text-sm: 1rem;          /* 16px */
+  --text-md: 1.25rem;       /* 20px */
+  --text-lg: 1.5rem;        /* 24px */
+  --text-xl: 2rem;          /* 32px */
+  --text-2xl: 2.5rem;       /* 40px */
   
-  /* Button styles */
-  .primary-button, 
-  .form-button {
-    background-color: var(--primary);
-    color: white;
-    transition: background-color 0.2s ease, transform 0.2s ease;
-  }
+  /* Line heights */
+  --leading-tight: 1.2;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.65;
   
-  .primary-button:hover, 
-  .form-button:hover {
-    background-color: var(--primary-dark);
-    transform: translateY(-1px);
-  }
+  /* Font weights */
+  --font-light: 300;
+  --font-normal: 400;
+  --font-medium: 500;
+  --font-bold: 600;
   
-  .secondary-button {
-    background-color: var(--secondary);
-    color: white;
-    transition: background-color 0.2s ease, transform 0.2s ease;
-  }
-  
-  .secondary-button:hover {
-    background-color: var(--secondary-dark);
-    transform: translateY(-1px);
-  }
-  
-  .text-button {
-    color: var(--primary);
-    background: transparent;
-    transition: color 0.2s ease;
-  }
-  
-  .text-button:hover {
-    color: var(--primary-dark);
-  }
-  
-  /* Section background variations */
-  .bg-light {
-    background-color: var(--neutral-50);
-  }
-  
-  .bg-alternate {
-    background-color: var(--neutral-100);
-  }
-  
-  .bg-primary-light {
-    background-color: var(--primary-light);
-  }
-  
-  .bg-secondary-light {
-    background-color: var(--secondary-light);
-  }
-  
-  /* Borders and dividers */
-  .border-light {
-    border-color: var(--neutral-200);
-  }
-  
-  /* Icon colors */
-  .icon-primary {
-    color: var(--primary);
-  }
-  
-  .icon-secondary {
-    color: var(--secondary);
-  }
-  
-  /* Form styles */
-  input:focus, 
-  textarea:focus {
-    border-color: var(--primary);
-    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
-  }
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-normal: 250ms ease;
+  --transition-slow: 350ms cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+/* Standard element colors */
+body {
+  color: var(--neutral-600);
+  background-color: white;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--neutral-800);
+}
+
+a {
+  color: var(--primary);
+  transition: color var(--transition-normal);
+}
+
+a:hover {
+  color: var(--primary-dark);
+}
+
+/* Button styles */
+.button,
+.form-button {
+  background-color: var(--primary);
+  color: white;
+  transition: background-color var(--transition-normal), 
+              transform var(--transition-normal);
+}
+
+.button:hover,
+.form-button:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+}
+
+.button-secondary {
+  background-color: var(--secondary);
+}
+
+.button-secondary:hover {
+  background-color: var(--secondary-dark);
+}
+
+/* Background variations */
+.bg-light {
+  background-color: var(--neutral-50);
+}
+
+.bg-primary-light {
+  background-color: var(--primary-light);
+}
+
+.bg-secondary-light {
+  background-color: var(--secondary-light);
+}
+
+/* Icon colors */
+.icon-primary {
+  color: var(--primary);
+}
+
+.icon-secondary {
+  color: var(--secondary);
+}
+
+/* Form element states */
+input:focus, 
+textarea:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(70, 130, 180, 0.1);
+}
+
+/* Feedback states */
+.success {
+  color: var(--success);
+}
+
+.warning {
+  color: var(--warning);
+}
+
+.error {
+  color: var(--error);
+}

@@ -1,4 +1,4 @@
-/* typography.css - Enhanced typography styles */
+/* typography.css - Enhanced typography system with consistent scale */
 
 /* Import Inter font from Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
@@ -6,54 +6,55 @@
 /* Base Typography */
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 1.6;
+  font-size: var(--text-sm);
+  font-weight: var(--font-normal);
+  line-height: var(--leading-normal);
   color: var(--neutral-600);
 }
 
-/* Improved Type Hierarchy */
-h1 {
-  font-size: 2.5rem;
-  font-weight: 600;
-  line-height: 1.2;
-  margin-bottom: 1.5rem;
+/* Clean Type Hierarchy */
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+  margin-bottom: var(--space-md);
+  line-height: var(--leading-tight);
   color: var(--neutral-800);
+}
+
+h1 {
+  font-size: var(--text-2xl);
+  font-weight: var(--font-bold);
 }
 
 h2 {
-  font-size: 1.875rem;
-  font-weight: 600;
-  line-height: 1.3;
-  margin-bottom: 1.25rem;
-  color: var(--neutral-800);
+  font-size: var(--text-xl); 
+  font-weight: var(--font-bold);
 }
 
 h3 {
-  font-size: 1.5rem;
-  font-weight: 500;
-  line-height: 1.4;
-  margin-bottom: 1rem;
-  color: var(--neutral-800);
+  font-size: var(--text-lg);
+  font-weight: var(--font-medium);
+  margin-bottom: var(--space-sm);
 }
 
 h4 {
-  font-size: 1.25rem;
-  font-weight: 500;
-  line-height: 1.4;
-  margin-bottom: 0.75rem;
-  color: var(--neutral-700);
+  font-size: var(--text-md);
+  font-weight: var(--font-medium);
+  margin-bottom: var(--space-sm);
 }
 
 p {
-  margin-bottom: 1.5rem;
+  margin-bottom: var(--space-md);
+}
+
+p:last-child {
+  margin-bottom: 0;
 }
 
 /* Link styling */
 a {
   color: var(--primary);
   text-decoration: none;
-  transition: color 0.2s ease, background-color 0.2s ease;
+  transition: color var(--transition-normal);
 }
 
 a:hover {
@@ -63,7 +64,7 @@ a:hover {
 /* Special treatment for important links */
 a.highlight-link {
   color: var(--secondary);
-  font-weight: 500;
+  font-weight: var(--font-medium);
 }
 
 a.highlight-link:hover {
@@ -72,121 +73,123 @@ a.highlight-link:hover {
 
 /* List styling */
 ul, ol {
-  margin-bottom: 1.5rem;
-  padding-left: 1.25rem;
+  margin-bottom: var(--space-md);
+  padding-left: var(--space-md);
 }
 
 li {
-  margin-bottom: 0.5rem;
+  margin-bottom: var(--space-xs);
+}
+
+li:last-child {
+  margin-bottom: 0;
 }
 
 /* Service list styling */
 .service-list {
   list-style: none;
   padding-left: 0;
-  margin-bottom: 1.5rem;
+  margin-bottom: var(--space-md);
 }
 
 .service-list li {
   position: relative;
   padding-left: 1.5rem;
-  margin-bottom: 0.75rem;
-  line-height: 1.6;
+  margin-bottom: var(--space-sm);
+  line-height: var(--leading-normal);
 }
 
 .service-list li::before {
-  content: "•";
+  content: "";
   position: absolute;
   left: 0;
-  color: var(--secondary); /* Changed to secondary color for contrast */
-  font-weight: bold;
+  top: 0.5em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--primary);
 }
 
 /* Typography for footer */
 .app-footer {
-  font-size: 0.875rem;
-  color: #555;
+  font-size: var(--text-xs);
+  color: var(--neutral-500);
 }
 
 /* Typography for navigation */
 .content-nav a {
-  font-weight: 500;
+  font-weight: var(--font-medium);
   color: var(--neutral-600);
-  transition: color 0.2s ease;
+  transition: color var(--transition-normal);
 }
 
-.content-nav a:hover {
-  color: var(--primary);
-}
-
+.content-nav a:hover,
 .content-nav a.active {
-  color: var(--primary); /* Using secondary color for active nav item */
+  color: var(--primary);
 }
 
 /* Typing text in hero section */
 .typing-text {
-  font-size: 2rem;
-  font-weight: 300;
+  font-size: var(--text-xl);
+  font-weight: var(--font-light);
   line-height: 1.3;
-  color: #222;
+  color: var(--neutral-800);
 }
 
 /* Buttons and interactive elements */
 button, 
 .form-button {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-  font-weight: 500;
+  font-weight: var(--font-medium);
+  font-size: var(--text-sm);
 }
 
 /* Form labels */
 .form-label {
-  font-weight: 500;
-  color: #333;
-}
-
-/* Remove any large first letters if they exist */
-.first-letter-large::first-letter {
-  font-size: inherit;
-  font-weight: inherit;
+  font-weight: var(--font-medium);
+  color: var(--neutral-700);
+  margin-bottom: var(--space-xs);
 }
 
 /* Responsive typography */
 @media screen and (max-width: 768px) {
   h1 {
-    font-size: 2rem;
+    font-size: calc(var(--text-2xl) * 0.85);
+    margin-bottom: var(--space-sm);
   }
   
   h2 {
-    font-size: 1.625rem;
+    font-size: calc(var(--text-xl) * 0.9);
+    margin-bottom: var(--space-sm);
   }
   
   h3 {
-    font-size: 1.375rem;
+    font-size: var(--text-lg);
   }
   
   .typing-text {
-    font-size: 1.5rem;
+    font-size: calc(var(--text-xl) * 0.8);
   }
 }
 
 @media screen and (max-width: 480px) {
   body {
-    font-size: 15px;
+    font-size: calc(var(--text-sm) * 0.95);
   }
   
   h1 {
-    font-size: 1.75rem;
+    font-size: calc(var(--text-2xl) * 0.7);
   }
   
   h2 {
-    font-size: 1.5rem;
+    font-size: calc(var(--text-xl) * 0.8);
   }
   
   h3 {
-    font-size: 1.25rem;
+    font-size: calc(var(--text-lg) * 0.9);
   }
   
   .typing-text {
-    font-size: 1.25rem;
+    font-size: calc(var(--text-xl) * 0.7);
   }
 }

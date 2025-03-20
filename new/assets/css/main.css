@@ -1,10 +1,10 @@
-/* main.css - Enhanced with improved whitespace and layout */
+/* main.css - Unified layout and component system */
 
-/* Import other CSS files */
-@import url("colors.css");        /* Import colors first so they can be overridden if needed */
+/* Import other CSS files in correct order (dependencies first) */
+@import url("colors.css");
 @import url("typography.css");
 @import url("animations.css");
-@import url("icons.css");         /* New icons file */
+@import url("icons.css");
 @import url("components/hero.css");
 @import url("components/content.css");
 @import url("components/controls.css");
@@ -26,7 +26,7 @@ body {
   background-color: #fff;
 }
 
-/* Container */
+/* Container - Simplified layout system */
 .container {
   position: relative;
   width: 100%;
@@ -34,7 +34,7 @@ body {
   overflow: hidden;
 }
 
-/* Content Layout */
+/* Content Layout - Using spacing variables */
 .content {
   position: absolute;
   top: 0;
@@ -43,7 +43,7 @@ body {
   height: 100%;
   background-color: white;
   transform: translateY(100%);
-  transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+  transition: transform var(--transition-slow);
   opacity: 0;
   display: flex;
   flex-direction: column;
@@ -59,22 +59,22 @@ body {
 .content-inner {
   flex: 1;
   width: 100%;
-  max-width: 800px; /* Improved content width for readability */
+  max-width: var(--container-default);
   margin: 0 auto;
-  padding: 0 2rem; /* Consistent horizontal padding */
+  padding: 0 var(--space-md);
 }
 
-/* Navigation */
+/* Navigation - More consistent spacing */
 .content-nav {
-  margin-bottom: 3rem; /* Increased spacing below navigation */
-  padding: 1.5rem 0;
-  border-bottom: 1px solid var(--neutral-200); /* Updated color */
+  margin-bottom: var(--space-lg);
+  padding: var(--space-md) 0;
+  border-bottom: 1px solid var(--neutral-200);
 }
 
 .content-nav ul {
   display: flex;
   list-style: none;
-  gap: 2rem; /* More space between items */
+  gap: var(--space-md);
   justify-content: center;
 }
 
@@ -84,8 +84,9 @@ body {
 
 .content-nav a {
   text-decoration: none;
-  padding: 0.5rem 0;
+  padding: var(--space-xs) 0;
   position: relative;
+  color: var(--neutral-600);
 }
 
 .content-nav a::after {
@@ -95,8 +96,8 @@ body {
   left: 0;
   width: 0;
   height: 2px;
-  background-color: var(--primary); /* Using color variable */
-  transition: width 0.3s ease;
+  background-color: var(--primary);
+  transition: width var(--transition-normal);
 }
 
 .content-nav a:hover::after,
@@ -104,13 +105,13 @@ body {
   width: 100%;
 }
 
-/* Section Spacing */
+/* Section Cards - Unified card system */
 .service-item,
 .process-section,
 .about-section,
 .contact-section {
-  margin-bottom: 5rem; /* Increased from 3.5rem */
-  padding-bottom: 2.5rem;
+  margin-bottom: var(--space-xl);
+  padding-bottom: var(--space-md);
 }
 
 /* Add subtle section dividers */
@@ -121,14 +122,15 @@ body {
   border-bottom: 1px solid var(--neutral-200);
 }
 
-/* Service Items */
+/* Service Cards */
 .service-item {
-  margin-bottom: 3rem;
-  padding: 1.5rem;
-  border-radius: 8px;
+  margin-bottom: var(--space-lg);
+  padding: var(--space-md);
+  border-radius: var(--radius-md);
+  transition: transform var(--transition-normal);
 }
 
-/* Add alternating backgrounds for service items */
+/* Alternating backgrounds for service items */
 .service-item:nth-child(odd) {
   background-color: var(--neutral-50);
 }
@@ -140,38 +142,40 @@ body {
 .service-item h3 {
   display: flex;
   align-items: center;
-  margin-bottom: 1.25rem;
+  margin-bottom: var(--space-sm);
 }
 
 .service-icon {
-  margin-right: 1rem;
-  color: var(--primary); /* Using color variable */
+  margin-right: var(--space-sm);
+  color: var(--primary);
 }
 
 .service-list {
-  margin-bottom: 1.5rem;
+  margin-bottom: var(--space-md);
 }
 
 .service-link {
   display: inline-block;
-  margin-top: 0.75rem;
-  font-weight: 500;
+  margin-top: var(--space-xs);
+  font-weight: var(--font-medium);
 }
 
 /* Return to top button */
 .return-to-top {
   position: fixed;
-  bottom: 2rem;
+  bottom: var(--space-md);
   left: 50%;
   transform: translateX(-50%);
-  background-color: var(--secondary); /* Changed to secondary color for variety */
+  background-color: var(--secondary);
   color: white;
-  padding: 0.75rem 1.25rem;
-  border-radius: 2rem;
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-full);
   cursor: pointer;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease, background-color 0.2s ease;
+  transition: opacity var(--transition-normal), 
+              visibility var(--transition-normal), 
+              background-color var(--transition-fast);
   z-index: 100;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -185,133 +189,137 @@ body {
   visibility: visible;
 }
 
-/* Footer */
+/* Footer - Consistent spacing */
 .app-footer {
-  padding: 2.5rem 0; /* Increased from 20px */
+  padding: var(--space-md) 0;
   text-align: center;
-  background-color: var(--neutral-50); /* Using color variable */
+  background-color: var(--neutral-50);
   color: var(--neutral-500);
   border-top: 1px solid var(--neutral-200);
   width: 100%;
-  margin-top: auto; /* Push to bottom of flex container */
+  margin-top: auto;
 }
 
 .footer-content {
-  max-width: 800px; /* Match content width */
+  max-width: var(--container-default);
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 var(--space-md);
 }
 
-/* Form Styling */
+/* Form Styling - Consistent spacing and styling */
 .form-group {
-  margin-bottom: 1.75rem; /* Increased spacing */
+  margin-bottom: var(--space-md);
 }
 
 .form-label {
   display: block;
-  margin-bottom: 0.625rem; /* Slightly increased */
+  margin-bottom: var(--space-xs);
 }
 
 .form-input,
 .form-textarea {
   width: 100%;
-  padding: 0.875rem; /* Slightly increased padding */
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  padding: var(--space-sm);
+  border: 1px solid var(--neutral-200);
+  border-radius: var(--radius-md);
   font-family: "Inter", sans-serif;
-  font-size: 1rem;
-  color: #333;
-  transition: border-color 0.2s ease;
+  font-size: var(--text-sm);
+  color: var(--neutral-800);
+  transition: border-color var(--transition-normal),
+              box-shadow var(--transition-normal);
 }
 
 .form-input:focus,
 .form-textarea:focus {
   outline: none;
-  border-color: var(--primary); /* Using color variable */
-  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(70, 130, 180, 0.1);
 }
 
 .form-textarea {
-  min-height: 140px; /* Increased height */
+  min-height: 140px;
   resize: vertical;
 }
 
 .form-button {
   display: inline-block;
-  padding: 0.875rem 1.75rem;
-  background-color: var(--primary); /* Using color variable */
+  padding: var(--space-sm) var(--space-md);
+  background-color: var(--primary);
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: var(--radius-md);
   font-family: "Inter", sans-serif;
-  font-size: 1rem;
-  font-weight: 500;
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
   cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.2s ease;
+  transition: background-color var(--transition-normal), 
+              transform var(--transition-normal);
 }
 
 .form-button:hover {
   background-color: var(--primary-dark);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
 }
 
 /* Responsive adjustments */
 @media screen and (max-width: 768px) {
   .content-inner {
-    padding: 0 1.5rem;
+    padding: 0 var(--space-sm);
   }
   
   .service-item,
   .process-section,
   .about-section,
   .contact-section {
-    margin-bottom: 4rem;
-    padding-bottom: 2rem;
+    margin-bottom: var(--space-lg);
+    padding-bottom: var(--space-sm);
   }
   
   .content-nav {
-    margin-bottom: 2.5rem;
+    margin-bottom: var(--space-md);
+    padding: var(--space-sm) 0;
   }
   
   .content-nav ul {
-    gap: 1.5rem;
+    gap: var(--space-sm);
   }
   
   .app-footer {
-    padding: 2rem 0;
+    padding: var(--space-md) 0;
   }
 }
 
 @media screen and (max-width: 480px) {
   .content-inner {
-    padding: 0 1.25rem;
+    padding: 0 var(--space-sm);
   }
   
   .service-item,
   .process-section,
   .about-section,
   .contact-section {
-    margin-bottom: 3rem;
-    padding-bottom: 1.5rem;
+    margin-bottom: var(--space-md);
+    padding-bottom: var(--space-sm);
+    padding: var(--space-sm);
   }
   
   .content-nav {
-    margin-bottom: 2rem;
+    margin-bottom: var(--space-sm);
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
   }
   
   .content-nav ul {
-    gap: 1.25rem;
-    padding-bottom: 0.5rem;
+    gap: var(--space-sm);
+    padding-bottom: var(--space-xs);
   }
   
   .return-to-top {
-    bottom: 1.5rem;
-    padding: 0.625rem 1rem;
+    bottom: var(--space-sm);
+    padding: var(--space-xs) var(--space-sm);
   }
   
   .app-footer {
-    padding: 1.75rem 0;
+    padding: var(--space-sm) 0;
   }
 }
