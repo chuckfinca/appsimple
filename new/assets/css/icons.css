@@ -1,5 +1,4 @@
 /* icons.css - Modern icon system using Lucide icon styling */
-
 /* Base icon styling */
 .icon {
     display: inline-block;
@@ -11,36 +10,31 @@
     stroke-linejoin: round;
     fill: none;
     vertical-align: middle;
+    overflow: visible;
   }
-  
   /* Icon sizes */
   .icon-sm {
     width: 16px;
     height: 16px;
   }
-  
   .icon-md {
     width: 24px;
     height: 24px;
   }
-  
   .icon-lg {
     width: 32px;
     height: 32px;
   }
-  
   .icon-xl {
     width: 40px;
     height: 40px;
   }
-  
   /* Icon containers */
   .icon-container {
     display: flex;
     align-items: center;
     justify-content: center;
   }
-  
   /* Service icon specific styling */
   .service-icon {
     margin-right: 1rem;
@@ -48,7 +42,6 @@
     width: 32px;
     height: 32px;
   }
-  
   /* Contact icon container */
   .contact-icon-container {
     display: flex;
@@ -61,13 +54,12 @@
     margin-right: 1rem;
     flex-shrink: 0;
   }
-  
   .contact-icon {
     color: var(--secondary);
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
+    stroke-width: 2;
   }
-  
   /* Expertise icon container */
   .expertise-icon-container {
     display: flex;
@@ -80,18 +72,16 @@
     margin-right: 1.25rem;
     flex-shrink: 0;
   }
-  
   .expertise-icon {
     color: var(--primary);
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
+    stroke-width: 2;
   }
-  
   /* Icon transitions */
   .icon-hover-effect {
     transition: transform 0.2s ease;
   }
-  
   .icon-hover-effect:hover {
     transform: scale(1.1);
   }

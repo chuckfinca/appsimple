@@ -4,6 +4,7 @@
 @import url("colors.css");        /* Import colors first so they can be overridden if needed */
 @import url("typography.css");
 @import url("animations.css");
+@import url("icons.css");         /* New icons file */
 @import url("components/hero.css");
 @import url("components/content.css");
 @import url("components/controls.css");
