@@ -153,7 +153,6 @@
   }
   
   .expertise-icon {
-    margin-right: 1.25rem; /* Increased from 1rem */
     flex-shrink: 0;
     color: var(--primary); /* Using color variable */
     background-color: var(--primary-light);
@@ -197,7 +196,6 @@
   }
   
   .contact-icon {
-    margin-right: 1rem; /* Increased from 0.75rem */
     color: var(--secondary); /* Changed to secondary color */
     background-color: var(--secondary-light);
     padding: 0.5rem;
