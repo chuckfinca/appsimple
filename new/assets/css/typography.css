@@ -120,7 +120,7 @@ li {
 }
 
 .content-nav a.active {
-  color: var(--secondary); /* Using secondary color for active nav item */
+  color: var(--primary); /* Using secondary color for active nav item */
 }
 
 /* Typing text in hero section */
