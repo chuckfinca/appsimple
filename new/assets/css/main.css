@@ -163,8 +163,7 @@ body {
 /* Return to top button */
 .return-to-top {
   position: fixed;
-  bottom: var(--space-md);
-  left: 50%;
+  left: 5rem;
   transform: translateX(-50%);
   background-color: var(--secondary);
   color: white;
@@ -258,7 +257,7 @@ body {
 
 .form-button:hover {
   background-color: var(--primary-dark);
-  transform: translateY(-2px);
+  transform: translateY(-1px);
 }
 
 /* Responsive adjustments */

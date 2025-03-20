@@ -106,7 +106,7 @@ a:hover {
 .button:hover,
 .form-button:hover {
   background-color: var(--primary-dark);
-  transform: translateY(-2px);
+  transform: translateY(-1px);
 }
 
 .button-secondary {
