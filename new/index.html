@@ -4,25 +4,20 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Services - AI Implementation Specialist</title>
-        <base href="">
+        <base href="new/">
         <link rel="stylesheet" href="assets/css/main.css" />
-        <link rel="stylesheet" href="assets/css/components/footer.css" />
-        <link rel="stylesheet" href="assets/css/components/navigation.css" />
-        <link rel="stylesheet" href="assets/css/components/hero.css" />
-        <link rel="stylesheet" href="assets/css/pages/index.css" />
         <link rel="stylesheet" href="assets/css/icons.css" />
     </head>
     <body>
         <div class="container">
             <div class="hero" id="hero">
                 <div class="typing-container">
-                    <span class="typing-text" id="typing-text"></span
-                    ><span class="cursor"></span>
+                    <span class="typing-text" id="typing-text"></span><span class="cursor"></span>
                 </div>
                 <div class="arrow" id="arrow">↓</div>
             </div>
 
-            <div class="content dynamic-content" id="content">
+            <div class="content" id="content">
                 <div class="content-inner">
                     <nav class="content-nav">
                         <ul>
@@ -33,7 +28,7 @@
                         </ul>
                     </nav>
 
-                    <!-- Services Section - No header, just content -->
+                    <!-- Services Section -->
                     <div class="service-item">
                         <h3>
                             <div class="icon-container">
@@ -96,7 +91,7 @@
                     </div>
                 </div>
                 
-                <!-- Footer Component positioned at bottom -->
+                <!-- Footer -->
                 <footer class="app-footer">
                     <div class="footer-content">
                         <span id="copyright">Copyright © 2025 <a href="/">AppSimple LLC</a> - <a href="mailto:support@appsimple.io">support@appsimple.io</a> - <a href="/privacy">privacy</a> - <a href="/terms">terms</a></span>
@@ -107,23 +102,19 @@
             <div class="return-to-top" id="return-to-top">↑ Return to Top</div>
         </div>
 
-        <!-- Configuration script - Add page-specific settings here -->
+        <!-- Configuration script -->
         <script>
-            // Page-specific configuration
             const PAGE_CONFIG = {
                 typingText: "Integrating AI into your business processes.",
-                typingSpeed: 100,
-                // Add other page-specific settings as needed
+                typingSpeed: 100
             };
         </script>
 
-        <!-- Load modules in the correct order (dependencies first) -->
+        <!-- JavaScript modules -->
         <script src="assets/js/modules/utils.js"></script>
         <script src="assets/js/modules/mobile.js"></script>
         <script src="assets/js/modules/typing.js"></script>
         <script src="assets/js/modules/scrolling.js"></script>
-
-        <!-- Main script that initializes everything -->
         <script src="assets/js/main.js"></script>
     </body>
 </html>

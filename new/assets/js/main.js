@@ -1,48 +1,44 @@
-document.addEventListener("DOMContentLoaded", function () {
-  // Get page-specific configuration (defined in each HTML file)
-  const config = window.PAGE_CONFIG || {};
-  
-  // Check if we're on the main page (has hero element)
+document.addEventListener("DOMContentLoaded", function() {
+  // Check if we're on home page with hero section
   const heroElement = document.getElementById("hero");
-  const isMainPage = !!heroElement;
-
-  // Only initialize typing module if we're on the main page
-  if (isMainPage) {
-    // Initialize typing module with enhanced options
+  const contentElement = document.getElementById("content");
+  
+  if (heroElement && contentElement) {
+    // We're on the home page with hero - initialize all modules
+    const config = window.PAGE_CONFIG || {};
+    
+    // Initialize typing effect
     const typingEffect = TypingModule.init({
-      text: config.typingText || "Hi there. What can AppSimple do for you?",
+      text: config.typingText || "Hi there. What can I help you with?",
       targetElement: "typing-text",
-      baseSpeed: config.typingSpeed || 70, // Slightly faster base speed for natural feel
-      speedVariation: 0.3, // 30% variation in typing speed for natural feel
-      initialDelay: 1500, // 1.5 second initial delay
+      baseSpeed: config.typingSpeed || 70,
+      speedVariation: 0.3,
+      initialDelay: 1000
     });
-
-    // Initialize scroll behavior module
+    
+    // Initialize scrolling behavior
     const scrollHandler = ScrollModule.init({
       contentSelector: "#content",
       heroSelector: "#hero",
       arrowSelector: "#arrow",
       returnToTopSelector: "#return-to-top"
     });
-
-    // Initialize mobile event handlers if on mobile device
+    
+    // Initialize mobile behavior if on mobile
     if (MobileModule.isMobile()) {
       window.mobileModuleInstance = MobileModule.init({
-        contentElement: document.querySelector("#content"),
-        heroElement: document.querySelector("#hero"),
-        returnToTopElement: document.querySelector("#return-to-top"),
-        // Pass the scroll handler to allow mobile events to trigger transitions
-        scrollHandler: scrollHandler,
+        contentElement: contentElement,
+        heroElement: heroElement,
+        returnToTopElement: document.getElementById("return-to-top"),
+        scrollHandler: scrollHandler
       });
     }
-  } else {
-    // For pages without a hero, just make content visible
-    const contentElement = document.querySelector("#content");
-    if (contentElement) {
-      // Make content visible immediately
-      contentElement.classList.add("visible");
-      contentElement.style.overflow = "auto";
-      document.body.style.overflow = "auto";
-    }
+  } else if (contentElement) {
+    // We're on a content page without hero - just enable standard scrolling
+    document.body.style.overflow = "auto";
+    contentElement.style.position = "static";
+    contentElement.style.transform = "none";
+    contentElement.style.top = "auto";
+    contentElement.style.overflow = "visible";
   }
 });
