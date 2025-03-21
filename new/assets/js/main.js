@@ -43,23 +43,6 @@ document.addEventListener("DOMContentLoaded", function () {
       contentElement.classList.add("visible");
       contentElement.style.overflow = "auto";
       document.body.style.overflow = "auto";
-      
-      // Initialize return to top button if present
-      const returnToTopElement = document.querySelector("#return-to-top");
-      if (returnToTopElement) {
-        returnToTopElement.addEventListener("click", function() {
-          window.scrollTo({ top: 0, behavior: "smooth" });
-        });
-        
-        // Simple scroll handler for return to top button
-        window.addEventListener("scroll", function() {
-          if (window.scrollY > 500) {
-            returnToTopElement.classList.add("visible");
-          } else {
-            returnToTopElement.classList.remove("visible");
-          }
-        });
-      }
     }
   }
 });
