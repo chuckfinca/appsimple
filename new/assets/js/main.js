@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const config = window.PAGE_CONFIG || {};
     
     TypingModule.init({
-      text: config.typingText || "Integrating AI into your business processes.",
+      text: config.typingText || "Hi there. What can AppSimple do for you?",
       targetElement: "typing-text",
       baseSpeed: config.typingSpeed || 70,
       speedVariation: 0.3,

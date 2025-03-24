@@ -1,26 +1,7 @@
 /* pages/index.css - Home page specific styles */
 
-/* Index-specific content styles */
-.content.index-content {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    height: 100%;
-    background-color: white;
-    transform: translateY(0);
-    transition: transform var(--transition-slow);
-    overflow-y: hidden;
-  }
-  
-  .content.index-content.visible {
-    transform: translateY(-100%);
-    overflow-y: auto;
-  }
-
   .content-nav {
     border-bottom: none;
-    margin-bottom: 0;
 }
   
   /* Intro section specific to homepage */
