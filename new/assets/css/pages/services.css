@@ -1,0 +1,139 @@
+/* pages/services.css - Services page specific styles */
+
+/* Services intro */
+.services-intro {
+    max-width: 700px;
+    margin: 0 auto var(--space-lg);
+  }
+  
+  .services-intro p {
+    font-size: var(--text-md);
+    line-height: var(--leading-relaxed);
+    color: var(--neutral-600);
+  }
+  
+  /* Services grid */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--space-md);
+    margin-bottom: var(--space-xl);
+  }
+  
+  .service-card {
+    background-color: var(--neutral-50);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    transition: transform var(--transition-normal), 
+                box-shadow var(--transition-normal);
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  }
+  
+  .service-card-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: var(--space-sm);
+  }
+  
+  .service-card-icon {
+    margin-right: var(--space-sm);
+    color: var(--primary);
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+  }
+  
+  .service-card h3 {
+    margin-bottom: var(--space-xs);
+    font-size: var(--text-md);
+  }
+  
+  .service-card-content {
+    margin-bottom: var(--space-sm);
+    flex-grow: 1;
+  }
+  
+  .service-card-footer {
+    margin-top: auto;
+  }
+  
+  .service-card-link {
+    display: inline-flex;
+    align-items: center;
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: var(--font-medium);
+    transition: color var(--transition-normal);
+  }
+  
+  .service-card-link:hover {
+    color: var(--primary-dark);
+  }
+  
+  .service-card-link-icon {
+    margin-left: var(--space-xs);
+    width: 16px;
+    height: 16px;
+    transition: transform var(--transition-normal);
+  }
+  
+  .service-card-link:hover .service-card-link-icon {
+    transform: translateX(3px);
+  }
+  
+  /* Featured case studies */
+  .case-studies {
+    margin-top: var(--space-xl);
+    margin-bottom: var(--space-xl);
+  }
+  
+  .case-study {
+    padding: var(--space-md);
+    background-color: var(--neutral-50);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-md);
+  }
+  
+  .case-study h3 {
+    margin-bottom: var(--space-xs);
+  }
+  
+  .case-study-meta {
+    color: var(--neutral-500);
+    font-size: var(--text-xs);
+    margin-bottom: var(--space-sm);
+  }
+  
+  .case-study-content {
+    margin-bottom: var(--space-sm);
+  }
+  
+  .case-study-link {
+    display: inline-block;
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: var(--font-medium);
+    transition: color var(--transition-normal);
+  }
+  
+  .case-study-link:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .services-intro p {
+      font-size: var(--text-sm);
+    }
+    
+    .services-grid {
+      grid-template-columns: 1fr;
+    }
+  }

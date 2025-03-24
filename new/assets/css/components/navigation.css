@@ -1,41 +1,86 @@
-/* Navigation styles */
-.content-nav {
-    margin-bottom: 2rem;
-}
+/* components/navigation.css - Navigation styling */
 
+.content-nav {
+    margin-bottom: var(--space-md);
+    padding: var(--space-sm) 0;
+    border-bottom: 1px solid var(--neutral-200);
+}
+  
 .content-nav ul {
     display: flex;
     list-style: none;
-    padding: 0;
-    margin: 0;
+    gap: var(--space-md);
+    justify-content: center;
+    margin-bottom: 0;
+    padding-left: 0
 }
-
-.content-nav li {
-    margin-right: 1.5rem;
-}
-
+  
 .content-nav a {
     text-decoration: none;
-    color: #333;
-    font-weight: 500;
-    padding: 0.5rem 0;
-    border-bottom: 2px solid transparent;
-    transition: all 0.2s ease;
+    padding: var(--space-xs) 0;
+    position: relative;
+    color: var(--neutral-500);
+    transition: color var(--transition-normal);
 }
-
+  
+  /* Underline effect */
+.content-nav a::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--primary);
+    transition: width var(--transition-normal);
+}
+  
 .content-nav a:hover,
 .content-nav a.active {
-    color: #4682B4;
-    border-bottom-color: #4682B4;
+    color: var(--primary);
 }
-
-@media screen and (max-width: 600px) {
-    .content-nav ul {
-        flex-wrap: wrap;
-    }
+  
+.content-nav a:hover::after,
+.content-nav a.active::after {
+    width: 100%;
+}
+  
+  /* Return to top button */
+.return-to-top {
+    position: fixed;
+    top: var(--space-sm);
+    left: var(--space-sm);
+    padding: var(--space-xs) var(--space-sm);
+    background-color: rgba(255, 255, 255, 0.8);
+    color: var(--neutral-800);
+    border-radius: var(--radius-full);
+    font-size: var(--text-xs);
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--transition-normal);
+    z-index: 100;
+}
+  
+.return-to-top.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+  .content-nav ul {
+      gap: var(--space-sm);
+  }
+}
+  
+  @media (max-width: 480px) {
+  .content-nav ul {
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+  }
     
-    .content-nav li {
-        margin-right: 1rem;
-        margin-bottom: 0.5rem;
-    }
+  .content-nav a {
+      font-size: var(--text-xs);
+  }
 }

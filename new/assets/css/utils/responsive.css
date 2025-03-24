@@ -1,0 +1,119 @@
+/* utils/responsive.css - Global responsive adjustments */
+
+/* Global responsive helpers */
+
+/* Hide on small screens */
+@media (max-width: 480px) {
+    .hide-sm {
+      display: none !important;
+    }
+  }
+  
+  /* Hide on medium screens */
+  @media (max-width: 768px) {
+    .hide-md {
+      display: none !important;
+    }
+  }
+  
+  /* Hide on large screens */
+  @media (min-width: 769px) {
+    .hide-lg {
+      display: none !important;
+    }
+  }
+  
+  /* Responsive text alignment */
+  @media (max-width: 768px) {
+    .text-center-md {
+      text-align: center !important;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .text-center-sm {
+      text-align: center !important;
+    }
+  }
+  
+  /* Responsive spacing adjustments */
+  @media (max-width: 768px) {
+    .container {
+      padding-left: var(--space-sm);
+      padding-right: var(--space-sm);
+    }
+    
+    h1 {
+      font-size: calc(var(--text-2xl) * 0.85);
+    }
+    
+    h2 {
+      font-size: calc(var(--text-xl) * 0.9);
+    }
+  }
+  
+  @media (max-width: 480px) {
+    h1 {
+      font-size: calc(var(--text-2xl) * 0.7);
+    }
+    
+    h2 {
+      font-size: calc(var(--text-xl) * 0.8);
+    }
+    
+    h3 {
+      font-size: calc(var(--text-lg) * 0.9);
+    }
+  }
+  
+  /* Responsive stack (convert row to column) */
+  @media (max-width: 768px) {
+    .stack-md {
+      flex-direction: column !important;
+    }
+    
+    .stack-md > * {
+      width: 100% !important;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      margin-bottom: var(--space-md) !important;
+    }
+    
+    .stack-md > *:last-child {
+      margin-bottom: 0 !important;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .stack-sm {
+      flex-direction: column !important;
+    }
+    
+    .stack-sm > * {
+      width: 100% !important;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      margin-bottom: var(--space-sm) !important;
+    }
+    
+    .stack-sm > *:last-child {
+      margin-bottom: 0 !important;
+    }
+  }
+  
+  /* Responsive grid */
+  @media (max-width: 768px) {
+    .grid-col-1-md {
+      grid-template-columns: 1fr !important;
+    }
+    
+    .grid-col-2-md {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .grid-col-1-sm {
+      grid-template-columns: 1fr !important;
+    }
+  }

@@ -1,7 +1,7 @@
 // Purpose: Handles scrolling behavior and transitions
 const ScrollModule = (function() {
   // Private variables
-  let contentElement, heroElement, arrowElement, returnToTopElement;
+  let contentElement, heroElement, returnToTopElement;
   let contentVisible = false;
   let scrollUpAttempts = 0;
   let buttonLockActive = false;
@@ -98,7 +98,6 @@ const ScrollModule = (function() {
     // Get DOM elements
     contentElement = document.querySelector(options.contentSelector);
     heroElement = document.querySelector(options.heroSelector);
-    arrowElement = document.querySelector(options.arrowSelector);
     returnToTopElement = document.querySelector(options.returnToTopSelector);
     
     // Exit if required elements don't exist
@@ -110,15 +109,6 @@ const ScrollModule = (function() {
     // Set initial overflow properties
     document.body.style.overflow = "hidden";
     contentElement.style.overflowY = "hidden";
-    
-    // Set up arrow click event
-    if (arrowElement) {
-      arrowElement.addEventListener("click", () => {
-        if (!contentVisible) {
-          showContent();
-        }
-      });
-    }
     
     // Set up return to top button click
     if (returnToTopElement) {

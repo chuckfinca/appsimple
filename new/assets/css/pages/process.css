@@ -1,303 +1,90 @@
-/* Enhanced Process Page Styles with icons inside content divs */
+/* pages/process.css - Process page specific styles */
 
-/* Process Section Styling */
-.process-section {
-    margin-bottom: var(--space-xl);
+/* Process page intro */
+.process-intro {
+  max-width: 700px;
+  margin: 0 auto var(--space-lg);
+}
+
+.process-intro p {
+  font-size: var(--text-md);
+  line-height: var(--leading-relaxed);
+  color: var(--neutral-600);
+}
+
+/* Timeline section header */
+.timeline-section-header {
+  margin-top: var(--space-xl);
+  margin-bottom: var(--space-md);
+}
+
+/* FAQ section */
+.process-faq {
+  margin-top: var(--space-xl);
+  margin-bottom: var(--space-xl);
+}
+
+.faq-item {
+  margin-bottom: var(--space-md);
+  border-bottom: 1px solid var(--neutral-200);
+  padding-bottom: var(--space-md);
+}
+
+.faq-question {
+  font-weight: var(--font-medium);
+  color: var(--neutral-800);
+  margin-bottom: var(--space-xs);
+  font-size: var(--text-md);
+}
+
+.faq-answer {
+  color: var(--neutral-600);
+}
+
+/* CTA section */
+.process-cta {
+  background-color: var(--primary-light);
+  padding: var(--space-lg);
+  text-align: center;
+  border-radius: var(--radius-md);
+  margin-top: var(--space-xl);
+}
+
+.process-cta h3 {
+  margin-bottom: var(--space-md);
+}
+
+.process-cta p {
+  margin-bottom: var(--space-md);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.process-cta-button {
+  display: inline-block;
+  padding: var(--space-sm) var(--space-lg);
+  background-color: var(--primary);
+  color: white;
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+  font-weight: var(--font-medium);
+  transition: background-color var(--transition-normal),
+              transform var(--transition-normal);
+}
+
+.process-cta-button:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .process-intro p {
+    font-size: var(--text-sm);
   }
   
-  .process-section h2 {
-    margin-bottom: var(--space-md);
-  }
-  
-  .process-section p {
-    margin-bottom: var(--space-md);
-    line-height: var(--leading-normal);
-    color: var(--neutral-600);
-  }
-  
-  /* Process Steps - Simplified with better spacing */
-  .process-steps {
-    position: relative;
-    padding-left: 0;
-    margin-top: var(--space-lg);
-    counter-reset: step-counter;
-  }
-  
-  /* Timeline connector - subtle and minimal */
-  .process-steps::before {
-    content: '';
-    position: absolute;
-    top: 10px;
-    bottom: 0;
-    left: 24px;
-    width: 1px;
-    background-color: var(--neutral-200);
-    z-index: 1;
-  }
-  
-  /* Individual process step */
-  .process-step {
-    position: relative;
-    margin-bottom: var(--space-lg);
-    padding-left: 70px;
-    counter-increment: step-counter;
-  }
-  
-  /* Step number - primary visual element */
-  .process-step::before {
-    content: counter(step-counter);
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 48px;
-    height: 48px;
-    background-color: var(--primary);
-    color: white;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: var(--font-medium);
-    font-size: var(--text-md);
-    z-index: 2;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Content styling - clean cards with subtle backgrounds */
-  .process-step-content {
-    position: relative;
+  .process-cta {
     padding: var(--space-md);
-    padding-top: 60px; /* Extra padding for icon placement */
-    border-radius: var(--radius-md);
-    background-color: var(--primary-light);
-    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
   }
-  
-  /* Hover effects - subtle interactivity */
-  .process-step:hover .process-step-content {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  }
-  
-  /* Alternating backgrounds for visual rhythm */
-  .process-step:nth-child(odd) .process-step-content {
-    background-color: var(--primary-light);
-  }
-  
-  .process-step:nth-child(even) .process-step-content {
-    background-color: var(--neutral-50);
-  }
-  
-  /* Icon styling within process steps - positioned in upper left */
-  .process-step-content .expertise-icon-container {
-    position: absolute;
-    top: 1.5rem;
-    left: 1.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    transition: transform var(--transition-normal);
-  }
-  
-  /* Set contrasting icon container backgrounds */
-  .process-step:nth-child(odd) .expertise-icon-container {
-    background-color: var(--neutral-50); /* Light background for icons on blue bg */
-  }
-  
-  .process-step:nth-child(even) .expertise-icon-container {
-    background-color: #fff; /* Blue background for icons on light bg */
-  }
-  
-  .process-step:hover .expertise-icon-container {
-    transform: scale(1.1);
-  }
-  
-  .expertise-icon {
-    color: var(--primary);
-  }
-  
-  /* Process step headings */
-  .process-step h3 {
-    margin-left: 4rem;
-    font-size: var(--text-lg);
-    margin-bottom: var(--space-sm);
-    color: var(--neutral-800);
-  }
-  
-  /* Enhanced Timeline Styling - consistent with process steps */
-  .timeline {
-    position: relative;
-    margin-top: var(--space-lg);
-    margin-bottom: var(--space-xl);
-    padding-left: 0;
-  }
-  
-  /* Timeline connector line */
-  .timeline::before {
-    content: '';
-    position: absolute;
-    top: 10px;
-    bottom: 0;
-    left: 24px;
-    width: 1px;
-    background-color: var(--neutral-200);
-    z-index: 1;
-  }
-  
-  /* Timeline item */
-  .timeline-item {
-    position: relative;
-    margin-bottom: var(--space-md);
-    padding-left: 70px;
-  }
-  
-  /* Timeline marker - numbered for clarity */
-  .timeline-marker {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    background-color: var(--secondary);
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: var(--font-medium);
-    z-index: 2;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Timeline content - clean cards */
-  .timeline-content {
-    position: relative;
-    padding: var(--space-md);
-    padding-top: 60px; /* Extra space for the icon */
-    border-radius: var(--radius-md);
-    background-color: var(--neutral-50);
-    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
-  }
-  
-  /* Hover effects for timeline items */
-  .timeline-item:hover .timeline-content {
-    transform: translateX(5px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  }
-  
-  /* Alternating backgrounds */
-  .timeline-item:nth-child(even) .timeline-content {
-    background-color: var(--secondary-light);
-  }
-  
-  /* Timeline icons - positioned inside content */
-  .timeline-content .expertise-icon-container {
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    transition: transform var(--transition-normal);
-  }
-  
-  /* Icon background colors based on parent background */
-  .timeline-item:nth-child(odd) .expertise-icon-container {
-    background-color: white;
-  }
-  
-  .timeline-item:nth-child(even) .expertise-icon-container {
-    background-color: var(--neutral-50);
-  }
-  
-  .timeline-item:hover .expertise-icon-container {
-    transform: scale(1.1);
-  }
-  
-  /* Timeline title formatting */
-  .timeline-title {
-    font-weight: var(--font-medium);
-    font-size: var(--text-md);
-    margin-bottom: var(--space-xs);
-    color: var(--secondary);
-  }
-  
-  /* Service list with cleaner bullets */
-  .service-list {
-    list-style: none;
-    padding-left: 0;
-    margin-top: var(--space-sm);
-    margin-bottom: var(--space-md);
-  }
-  
-  .service-list li {
-    position: relative;
-    padding-left: var(--space-md);
-    margin-bottom: var(--space-xs);
-    color: var(--neutral-600);
-  }
-  
-  .service-list li::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0.6em;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background-color: var(--primary);
-  }
-  
-  /* Responsive adjustments */
-  @media (max-width: 768px) {
-    .process-steps::before,
-    .timeline::before {
-      left: 16px;
-    }
-    
-    .process-step,
-    .timeline-item {
-      padding-left: 50px;
-    }
-    
-    .process-step::before,
-    .timeline-marker {
-      width: 32px;
-      height: 32px;
-      font-size: 1rem;
-    }
-    
-    .process-step-content,
-    .timeline-content {
-      padding: var(--space-sm);
-      padding-top: 50px;
-    }
-    
-    .process-step-content .expertise-icon-container,
-    .timeline-content .expertise-icon-container {
-      width: 32px;
-      height: 32px;
-      top: 10px;
-      left: 10px;
-    }
-  }
-  
-  @media (max-width: 480px) {
-    .process-step,
-    .timeline-item {
-      padding-left: 40px;
-    }
-    
-    .process-step::before,
-    .timeline-marker {
-      width: 28px;
-      height: 28px;
-      font-size: 0.9rem;
-    }
-  }
+}

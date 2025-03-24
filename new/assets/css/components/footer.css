@@ -1,34 +1,38 @@
-/* Footer styles */
+/* components/footer.css - Footer styling */
+
 .app-footer {
-    padding: 20px 0;
+    padding: var(--space-md) 0;
     text-align: center;
-    font-size: 14px;
-    background-color: #fdfdfd;
-    color: #555;
-    border-top: 1px solid #eee;
+    /* background-color: var(--neutral-50); */
+    color: var(--neutral-500);
+    /* border-top: 1px solid var(--neutral-200); */
     width: 100%;
-    margin-top: auto; /* Push to bottom of flex container */
-}
-
-.footer-content {
-    max-width: 90rem;
+    margin-top: auto; /* Push to bottom when in a flex container */
+  }
+  
+  .footer-content {
+    max-width: var(--container-default);
     margin: 0 auto;
-    padding: 0 20px;
-}
-
-.app-footer a {
+    padding: 0 var(--space-md);
+  }
+  
+  .app-footer a {
     text-decoration: none;
-    color: #888;
-    transition: color 0.2s ease;
-}
-
-.app-footer a:hover {
-    color: #333;
-}
-
-@media screen and (max-width: 600px) {
+    color: var(--neutral-500);
+    transition: color var(--transition-normal);
+  }
+  
+  .app-footer a:hover {
+    color: var(--neutral-700);
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
     .app-footer {
-        padding: 15px 0;
-        font-size: 12px;
+      padding: var(--space-sm) 0;
     }
-}
+    
+    .footer-content {
+      font-size: var(--text-xs);
+    }
+  }

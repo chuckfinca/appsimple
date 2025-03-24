@@ -1,0 +1,84 @@
+/* components/icons.css - Icon system styling */
+
+/* Base icon styling */
+.icon {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+    vertical-align: middle;
+    overflow: visible;
+  }
+  
+  /* Icon sizes */
+  .icon-sm {
+    width: 16px;
+    height: 16px;
+  }
+  
+  .icon-md {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .icon-lg {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .icon-xl {
+    width: 40px;
+    height: 40px;
+  }
+  
+  /* Icon containers */
+  .icon-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Icon colors */
+  .icon-primary {
+    color: var(--primary);
+  }
+  
+  .icon-secondary {
+    color: var(--secondary);
+  }
+  
+  .icon-neutral {
+    color: var(--neutral-600);
+  }
+  
+  /* Icon hover effects */
+  .icon-hover-effect {
+    transition: transform var(--transition-normal);
+  }
+  
+  .icon-hover-effect:hover {
+    transform: scale(1.1);
+  }
+  
+  /* Icon backgrounds */
+  .icon-bg-light {
+    background-color: var(--neutral-50);
+    padding: var(--space-xs);
+    border-radius: 50%;
+  }
+  
+  .icon-bg-primary {
+    background-color: var(--primary-light);
+    padding: var(--space-xs);
+    border-radius: 50%;
+  }
+  
+  .icon-bg-secondary {
+    background-color: var(--secondary-light);
+    padding: var(--space-xs);
+    border-radius: 50%;
+  }

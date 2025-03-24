@@ -1,0 +1,186 @@
+/* components/process-steps.css - Process steps component styling */
+
+/* Process Steps - Simplified with better spacing */
+.process-steps {
+    position: relative;
+    padding-left: 0;
+    margin-top: var(--space-lg);
+    counter-reset: step-counter;
+  }
+  
+  /* Timeline connector - subtle and minimal */
+  .process-steps::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    bottom: 0;
+    left: 24px;
+    width: 1px;
+    background-color: var(--neutral-200);
+    z-index: 1;
+  }
+  
+  /* Individual process step */
+  .process-step {
+    position: relative;
+    margin-bottom: var(--space-lg);
+    padding-left: 70px;
+    counter-increment: step-counter;
+  }
+  
+  /* Step number - primary visual element */
+  .process-step::before {
+    content: counter(step-counter);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 48px;
+    height: 48px;
+    background-color: var(--primary);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: var(--font-medium);
+    font-size: var(--text-md);
+    z-index: 2;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Content styling - clean cards with subtle backgrounds */
+  .process-step-content {
+    position: relative;
+    padding: var(--space-md);
+    padding-top: 60px; /* Extra padding for icon placement */
+    border-radius: var(--radius-md);
+    background-color: var(--primary-light);
+    transition: transform var(--transition-normal), 
+                box-shadow var(--transition-normal);
+  }
+  
+  /* Hover effects - subtle interactivity */
+  .process-step:hover .process-step-content {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  }
+  
+  /* Alternating backgrounds for visual rhythm */
+  .process-step:nth-child(odd) .process-step-content {
+    background-color: var(--primary-light);
+  }
+  
+  .process-step:nth-child(even) .process-step-content {
+    background-color: var(--neutral-50);
+  }
+  
+  /* Icon styling within process steps - positioned in upper left */
+  .process-step-content .expertise-icon-container {
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    transition: transform var(--transition-normal);
+  }
+  
+  /* Set contrasting icon container backgrounds */
+  .process-step:nth-child(odd) .expertise-icon-container {
+    background-color: var(--neutral-50); /* Light background for icons on blue bg */
+  }
+  
+  .process-step:nth-child(even) .expertise-icon-container {
+    background-color: white; /* White background for icons on light bg */
+  }
+  
+  .process-step:hover .expertise-icon-container {
+    transform: scale(1.1);
+  }
+  
+  .expertise-icon {
+    color: var(--primary);
+  }
+  
+  /* Process step headings */
+  .process-step h3 {
+    margin-left: 4rem;
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-sm);
+    color: var(--neutral-800);
+  }
+  
+  /* Service list with cleaner bullets */
+  .service-list {
+    list-style: none;
+    padding-left: 0;
+    margin-top: var(--space-sm);
+    margin-bottom: var(--space-md);
+  }
+  
+  .service-list li {
+    position: relative;
+    padding-left: var(--space-md);
+    margin-bottom: var(--space-xs);
+    color: var(--neutral-600);
+  }
+  
+  .service-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.6em;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--primary);
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .process-steps::before {
+      left: 16px;
+    }
+    
+    .process-step {
+      padding-left: 50px;
+    }
+    
+    .process-step::before {
+      width: 32px;
+      height: 32px;
+      font-size: var(--text-sm);
+    }
+    
+    .process-step-content {
+      padding: var(--space-sm);
+      padding-top: 50px;
+    }
+    
+    .process-step-content .expertise-icon-container {
+      width: 32px;
+      height: 32px;
+      top: 10px;
+      left: 10px;
+    }
+    
+    .process-step h3 {
+      margin-left: 2rem;
+      font-size: var(--text-md);
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .process-step {
+      padding-left: 40px;
+    }
+    
+    .process-step::before {
+      width: 28px;
+      height: 28px;
+      font-size: var(--text-xs);
+    }
+  }
