@@ -1,51 +1,65 @@
-<!DOCTYPE html>
-<html>
-<head>
-		<meta charset="utf-8">
-		<title>AppSimple</title>
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
-		<link href="css/reset.css" rel="stylesheet" type="text/css" />
-		<link href="css/stylesheet.css" rel="stylesheet" type="text/css" />
-        <link href="css/mobile.css" rel="stylesheet" media='screen and (max-width: 1000px)' />
-</head>
-	<body>
-    	<div id="wrapper">
-        	<div>
-            	<h1>AppSimple</h1>
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>AI Implementation Specialist</title>
+        <link rel="stylesheet" href="assets/css/main.css" />
+        <link rel="stylesheet" href="assets/css/pages/index.css" />
+    </head>
+    <body>
+        <div class="container">
+            <nav class="content-nav">
+                <ul>
+                    <li><a href="/" class="active">Home</a></li>
+                    <li><a href="/services">Services</a></li>
+                    <li><a href="/process">Process</a></li>
+                    <li><a href="/about">About</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="hero" id="hero">
+                <div class="typing-container">
+                    <span class="typing-text" id="typing-text"></span><span class="cursor"></span>
+                </div>
             </div>
-            <div id="appsContainer">
-                <div class="appContainer left">
-                    <a href="bodhimind">
-                        <img src="images/bodhiMind.png"/>
-                    </a>
-                    <h2><a href="bodhimind">Bodhi Mind</a></h2>
-                </div>
-                <div class="appContainer right">
-                    <a href="livewire">
-                        <img src="images/livewire.png"/>
-                    </a>
-                    <h2><a href="livewire">Livewire</a></h2>
-                </div>
+        </div>
+        
+        <!-- Footer -->
+        <footer class="app-footer">
+            <div class="footer-content">
+                <span id="copyright">Copyright © 2025 <a href="/">AppSimple</a> - 
+                    <a href="mailto:support@appsimple.io">support@appsimple.io</a> - 
+                    <a href="/privacy">Privacy</a> - 
+                    <a href="/terms">Terms</a></span>
+            </div>
+        </footer>
 
-                <div class="appContainer left">
-                    <a href="guidedmind">
-                        <img src="images/guidedMind.png"/>
-                    </a>
-                    <h2><a href="guidedmind">Guided Mind</a></h2>
-                </div>
-                <div class="appContainer right">
-                    <a href="mindtimer">
-                        <img src="images/mindTimer.png"/>
-                    </a>
-                    <h2><a href="mindtimer">Mind Timer</a></h2>
-                </div>
-            </div>
-            <div>
-            	<h4>Apps for everyone.</h4>
-            </div>
-        </div>
-        <div>
-        	<span id="copyright">Copyright © 2017 <a href="\">AppSimple LLC</a> - <a href="mailto:support@appsimple.io">support@appsimple.io</a> - <a href="privacy">privacy</a> - <a href="terms">terms</a></span>
-        </div>
-</body>
+        <!-- Configuration script -->
+        <script>
+            const PAGE_CONFIG = {
+                typingText: "Hi there. What can AppSimple do for you?",
+                typingSpeed: 100
+            };
+        </script>
+
+        <!-- JavaScript modules - simplified -->
+        <script src="assets/js/modules/utils.js"></script>
+        <script src="assets/js/modules/typing.js"></script>
+        <script>
+            // Simplified main.js inline
+            document.addEventListener("DOMContentLoaded", function() {
+                // Initialize typing effect
+                const config = window.PAGE_CONFIG || {};
+                
+                TypingModule.init({
+                    text: config.typingText || "Hi there. What can AppSimple do for you?",
+                    targetElement: "typing-text",
+                    baseSpeed: config.typingSpeed || 70,
+                    speedVariation: 0.3,
+                    initialDelay: 1000
+                });
+            });
+        </script>
+    </body>
 </html>

@@ -1,51 +1,27 @@
-runtime: python312
+runtime: python39  # Choose the appropriate runtime
+service: default
 
 handlers:
+  # Index/home page handling
+  - url: /index
+    static_files: index.html
+    upload: index\.html
 
-- url: /(.*\.css)
-  mime_type: text/css
-  static_files: \1
-  upload: (.*\.css)
+  - url: /
+    static_files: index.html
+    upload: index\.html
 
-# Handle new directory structure
-- url: /new/assets/css/(.*)
-  mime_type: text/css
-  static_files: new/assets/css/\1
-  upload: new/assets/css/(.*)
+  # Pages without .html extension
+  - url: /(services|process|about|contact)
+    static_files: pages/\1.html
+    upload: pages/.*\.html
 
-- url: /new/assets/js/(.*)
-  mime_type: application/javascript
-  static_files: new/assets/js/\1
-  upload: new/assets/js/(.*)
+  # Static assets
+  - url: /assets/(.*)
+    static_files: assets/\1
+    upload: assets/(.*)
 
-- url: /new/assets/js/modules/(.*)
-  mime_type: application/javascript
-  static_files: new/assets/js/modules/\1
-  upload: new/assets/js/modules/(.*)
-
-- url: /new/shared/(.*)
-  mime_type: text/html
-  static_files: new/shared/\1
-  upload: new/shared/(.*)
-
-- url: /new
-  static_files: new/index.html
-  upload: new/index.html
-
-- url: /new/(.*)
-  static_files: new/\1
-  upload: new/(.*)
-
-# Original handlers
-- url: /(bodhimind|livewire|guidedmind|mindtimer|privacy|terms)
-  mime_type: text/html
-  static_files: \1.html
-  upload: (.+)
-
-- url: /
-  static_files: index.html
-  upload: index.html
-
-- url: /(.+)
-  static_files: \1
-  upload: (.*)
+  # Root level pages
+  - url: /(privacy|terms)
+    static_files: \1.html
+    upload: .*\.html
