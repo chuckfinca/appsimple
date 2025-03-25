@@ -1,0 +1,94 @@
+/* pages/contact.css - Contact page specific styles */
+
+/* Contact intro */
+.contact-intro {
+    max-width: 700px;
+    margin: 0 auto var(--space-lg);
+  }
+
+  .contact-intro p {
+    font-size: var(--text-md);
+    line-height: var(--leading-relaxed);
+    color: var(--neutral-600);
+  }
+
+  /* Contact layout - two columns */
+  .contact-layout {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: var(--space-lg);
+    margin-bottom: var(--space-xl);
+  }
+
+  /* Contact availability section */
+  .contact-availability {
+    background-color: var(--primary-light);
+    padding: var(--space-md);
+    border-radius: var(--radius-md);
+    height: fit-content;
+  }
+
+  .contact-availability h3 {
+    margin-bottom: var(--space-sm);
+    font-size: var(--text-md);
+  }
+
+  .availability-times {
+    margin-bottom: var(--space-md);
+  }
+
+  .availability-day {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: var(--space-xs);
+  }
+
+  .availability-day-label {
+    font-weight: var(--font-medium);
+  }
+
+  /* Contact map placeholder */
+  .contact-map {
+    height: 300px;
+    background-color: var(--neutral-100);
+    border-radius: var(--radius-md);
+    margin-top: var(--space-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--neutral-500);
+  }
+
+  /* Form success/error status messages */
+  .form-status {
+    padding: var(--space-md);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-md);
+  }
+
+  .form-success {
+    background-color: #E6F7EF;
+    color: #10B981;
+    border-left: 4px solid #10B981;
+  }
+
+  .form-error {
+    background-color: #FEE2E2;
+    color: #EF4444;
+    border-left: 4px solid #EF4444;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .contact-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .contact-intro p {
+      font-size: var(--text-sm);
+    }
+
+    .contact-map {
+      height: 200px;
+    }
+  }

@@ -1,58 +1,84 @@
-from fastapi import FastAPI, Request
-from fastapi.responses import FileResponse
+from fastapi import FastAPI, Request, HTTPException
+from fastapi.responses import HTMLResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
-import yaml
-import re
+from fastapi.templating import Jinja2Templates
 import os
+from pathlib import Path
 
 app = FastAPI()
 
-# Load and parse app.yaml
-with open("app.yaml", "r") as yaml_file:
-    handlers = yaml.safe_load(yaml_file)  # This is already a list of handlers
+# Determine if we're running locally or on App Engine
+is_local = not os.environ.get("GAE_APPLICATION")
 
-# Process app.yaml handlers
-yaml_routes = []
-for handler in handlers:  # Iterate directly through the list
-    if "static_files" in handler and "url" in handler:
-        yaml_routes.append({
-            "url_pattern": handler["url"],
-            "file_path": handler["static_files"]
-        })
+# Directory where your actual JS files are located in development
+base_dir = Path(__file__).parent
+static_files_dir = base_dir
 
-# Custom route handler based on app.yaml
-@app.get("/{full_path:path}")
-async def app_yaml_handler(request: Request, full_path: str = ""):
-    # Handle root path specifically
-    path = "/" + full_path if full_path else "/"
-    
-    # Try to match against app.yaml routes
-    for route in yaml_routes:
-        # Convert app engine regex to Python regex
-        regex_pattern = "^" + route["url_pattern"] + "$"
-        match = re.match(regex_pattern, path)
-        
-        if match:
-            file_path = route["file_path"]
-            
-            # Handle capture groups like \1 in static_files
-            if match.groups():
-                for i, group in enumerate(match.groups(), 1):
-                    file_path = file_path.replace(f"\\{i}", group)
-            
-            if os.path.exists(file_path):
-                return FileResponse(file_path)
-    
-    # Special case for root
-    if path == "/" and os.path.exists("index.html"):
-        return FileResponse("index.html")
-    
-    return {"error": "Page not found", "path": path}, 404
+# Mount static files directory
+app.mount("/assets", StaticFiles(directory="assets"), name="assets")
 
-# No-cache middleware
-@app.middleware("http")
-async def add_no_cache(request, call_next):
-    response = await call_next(request)
-    response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate"
-    response.headers["ETag"] = ""  # Disable ETag
-    return response
+# Special routes for JS files when running locally
+if is_local:
+    @app.get("/assets/js/modules/typing.js")
+    async def serve_typing_js():
+        """Serve typing.js from root when running locally"""
+        typing_js_path = base_dir / "typing.js"
+        if typing_js_path.exists():
+            return FileResponse(typing_js_path, media_type="application/javascript")
+        raise HTTPException(status_code=404, detail="typing.js not found")
+    
+    @app.get("/assets/js/modules/utils.js")
+    async def serve_utils_js():
+        """Serve utils.js from root when running locally"""
+        utils_js_path = base_dir / "utils.js"
+        if utils_js_path.exists():
+            return FileResponse(utils_js_path, media_type="application/javascript")
+        raise HTTPException(status_code=404, detail="utils.js not found")
+    
+    @app.get("/assets/js/main.js")
+    async def serve_main_js():
+        """Serve main.js from root when running locally"""
+        main_js_path = base_dir / "main.js"
+        if main_js_path.exists():
+            return FileResponse(main_js_path, media_type="application/javascript")
+        raise HTTPException(status_code=404, detail="main.js not found")
+
+# Route for the main page and other static files
+@app.get("/", response_class=HTMLResponse)
+async def get_index():
+    """Serve the index.html file"""
+    index_path = base_dir / "index.html"
+    try:
+        with open(index_path, "r") as f:
+            content = f.read()
+        return HTMLResponse(content=content)
+    except FileNotFoundError:
+        raise HTTPException(status_code=404, detail="index.html not found")
+
+# Add routes for other pages
+@app.get("/{page}", response_class=HTMLResponse)
+async def get_page(page: str):
+    """Serve HTML pages from the pages/ directory or the root"""
+    # Check if page exists in pages directory
+    page_path = base_dir / "pages" / f"{page}.html"
+    
+    # If not, check root directory
+    if not page_path.exists():
+        page_path = base_dir / f"{page}.html"
+    
+    if page_path.exists():
+        with open(page_path, "r") as f:
+            content = f.read()
+        return HTMLResponse(content=content)
+    
+    raise HTTPException(status_code=404, detail=f"Page {page} not found")
+
+# If you need to configure additional routes for your API endpoints
+@app.get("/api/hello")
+async def hello():
+    return {"message": "Hello, World!"}
+
+if __name__ == "__main__":
+    # This code only runs when you execute the script directly
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)

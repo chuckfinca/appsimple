@@ -1,0 +1,109 @@
+/* pages/about.css - About page specific styles */
+
+/* About intro section */
+.about-intro {
+    max-width: 700px;
+    margin: 0 auto var(--space-lg);
+  }
+  
+  .about-intro p {
+    font-size: var(--text-md);
+    line-height: var(--leading-relaxed);
+    color: var(--neutral-600);
+  }
+  
+  /* About image section */
+  .about-image {
+    width: 100%;
+    height: 300px;
+    background-color: var(--neutral-100);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-lg);
+    overflow: hidden;
+  }
+  
+  .about-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  /* Stats section */
+  .about-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+    margin-bottom: var(--space-xl);
+  }
+  
+  .stat-item {
+    text-align: center;
+    padding: var(--space-md);
+    background-color: var(--primary-light);
+    border-radius: var(--radius-md);
+  }
+  
+  .stat-item:nth-child(even) {
+    background-color: var(--secondary-light);
+  }
+  
+  .stat-number {
+    font-size: var(--text-2xl);
+    font-weight: var(--font-bold);
+    color: var(--primary);
+    margin-bottom: var(--space-xs);
+  }
+  
+  .stat-label {
+    color: var(--neutral-600);
+    font-size: var(--text-sm);
+  }
+  
+  /* Testimonials section */
+  .testimonials {
+    margin-bottom: var(--space-xl);
+  }
+  
+  .testimonial {
+    padding: var(--space-lg);
+    background-color: var(--neutral-50);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-md);
+    position: relative;
+  }
+  
+  .testimonial::before {
+    content: '"';
+    position: absolute;
+    top: 1rem;
+    left: 1.5rem;
+    font-size: 4rem;
+    line-height: 1;
+    color: var(--neutral-200);
+    font-family: serif;
+  }
+  
+  .testimonial-content {
+    margin-bottom: var(--space-sm);
+    font-style: italic;
+    color: var(--neutral-700);
+    padding-left: var(--space-lg);
+  }
+  
+  .testimonial-author {
+    text-align: right;
+    font-weight: var(--font-medium);
+    color: var(--neutral-800);
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .about-stats {
+      grid-template-columns: 1fr;
+      gap: var(--space-sm);
+    }
+    
+    .testimonial {
+      padding: var(--space-md);
+    }
+  }

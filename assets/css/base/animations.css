@@ -1,0 +1,42 @@
+/* base/animations.css - Animation keyframes and transitions */
+
+/* Cursor blinking animation */
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+  
+  /* Fade in animation */
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  /* Fade in from bottom animation */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Applied animation classes */
+  .animate-blink {
+    animation: blink 1s infinite;
+  }
+  
+  .animate-bounce {
+    animation: bounce 2s infinite;
+  }
+  
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease forwards;
+  }
+  
+  .animate-fade-in-up {
+    animation: fadeInUp 0.5s ease forwards;
+  }

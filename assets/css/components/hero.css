@@ -1,0 +1,80 @@
+/* components/hero.css - Hero section styling */
+
+.hero {
+  position: relative;
+  min-height: 80vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: var(--space-md);
+}
+
+/* Hero for index page with transition effect */
+.hero-index {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  opacity: 1;
+  visibility: visible;
+  transition: transform var(--transition-slow), 
+              opacity var(--transition-slow), 
+              visibility var(--transition-slow);
+}
+
+.hero-index.hidden {
+  transform: translateY(-100%);
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Typing container - centered and focused */
+.typing-container {
+  position: relative;
+  max-width: var(--container-default);
+  text-align: center;
+  margin: 0 auto;
+  padding: var(--space-sm);
+}
+
+.typing-text {
+  font-size: var(--text-xl);
+  font-weight: var(--font-light);
+  line-height: 1.3;
+  color: var(--neutral-800);
+}
+
+/* Cursor styling */
+.cursor {
+  display: inline-block;
+  width: 3px;
+  height: 1.2em;
+  background-color: var(--secondary);
+  margin-left: 2px;
+  animation: blink 1s infinite;
+  vertical-align: text-bottom;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .typing-text {
+    font-size: calc(var(--text-xl) * 0.9);
+  }
+  
+  .typing-container {
+    padding: var(--space-xs);
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    padding: var(--space-sm);
+  }
+  
+  .typing-text {
+    font-size: calc(var(--text-xl) * 0.8);
+  }
+}
