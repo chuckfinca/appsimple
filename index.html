@@ -35,31 +35,26 @@
             </div>
         </footer>
 
-        <!-- Configuration script -->
+        <!-- JavaScript modules -->
+        <!-- Configuration script - place this before loading main.js -->
         <script>
+            // Centralized configuration for the typing module
             const PAGE_CONFIG = {
                 typingText: "Hi there. What can AppSimple do for you?",
-                typingSpeed: 100
+                typingSpeed: 70,
+                speedVariation: 0.3,
+                initialDelay: 1000,
+                longPauseDuration: 1200, // Pause after sentences (e.g., after "Hi there.")
+                shortPauseDuration: 400,  // Pause before/after company name
+                wordPauseProbability: 0.15, // 15% chance of a thinking pause after words
+                thinkingDuration: [200, 500] // Range for thinking pauses
             };
         </script>
 
-        <!-- JavaScript modules - simplified -->
+        <!-- JavaScript modules - correct loading order -->
         <script src="assets/js/modules/utils.js"></script>
         <script src="assets/js/modules/typing.js"></script>
-        <script>
-            // Simplified main.js inline
-            document.addEventListener("DOMContentLoaded", function() {
-                // Initialize typing effect
-                const config = window.PAGE_CONFIG || {};
-                
-                TypingModule.init({
-                    text: config.typingText || "Hi there. What can AppSimple do for you?",
-                    targetElement: "typing-text",
-                    baseSpeed: config.typingSpeed || 70,
-                    speedVariation: 0.3,
-                    initialDelay: 1000
-                });
-            });
+        <script src="assets/js/main.js"></script>
         </script>
     </body>
 </html>
