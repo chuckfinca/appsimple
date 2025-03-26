@@ -4,13 +4,13 @@ const TypingModule = (function () {
   let config = {
     text: "",
     targetElement: null,
-    baseSpeed: 70,
+    baseSpeed: 90,
     initialDelay: 1000,
     speedVariation: 0.3, // Speed variation factor (0.3 means 30% variation)
-    longPauseDuration: 1200, // Pause after sentences
-    shortPauseDuration: 400, // Pause before/after company name
+    longPauseDuration: 1500, // Pause after sentences
+    shortPauseDuration: 80, // Pause before/after company name
     wordPauseProbability: 0.15, // Probability of a pause after regular words
-    thinkingDuration: [200, 500] // Range for random "thinking" pauses
+    thinkingDuration: [50, 100] // Range for random "thinking" pauses
   };
   
   // Process text into segments for special handling and pauses
@@ -166,7 +166,7 @@ const TypingModule = (function () {
         delay = config.longPauseDuration;
       } else if (segment.isSpecial) {
         // Short pause after company name
-        delay = config.shortPauseDuration;
+        delay = config.shortPauseDuration / 2 ;
       } else if (segments[segmentIndex + 1] && segments[segmentIndex + 1].isSpecial) {
         // Short pause before company name
         delay = config.shortPauseDuration;

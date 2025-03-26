@@ -25,3 +25,53 @@ handlers:
   - url: /(privacy|terms)
     static_files: \1.html
     upload: .*\.html
+    
+  # Mobile index page - explicit mapping
+  - url: /mobile/?
+    static_files: mobile/index.html
+    upload: mobile/index\.html
+    
+  # Mobile pages - explicit mappings without .html extension
+  - url: /mobile/bodhimind
+    static_files: mobile/bodhimind.html
+    upload: mobile/bodhimind\.html
+    
+  - url: /mobile/guidedmind
+    static_files: mobile/guidedmind.html
+    upload: mobile/guidedmind\.html
+    
+  - url: /mobile/livewire
+    static_files: mobile/livewire.html
+    upload: mobile/livewire\.html
+    
+  - url: /mobile/mindtimer
+    static_files: mobile/mindtimer.html
+    upload: mobile/mindtimer\.html
+    
+  - url: /mobile/privacy
+    static_files: mobile/privacy.html
+    upload: mobile/privacy\.html
+    
+  - url: /mobile/terms
+    static_files: mobile/terms.html
+    upload: mobile/terms\.html
+    
+  # Mobile pages with .html extension - for completeness
+  - url: /mobile/(bodhimind|guidedmind|livewire|mindtimer|privacy|terms)\.html
+    static_files: mobile/\1.html
+    upload: mobile/.*\.html
+  
+  # Mobile CSS files
+  - url: /mobile/css/(.*)
+    static_files: mobile/css/\1
+    upload: mobile/css/.*
+    
+  # Mobile images
+  - url: /mobile/images/(.*)
+    static_files: mobile/images/\1
+    upload: mobile/images/.*
+    
+  # Catch-all for any other files in mobile directory
+  - url: /mobile/(.*)
+    static_files: mobile/\1
+    upload: mobile/.*
