@@ -17,6 +17,12 @@
 @import url("components/icons.css");
 @import url("components/timeline.css");
 @import url("components/process-steps.css");
+@import url("components/case-study.css");
+@import url("components/testimonials.css");
+@import url("components/stats-cards.css");
+@import url("components/cta-sections.css");
+@import url("components/app-showcase.css");
+@import url("components/case-study-header.css");
 
 /* Import utilities last so they can override other styles */
 @import url("utils/helpers.css");

@@ -1,77 +1,371 @@
-<!DOCTYPE html>
-<html>
-<head>
-		<meta charset="utf-8">
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="apple-itunes-app" content="app-id=1260761658, affiliate-data=1l3vcSo">
+        <title>Bodhi Mind Case Study - AppSimple</title>
         
-		<title>Bodhi Mind</title>
-		<link href="css/reset.css" rel="stylesheet" type="text/css" />
-		<link href="css/stylesheet.css" rel="stylesheet" type="text/css" />
-		<link href="css/appPage.css" rel="stylesheet" type="text/css" />
-        <link href="css/appPage_mobile.css" rel="stylesheet" media='screen and (max-width: 1000px)' />
-        <link href="css/mobile.css" rel="stylesheet" media='screen and (max-width: 1000px)' />
-</head>
-	<body>
-    	<div id="wrapper">
+        <!-- Use only the main site's CSS which now includes all components -->
+        <link rel="stylesheet" href="../assets/css/main.css" />
         
-            <div class="appIntroContainer">
-                    <div id="introContainer">
-                        <div id="introText">
-                            <h2><a href="http://itunes.apple.com/app/id1260761658?uo=5&at=1l3vcSo">Bodhi Mind Meditations</a></h2>
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-C04ZYS5CZP"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-C04ZYS5CZP');
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="content">
+                <div class="content-inner">
+                    <nav class="content-nav">
+                        <ul>
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/mobile" class="active">Case Studies</a></li>
+                            <li><a href="/services">Services</a></li>
+                            <li><a href="/about">About</a></li>
+                            <li><a href="/contact">Contact</a></li>
+                        </ul>
+                    </nav>
+
+                    <!-- Case Study Header with compact metadata -->
+                    <div class="case-study-header">
+                      <h2 class="section-heading mb-md">Case Study: Bodhi Mind</h2>
+                      
+                      <!-- Title and description at the top -->
+                      <div class="app-description">
+                        <h3 class="app-title mb-sm">Meditation Content Platform</h3>
+                        <p>Developing a subscription-based mobile app with intelligent content organization for a renowned meditation teacher.</p>
+                      </div>
+                      
+                      <!-- App icon and compact metadata grid in a row -->
+                      <div class="metadata-container">
+                        <!-- App icon on the left -->
+                        <div class="app-icon-container">
+                          <img src="images/bodhiMind.png" alt="Bodhi Mind Icon" class="app-icon">
                         </div>
-                        <div class="storeLinks">
-                            <a href="http://itunes.apple.com/app/id1260761658?uo=5&at=1l3vcSo"><img src="images/appstore.png"></a>
+                        
+                        <!-- Compact metadata grid to the right -->
+                        <div class="project-metadata-grid">
+                          <div class="metadata-column">
+                            <div class="metadata-label">Client:</div>
+                            <div class="metadata-value">Bodhipaksa (meditation teacher)</div>
+                          </div>
+                          <div class="metadata-column">
+                            <div class="metadata-label">Platform:</div>
+                            <div class="metadata-value">iOS</div>
+                          </div>
+                          <div class="metadata-column">
+                            <div class="metadata-label">Timeline:</div>
+                            <div class="metadata-value">4 months</div>
+                          </div>
+                          <div class="metadata-column">
+                            <div class="metadata-label">Role:</div>
+                            <div class="metadata-value">Lead Developer</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                        
+                        <!-- App Screenshots -->
+                        <div class="mb-lg">
+                            <h3 class="mb-md">Project Results</h3>
+                            <div class="screenshots-grid">
+                                <img src="images/iPhone_BM_1.png" alt="Bodhi Mind screenshot" class="app-screenshot">
+                                <img src="images/iPhone_BM_2.png" alt="Bodhi Mind screenshot" class="app-screenshot">
+                                <img src="images/iPhone_BM_3.png" alt="Bodhi Mind screenshot" class="app-screenshot">
+                                <img src="images/iPhone_BM_4.png" alt="Bodhi Mind screenshot" class="app-screenshot">
+                            </div>
+                        </div>
+                        
+                        <!-- The Challenge -->
+                        <div class="process-step">
+                            <div class="process-step-content">
+                                <div class="process-step-header">
+                                    <div class="expertise-icon-container">
+                                        <svg class="icon expertise-icon" viewBox="0 0 24 24">
+                                            <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
+                                            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                                            <line x1="12" y1="17" x2="12.01" y2="17"/>
+                                        </svg>
+                                    </div>
+                                    <h3>The Challenge</h3>
+                                </div>
+                                <div class="process-step-content-body">
+                                    <p>Bodhipaksa, an established meditation teacher with over 200 recorded guided meditations, needed a way to make his extensive content library accessible to students worldwide. The existing solution—manually emailing MP3 files to customers—was inefficient and provided a poor user experience. The client faced several challenges:</p>
+                                    
+                                    <ul class="service-list">
+                                        <li>Content organization: Hundreds of meditation files needed to be categorized and made easily searchable</li>
+                                        <li>Discoverability: Users needed help finding the most relevant meditations for their specific needs</li>
+                                        <li>Monetization: A sustainable subscription model was needed to support ongoing content creation</li>
+                                        <li>User experience: Users needed a simple interface that wouldn't distract from meditation practice</li>
+                                        <li>Content management: The client needed an easy way to upload new content to the app</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- The Approach -->
+                        <div class="process-step">
+                            <div class="process-step-content">
+                                <div class="process-step-header">
+                                    <div class="expertise-icon-container">
+                                        <svg class="icon expertise-icon" viewBox="0 0 24 24">
+                                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                                        </svg>
+                                    </div>
+                                    <h3>My Approach</h3>
+                                </div>
+                                <div class="process-step-content-body">
+                                    <p>After thorough discovery sessions with the client, I developed a comprehensive strategy that would address all their needs while creating an exceptional user experience:</p>
+                                    
+                                    <h4 class="mt-md mb-sm">Content Strategy:</h4>
+                                    <p>I implemented a multi-dimensional tagging system for all meditation content, allowing users to find meditations by:</p>
+                                    <ul class="service-list">
+                                        <li>Category (type of meditation content)</li>
+                                        <li>Duration (short sessions to extended practices)</li>
+                                        <li>Album & Course (related meditations in structured programs)</li>
+                                        <li>Series (ongoing meditation series)</li>
+                                    </ul>
+                                    
+                                    <h4 class="mt-md mb-sm">Development Approach:</h4>
+                                    <p>I adopted a user-centered, iterative approach with regular client feedback sessions. This ensured we were building exactly what was needed while maintaining flexibility to adapt the implementation as we learned more.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Technical Implementation -->
+                        <div class="process-step">
+                            <div class="process-step-content">
+                                <div class="process-step-header">
+                                    <div class="expertise-icon-container">
+                                        <svg class="icon expertise-icon" viewBox="0 0 24 24">
+                                            <path d="M16 18l6-6-6-6"/>
+                                            <path d="M8 6l-6 6 6 6"/>
+                                        </svg>
+                                    </div>
+                                    <h3>Technical Implementation</h3>
+                                </div>
+                                <div class="process-step-content-body">
+                                    <p>To create a seamless experience for both users and the content creator, I developed a solution with several key components:</p>
+                                    
+                                    <h4 class="mt-md mb-sm">iOS Native App:</h4>
+                                    <p>I built a native iOS application in Objective-C (this was right when Swift was coming out) that provides an intuitive interface for browsing and playing meditation content. The app includes:</p>
+                                    
+                                    <ul class="service-list">
+                                        <li>Custom audio player with background play</li>
+                                        <li>Offline playback capabilities for downloaded content</li>
+                                        <li>List-view browsing options</li>
+                                        <li>Usage tracking</li>
+                                        <li>Favorites for easy content revisiting</li>
+                                    </ul>
+                                    
+                                    <h4 class="mt-md mb-sm">Backend Infrastructure:</h4>
+                                    <p>I implemented a backend using Firebase to manage content, user data, and subscription management:</p>
+                                    
+                                    <ul class="service-list">
+                                        <li>Firebase Realtime Database for application data</li>
+                                        <li>Firebase Storage for secure audio file storage</li>
+                                        <li>Firebase Analytics for basic usage insights</li>
+                                    </ul>
+                                    
+                                    <h4 class="mt-md mb-sm">Content Management System:</h4>
+                                    <p>I set up a streamlined content management workflow using Google Sheets that allows the client to:</p>
+                                    
+                                    <ul class="service-list">
+                                        <li>Upload new meditation recordings</li>
+                                        <li>Add and edit metadata and tags</li>
+                                        <li>Create curated meditation collections</li>
+                                        <li>View basic analytics on content popularity</li>
+                                    </ul>
+                                    
+                                    <h4 class="mt-md mb-sm">Technologies Used:</h4>
+                                    <ul class="service-list">
+                                        <li>Objective-C and UIKit for iOS development</li>
+                                        <li>Firebase (Realtime Database, Storage, Analytics)</li>
+                                        <li>Apple StoreKit for subscription management</li>
+                                        <li>Google Sheets for content management</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Results - UPDATED SECTION -->
+                        <div class="process-step">
+                            <div class="process-step-content">
+                                <div class="process-step-header">
+                                    <div class="expertise-icon-container">
+                                        <svg class="icon expertise-icon" viewBox="0 0 24 24">
+                                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                            <polyline points="22 4 12 14.01 9 11.01"/>
+                                        </svg>
+                                    </div>
+                                    <h3>Results & Impact</h3>
+                                </div>
+                                <div class="process-step-content-body">
+                                    <p>The Bodhi Mind app launched successfully and has achieved significant user engagement:</p>
+                                    
+                                    <!-- Key Metrics -->
+                                    <div class="about-stats mt-md">
+                                        <div class="stat-item">
+                                            <div class="stat-number">100K+</div>
+                                            <div class="stat-label">Total meditation sessions</div>
+                                        </div>
+                                        
+                                        <div class="stat-item">
+                                            <div class="stat-number">13K+</div>
+                                            <div class="stat-label">First-time users</div>
+                                        </div>
+                                        
+                                        <div class="stat-item">
+                                            <div class="stat-number">4.6</div>
+                                            <div class="stat-label">App Store rating</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <p class="mt-md">Key technical achievements included:</p>
+                                    
+                                    <ul class="service-list">
+                                        <li><strong>Complex audio streaming</strong> with reliable playback across variable network conditions</li>
+                                        <li><strong>Efficient offline storage</strong> enabling users to download meditations for offline use</li>
+                                        <li><strong>Full product lifecycle management</strong> from initial design through App Store deployment</li>
+                                    </ul>
+                                    
+                                    <p>For the content creator, the platform delivered substantial benefits:</p>
+                                    
+                                    <ul class="service-list">
+                                        <li>Global digital distribution reaching thousands of new students</li>
+                                        <li>Significantly reduced content management overhead</li>
+                                        <li>Sustainable subscription revenue to support ongoing content creation</li>
+                                    </ul>
+                                    
+                                    <div class="testimonial">
+                                        <div class="testimonial-content">"This app transformed my business. Not only have I reached more students, but the organized content system does such an excellent job helping users find appropriate meditations that they get more benefit more quickly."</div>
+                                        <div class="testimonial-author">— Bodhipaksa, App Owner & Meditation Teacher</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Key Learnings -->
+                        <div class="process-step">
+                            <div class="process-step-content">
+                                <div class="process-step-header">
+                                    <div class="expertise-icon-container">
+                                        <svg class="icon expertise-icon" viewBox="0 0 24 24">
+                                            <path d="M18 8h1a4 4 0 0 1 0 8h-1"/>
+                                            <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
+                                            <line x1="6" y1="1" x2="6" y2="4"/>
+                                            <line x1="10" y1="1" x2="10" y2="4"/>
+                                            <line x1="14" y1="1" x2="14" y2="4"/>
+                                        </svg>
+                                    </div>
+                                    <h3>Key Learnings</h3>
+                                </div>
+                                <div class="process-step-content-body">
+                                    <p>This project reinforced several important principles about developing content platforms:</p>
+                                    
+                                    <h4 class="mt-md mb-sm">Content Organization:</h4>
+                                    <p>Working with a large meditation library highlighted the importance of:</p>
+                                    
+                                    <ul class="service-list">
+                                        <li>Developing a comprehensive taxonomy before implementing the tagging system</li>
+                                        <li>Creating multiple entry points to content (categories, collections)</li>
+                                        <li>Balancing discoverability with simplicity in the user interface</li>
+                                    </ul>
+                                    
+                                    <h4 class="mt-md mb-sm">Technical Architecture:</h4>
+                                    <p>This project reinforced my approach to building content platforms:</p>
+                                    
+                                    <ul class="service-list">
+                                        <li>Firebase provided a rapid development experience for mobile-focused projects</li>
+                                        <li>Investing in content metadata infrastructure pays dividends for discoverability</li>
+                                        <li>Simple content management workflows often outperform complex systems for individual creators</li>
+                                    </ul>
+                                    
+                                    <p>These learnings have informed my approach to subsequent content platform projects, including how I structure content organization and management workflows.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- If I Were Building This Today Section -->
+                        <div class="process-step">
+                            <div class="process-step-content">
+                                <div class="process-step-header">
+                                    <div class="expertise-icon-container">
+                                        <svg class="icon expertise-icon" viewBox="0 0 24 24">
+                                            <circle cx="12" cy="12" r="10"/>
+                                            <line x1="12" y1="8" x2="12" y2="12"/>
+                                            <line x1="12" y1="16" x2="12.01" y2="16"/>
+                                        </svg>
+                                    </div>
+                                    <h3>If I Were Building This Today</h3>
+                                </div>
+                                <div class="process-step-content-body">
+                                    <p>The Bodhi Mind project successfully addressed the client's needs with the technologies available at the time. If I were building a similar meditation platform today, I would incorporate several AI capabilities to significantly enhance both the user experience and content management:</p>
+                                    
+                                    <h4 class="mt-md mb-sm">Content Enhancement:</h4>
+                                    <ul class="service-list">
+                                        <li><strong>Automated Transcriptions and Captioning</strong> - AI would generate accurate transcripts of all meditations, improving accessibility and enabling text search of spoken content</li>
+                                        <li><strong>Automated Content Tagging</strong> - NLP systems could analyze meditation audio to automatically tag and categorize content by themes, techniques, and tone</li>
+                                        <li><strong>Language Expansion</strong> - Using voice cloning technology to offer meditations in multiple languages while preserving the guide's voice characteristics</li>
+                                        <li><strong>Content Summarization</strong> - Generating concise descriptions of longer meditations to help users quickly find relevant content</li>
+                                    </ul>
+                                    
+                                    <h4 class="mt-md mb-sm">Personalization:</h4>
+                                    <ul class="service-list">
+                                        <li><strong>Intelligent Recommendations</strong> - Machine learning algorithms could analyze usage patterns and feedback to suggest meditations tailored to individual needs</li>
+                                        <li><strong>Mood-Based Suggestions</strong> - Sentiment analysis could identify appropriate content based on optional user mood input</li>
+                                        <li><strong>Time-of-Day Optimization</strong> - Pattern recognition to identify when different types of meditations are most effective for each user</li>
+                                        <li><strong>Adaptive Session Lengths</strong> - Algorithmically determining optimal meditation durations for individual users</li>
+                                    </ul>
+                                    
+                                    <h4 class="mt-md mb-sm">User Experience:</h4>
+                                    <ul class="service-list">
+                                        <li><strong>Voice-Controlled Navigation</strong> - Natural language processing for hands-free control, especially valuable during meditation</li>
+                                        <li><strong>Smart Notifications</strong> - Machine learning to determine optimal times for practice reminders based on user behavior</li>
+                                        <li><strong>Progress Insights</strong> - AI analysis of usage patterns to provide meaningful feedback on meditation progress</li>
+                                        <li><strong>Contextual Awareness</strong> - Using device sensors and calendar integration to suggest appropriate meditations for current situations</li>
+                                    </ul>
+                                    
+                                    <p class="mt-md">These AI enhancements would transform a static content library into a dynamic, personalized meditation companion that adapts to each user's unique needs and practices. This represents the evolution I'm now bringing to new projects—combining strong content organization fundamentals with powerful AI capabilities to create more intelligent, responsive digital experiences.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- App Link -->
+                        <div class="index-cta mt-xl">
+                            <h3 class="mb-sm">See the project in action</h3>
+                            <p class="mb-md">Download Bodhi Mind and experience the results firsthand.</p>
+                            <a href="http://itunes.apple.com/app/id1260761658?uo=5&at=1l3vcSo" class="cta-button">
+                                Download on App Store
+                            </a>
+                        </div>
+                        
+                        <!-- CTA for services -->
+                        <div class="process-cta">
+                            <h3>Need a content platform with advanced AI capabilities?</h3>
+                            <p>My experience building content platforms like Bodhi Mind has shown me the immense potential for AI to transform these systems. Now I'm focused on implementing modern AI technologies to create even more intelligent, personalized content experiences. Let's discuss how I can help with your next project.</p>
+                            <a href="/contact" class="process-cta-button">Get in Touch</a>
                         </div>
                     </div>
-                    <a id="mainImage" href="http://itunes.apple.com/app/id1260761658?uo=5&at=1l3vcSo">
-                        <img src="images/iPhone_BM_1.png"/>
-                    </a>
-            </div>
-            <div id="iconSeparatorContainer">
-            	<div id="leftLine" class="line"></div>
-            	<a href="http://itunes.apple.com/app/id1260761658?uo=5&at=1l3vcSo">
-            		<img id="icon" src="images/bodhiMind.png"/>
-                </a>
-            	<div id="rightLine" class="line"></div>
-            </div>
-            <div id="screenShotsContainer">
-            	<div class="screenShotContainer">
-                	<img class="screenShot" src="images/iPhone_BM_2.png">
                 </div>
-            	<div class="screenShotContainer">
-                	<img class="screenShot" src="images/iPhone_BM_3.png">
-                </div>
-            	<div class="screenShotContainer">
-                	<img class="screenShot" src="images/iPhone_BM_4.png">
-                </div>
-            </div>
-            <p class="appDescription">Enhance your life with the Bodhi Mind app.
-</p>
-            <br>
-            <br>
-            <p class="appDescription">We’ll help you become the best possible version of you through the power of meditation and mindfulness.</p>
-            <br>
-            <p class="appDescription">Bodhi Mind comes with a free two week trial in which you can access more than 200 meditations led by Bodhipaksa, an acclaimed meditation teacher. These cover everything from a basic introduction to the practice of mindfulness, which will help you to have a healthier and happier life, through meditations on lovingkindness and compassion, to more advanced insight meditations.</p>
-            <br>
-            <p class="appDescription">After the trial you will still have access to 12 free meditations for the life of the app. To keep the rest unlocked, you'll want to choose one of our subscription packages.</p>
-            <br>
-            <p class="appDescription">Our library of meditations will continually grow. But right from the very start you’ll find meditations to help you deal with stress and anxiety, to help you sleep better, and to help you overcome self-criticism.</p>
-            <br>
-            <p class="appDescription">Meditation packages from our online courses will help you create healthier relationships with people in your life — and with yourself. There are even meditations that are only two or three minutes long that will help you fit mindfulness practice into the busiest of days.</p>
-            <br>
-            <p class="appDescription">Work your way through a structured program of meditations, browse categories such as “Stress” or “Self-Compassion” to pick the meditation that best fits your needs, or try out the latest offerings from the list of recently added meditations.</p>
-            <br>
-            <p class="appDescription">You can create a playlist of your favorite tracks, and see which meditations you’ve played most often.</p>
-            <br>
-            <p class="appDescription">Sit back, relax, and let Bodhi Mind guide you toward peace of mind. The next step of your journey of self-discovery is just a download away.</p>
-            <br>
-            <a class="callout" href="http://itunes.apple.com/app/id1260761658?uo=5&at=1l3vcSo"><img src="images/appstore.png"></a>
-            <div>
-            	<h4>Apps for everyone.</h4>
+                
+                <!-- Footer -->
+                <footer class="app-footer">
+                    <div class="footer-content">
+                        <span id="copyright">Copyright © 2025 <a href="/">AppSimple</a> - 
+                            <a href="mailto:support@appsimple.io">support@appsimple.io</a> - 
+                            <a href="/privacy">Privacy</a> - 
+                            <a href="/terms">Terms</a></span>
+                    </div>
+                </footer>
             </div>
         </div>
-        <div>
-        	<span id="copyright">Copyright © 2017 <a href="\">AppSimple LLC</a> - <a href="mailto:support@appsimple.io">support@appsimple.io</a> - <a href="../privacy.html">Privacy</a> - <a href="../terms.html">Terms</a></span>
-        </div>
-</body>
+    </body>
 </html>

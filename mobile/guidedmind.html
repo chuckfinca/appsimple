@@ -1,136 +1,513 @@
-<!DOCTYPE html>
-<html>
-<head>
-		<meta charset="utf-8">
-        <meta name="apple-itunes-app" content="app-id=672076838, affiliate-data= 1l3vcSo">
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="apple-itunes-app" content="app-id=672076838, affiliate-data=1l3vcSo">
+        <title>Guided Mind Case Study - AppSimple</title>
         
-		<title>Guided Mind</title>
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
-		<link href="css/reset.css" rel="stylesheet" type="text/css" />
-		<link href="css/stylesheet.css" rel="stylesheet" type="text/css" />
-		<link href="css/appPage.css" rel="stylesheet" type="text/css" />
-        <link href="css/appPage_mobile.css" rel="stylesheet" media='screen and (max-width: 1000px)' />
-        <link href="css/mobile.css" rel="stylesheet" media='screen and (max-width: 1000px)' />
-</head>
-	<body>
-    	<div id="wrapper">
-            <div class="appIntroContainer">
-            <iframe id="video" width="560" height="315" src="https://www.youtube.com/embed/zgQ9Z4RAtKk" frameborder="0" allowfullscreen></iframe>
-            	<div id="introContainer">
-                    <div id="introText">
-                        <h2><a href="http://itunes.apple.com/app/id672076838?uo=5&at=1l3vcSo">Guided Mind — Relieve Stress & Suffering Caused By Insomnia, Pregnancy, Anxiety & More Using Guided Meditation, Imagery, Hypnosis & Mindfulness</a></h2>
+        <!-- Use the main site's CSS -->
+        <link rel="stylesheet" href="../assets/css/main.css" />
+        
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-C04ZYS5CZP"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-C04ZYS5CZP');
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="content">
+                <div class="content-inner">
+                    <nav class="content-nav">
+                        <ul>
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/mobile" class="active">Case Studies</a></li>
+                            <li><a href="/services">Services</a></li>
+                            <li><a href="/about">About</a></li>
+                            <li><a href="/contact">Contact</a></li>
+                        </ul>
+                    </nav>
+
+                    <!-- Case Study Header -->
+                    <div class="process-section">
+                        <h2>Case Study: Guided Mind</h2>
+                        
+                        <!-- Project Overview -->
+                        <div class="featured-service-card mb-lg">
+                            <div class="flex flex-wrap items-center">
+                                <div class="flex-grow mb-md">
+                                    <h3 class="mb-sm">Meditation Content Marketplace</h3>
+                                    <p class="mb-md">Building a cross-platform marketplace connecting multiple meditation teachers with a global audience through a curated content experience.</p>
+                                    <div class="project-metadata">
+                                        <div class="metadata-item">
+                                            <strong>Platform:</strong> iOS & Android
+                                        </div>
+                                        <div class="metadata-item">
+                                            <strong>Timeline:</strong> 6 months initial development
+                                        </div>
+                                        <div class="metadata-item">
+                                            <strong>Role:</strong> Founder & Lead Developer
+                                        </div>
+                                        <div class="metadata-item">
+                                            <strong>Partners:</strong> 9 professional meditation guides
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="app-icon-container">
+                                    <img src="images/guidedMind.png" alt="Guided Mind Icon" class="app-icon rounded-md">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- App Screenshots -->
+                        <div class="mb-lg">
+                            <h3 class="mb-md">Project Results</h3>
+                            <div class="screenshots-grid">
+                                <img src="images/iPhone.png" alt="Guided Mind screenshot" class="app-screenshot">
+                                <img src="images/iPhone_2.png" alt="Guided Mind screenshot" class="app-screenshot">
+                                <img src="images/iPhone_3.png" alt="Guided Mind screenshot" class="app-screenshot">
+                                <img src="images/iPhone_4.png" alt="Guided Mind screenshot" class="app-screenshot">
+                            </div>
+                        </div>
+                        
+                        <!-- The Challenge -->
+                        <div class="process-step">
+                            <div class="process-step-content">
+                                <div class="process-step-header">
+                                    <div class="expertise-icon-container">
+                                        <svg class="icon expertise-icon" viewBox="0 0 24 24">
+                                            <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
+                                            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                                            <line x1="12" y1="17" x2="12.01" y2="17"/>
+                                        </svg>
+                                    </div>
+                                    <h3>The Challenge</h3>
+                                </div>
+                                <div class="process-step-content-body">
+                                    <p>At the time of Guided Mind's creation, meditation content was divided into two categories: single-creator apps with limited content variety, and subscription platforms with no clear attribution to individual teachers. I saw an opportunity to create a marketplace that would:</p>
+                                    
+                                    <ul class="service-list">
+                                        <li><strong>Connect multiple content creators</strong> with audiences under a unified platform</li>
+                                        <li><strong>Preserve teacher identity</strong> while maintaining a consistent user experience</li>
+                                        <li><strong>Create a sustainable business model</strong> for independent meditation teachers</li>
+                                        <li><strong>Reach both iOS and Android users</strong> with a high-quality experience</li>
+                                        <li><strong>Offer topic-specific purchases</strong> rather than forcing all-or-nothing subscriptions</li>
+                                    </ul>
+                                    
+                                    <p>The technical challenges were significant, requiring a multi-platform solution that could scale with both content volume and user base while maintaining a seamless experience across devices.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- My Approach -->
+                        <div class="process-step">
+                            <div class="process-step-content">
+                                <div class="process-step-header">
+                                    <div class="expertise-icon-container">
+                                        <svg class="icon expertise-icon" viewBox="0 0 24 24">
+                                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                                        </svg>
+                                    </div>
+                                    <h3>My Approach</h3>
+                                </div>
+                                <div class="process-step-content-body">
+                                    <p>I approached Guided Mind as both a technical and business challenge, with several key strategies:</p>
+                                    
+                                    <h4 class="mt-md mb-sm">Marketplace Strategy:</h4>
+                                    <ul class="service-list">
+                                        <li><strong>Content quality standards</strong> to ensure consistent quality while allowing each guide's unique voice</li>
+                                        <li><strong>Topic-based purchasing model</strong> allowing users to buy precisely the content they needed</li>
+                                        <li><strong>Revenue sharing agreements</strong> with content creators based on their content's performance</li>
+                                        <li><strong>Freemium model</strong> with 20+ free meditations to encourage platform adoption</li>
+                                    </ul>
+                                    
+                                    <h4 class="mt-md mb-sm">Technical Strategy:</h4>
+                                    <ul class="service-list">
+                                        <li><strong>Cross-platform development</strong> to reach both iOS and Android users</li>
+                                        <li><strong>Scalable content management system</strong> designed to handle hundreds of audio files</li>
+                                        <li><strong>Unified taxonomy and categorization system</strong> across all content creators</li>
+                                        <li><strong>Progressive content loading</strong> to prevent overwhelming users with too many options</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Technical Implementation -->
+                        <div class="process-step">
+                            <div class="process-step-content">
+                                <div class="process-step-header">
+                                    <div class="expertise-icon-container">
+                                        <svg class="icon expertise-icon" viewBox="0 0 24 24">
+                                            <path d="M16 18l6-6-6-6"/>
+                                            <path d="M8 6l-6 6 6 6"/>
+                                        </svg>
+                                    </div>
+                                    <h3>Technical Implementation</h3>
+                                </div>
+                                <div class="process-step-content-body">
+                                    <p>Building a cross-platform marketplace for audio content presented unique technical challenges that required thoughtful solutions:</p>
+                                    
+                                    <h4 class="mt-md mb-sm">Mobile Applications:</h4>
+                                    <p>I developed native applications for both major platforms to ensure optimal performance and user experience:</p>
+                                    
+                                    <ul class="service-list">
+                                        <li><strong>iOS App</strong> - Built with Objective-C to provide a responsive, native feel for Apple users</li>
+                                        <li><strong>Android App</strong> - Developed using Java to reach the global Android user base</li>
+                                        <li><strong>Custom Audio Player</strong> - Created a reliable playback system with background capabilities</li>
+                                        <li><strong>Offline Access</strong> - Implemented efficient content download and storage system</li>
+                                        <li><strong>Platform-Specific UX</strong> - Tailored interfaces to follow platform design conventions</li>
+                                    </ul>
+                                    
+                                    <h4 class="mt-md mb-sm">Backend Systems:</h4>
+                                    <p>I designed a scalable infrastructure to support content distribution and marketplace operations:</p>
+                                    
+                                    <ul class="service-list">
+                                        <li><strong>Content Delivery</strong> - Optimized for both streaming and download performance</li>
+                                        <li><strong>User Account Management</strong> - Cross-platform authentication and purchase history</li>
+                                        <li><strong>Analytics System</strong> - Tracking usage patterns to guide content strategy</li>
+                                        <li><strong>Creator Dashboards</strong> - Providing content performance metrics to creators</li>
+                                    </ul>
+                                    
+                                    <h4 class="mt-md mb-sm">Content Management:</h4>
+                                    <p>I developed streamlined workflows for managing the diverse content library:</p>
+                                    
+                                    <ul class="service-list">
+                                        <li><strong>Audio Processing Pipeline</strong> - Standardizing audio quality across submissions</li>
+                                        <li><strong>Metadata System</strong> - Creating consistent categorization across creators</li>
+                                        <li><strong>Approval Workflow</strong> - Ensuring all content met quality standards</li>
+                                        <li><strong>Versioning System</strong> - Managing content updates without disrupting users</li>
+                                    </ul>
+                                    
+                                    <h4 class="mt-md mb-sm">Technologies Used:</h4>
+                                    <ul class="service-list">
+                                        <li>Objective-C and Java for native mobile development</li>
+                                        <li>Node.js for backend services</li>
+                                        <li>MongoDB for flexible content storage</li>
+                                        <li>AWS S3 for audio file storage</li>
+                                        <li>In-app purchase systems for both iOS and Android</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Results & Impact -->
+                        <div class="process-step">
+                            <div class="process-step-content">
+                                <div class="process-step-header">
+                                    <div class="expertise-icon-container">
+                                        <svg class="icon expertise-icon" viewBox="0 0 24 24">
+                                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                            <polyline points="22 4 12 14.01 9 11.01"/>
+                                        </svg>
+                                    </div>
+                                    <h3>Results & Impact</h3>
+                                </div>
+                                <div class="process-step-content-body">
+                                    <p>Guided Mind has achieved significant success as a meditation content marketplace:</p>
+                                    
+                                    <!-- Key Metrics -->
+                                    <div class="about-stats mt-md">
+                                        <div class="stat-item">
+                                            <div class="stat-number">295K+</div>
+                                            <div class="stat-label">Total app installations</div>
+                                        </div>
+                                        
+                                        <div class="stat-item">
+                                            <div class="stat-number">9</div>
+                                            <div class="stat-label">Content creators onboarded</div>
+                                        </div>
+                                        
+                                        <div class="stat-item">
+                                            <div class="stat-number">4.7</div>
+                                            <div class="stat-label">App Store rating</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <p class="mt-md">For meditation teachers, the platform provided:</p>
+                                    
+                                    <ul class="service-list">
+                                        <li>A turnkey digital distribution solution without technical overhead</li>
+                                        <li>Access to a global audience of meditation enthusiasts</li>
+                                        <li>Ongoing revenue from their content without managing subscriptions</li>
+                                        <li>Professional presentation of their work alongside respected peers</li>
+                                    </ul>
+                                    
+                                    <p>For users, Guided Mind offered unique benefits:</p>
+                                    
+                                    <ul class="service-list">
+                                        <li>Access to multiple teaching styles within a single application</li>
+                                        <li>Flexibility to purchase only content relevant to their specific needs</li>
+                                        <li>A consistent, high-quality user experience across both iOS and Android</li>
+                                        <li>Free content to experience different teachers before purchasing</li>
+                                    </ul>
+                                    
+                                    <div class="testimonial">
+                                        <div class="testimonial-content">"Guided Mind revolutionized how I distribute my meditation content. Before this platform, I was struggling with hosting my own website and handling payments. Now I can focus on what I do best—creating helpful guided meditations—while reaching a much larger audience."</div>
+                                        <div class="testimonial-author">— Glenda Cedarleaf, Meditation Guide & Platform Partner</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Key Learnings -->
+                        <div class="process-step">
+                            <div class="process-step-content">
+                                <div class="process-step-header">
+                                    <div class="expertise-icon-container">
+                                        <svg class="icon expertise-icon" viewBox="0 0 24 24">
+                                            <path d="M18 8h1a4 4 0 0 1 0 8h-1"/>
+                                            <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
+                                            <line x1="6" y1="1" x2="6" y2="4"/>
+                                            <line x1="10" y1="1" x2="10" y2="4"/>
+                                            <line x1="14" y1="1" x2="14" y2="4"/>
+                                        </svg>
+                                    </div>
+                                    <h3>Key Learnings</h3>
+                                </div>
+                                <div class="process-step-content-body">
+                                    <p>Building and scaling Guided Mind provided valuable insights into creating successful content marketplaces:</p>
+                                    
+                                    <h4 class="mt-md mb-sm">Marketplace Dynamics:</h4>
+                                    <ul class="service-list">
+                                        <li><strong>Quality over quantity</strong> - Curating fewer high-quality contributors created more value than onboarding many mediocre ones</li>
+                                        <li><strong>Transparent creator relationships</strong> - Clear communication about platform expectations and revenue sharing built trust</li>
+                                        <li><strong>User-driven features</strong> - Listening to user feedback revealed unexpected feature priorities</li>
+                                        <li><strong>Flexible purchasing model</strong> - Topic-based purchases outperformed subscription models for specialized content</li>
+                                    </ul>
+                                    
+                                    <h4 class="mt-md mb-sm">Technical Architecture:</h4>
+                                    <ul class="service-list">
+                                        <li><strong>Platform-specific development</strong> - Native apps provided better user experience than cross-platform shortcuts</li>
+                                        <li><strong>Scalable content delivery</strong> - Designing for growth from the start prevented major refactoring later</li>
+                                        <li><strong>Metadata importance</strong> - Investing in robust metadata systems significantly improved content discovery</li>
+                                        <li><strong>Progressive implementation</strong> - Starting with core features and expanding based on usage patterns optimized development resources</li>
+                                    </ul>
+                                    
+                                    <p>These lessons have informed my approach to all subsequent platform development projects, particularly in how I balance technical implementation with business model considerations.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- If I Were Building This Today -->
+                        <div class="process-step">
+                            <div class="process-step-content">
+                                <div class="process-step-header">
+                                    <div class="expertise-icon-container">
+                                        <svg class="icon expertise-icon" viewBox="0 0 24 24">
+                                            <circle cx="12" cy="12" r="10"/>
+                                            <line x1="12" y1="8" x2="12" y2="12"/>
+                                            <line x1="12" y1="16" x2="12.01" y2="16"/>
+                                        </svg>
+                                    </div>
+                                    <h3>If I Were Building This Today</h3>
+                                </div>
+                                <div class="process-step-content-body">
+                                    <p>If I were building a meditation content marketplace today, I would leverage AI to enhance several aspects of the platform:</p>
+                                    
+                                    <h4 class="mt-md mb-sm">Creator Experience:</h4>
+                                    <ul class="service-list">
+                                        <li><strong>Automated Content Preparation</strong> - AI tools to help creators enhance audio quality, add appropriate music beds, and optimize their recordings</li>
+                                        <li><strong>Content Tagging Assistance</strong> - NLP systems to suggest appropriate tags and categories based on content analysis</li>
+                                        <li><strong>Performance Analytics</strong> - ML-powered analytics showing which content elements resonate most with users</li>
+                                        <li><strong>Voice Expansion</strong> - Tools to help creators offer their content in multiple languages using AI voice translation</li>
+                                    </ul>
+                                    
+                                    <h4 class="mt-md mb-sm">Marketplace Intelligence:</h4>
+                                    <ul class="service-list">
+                                        <li><strong>Cross-Creator Recommendations</strong> - Sophisticated ML models to suggest content across different creators based on user preferences</li>
+                                        <li><strong>Content Gap Analysis</strong> - AI identification of underserved meditation topics or styles to guide creator content strategy</li>
+                                        <li><strong>Dynamic Pricing Optimization</strong> - ML-based price testing to maximize both creator revenue and user purchases</li>
+                                        <li><strong>Content Quality Verification</strong> - Automated systems to ensure consistent audio quality across all submissions</li>
+                                    </ul>
+                                    
+                                    <h4 class="mt-md mb-sm">User Experience:</h4>
+                                    <ul class="service-list">
+                                        <li><strong>Personalized Content Bundles</strong> - AI-curated collections of content from multiple creators based on individual user needs</li>
+                                        <li><strong>Voice-Guided Exploration</strong> - Conversational AI to help users find exactly the right meditation through natural dialogue</li>
+                                        <li><strong>Effectiveness Tracking</strong> - Integration with health data to provide insights on how different meditations affect sleep, heart rate, etc.</li>
+                                        <li><strong>Adaptive Session Sequencing</strong> - AI-designed meditation programs that adapt based on user progress and feedback</li>
+                                    </ul>
+                                    
+                                    <p class="mt-md">These AI-powered enhancements would transform a content marketplace into an intelligent wellness platform, creating more value for both creators and users while maintaining the core marketplace model that made Guided Mind successful.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- App Link -->
+                        <div class="index-cta mt-xl">
+                            <h3 class="mb-sm">See the project in action</h3>
+                            <p class="mb-md">Download Guided Mind and experience the results firsthand.</p>
+                            <div class="flex flex-wrap justify-center gap">
+                                <a href="http://itunes.apple.com/app/id672076838?uo=5&at=1l3vcSo" class="cta-button">
+                                    Download on App Store
+                                </a>
+                                <a href="https://play.google.com/store/apps/details?id=io.appsimple.guidedmind&hl=en" class="cta-button">
+                                    Get it on Google Play
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <!-- CTA for services -->
+                        <div class="process-cta">
+                            <h3>Need a multi-sided marketplace with AI capabilities?</h3>
+                            <p>My experience building content marketplaces like Guided Mind has given me deep insights into connecting content creators with audiences. Now I'm focused on implementing AI technologies to make these connections even more powerful and personalized. Let's discuss how I can help with your next marketplace project.</p>
+                            <a href="/contact" class="process-cta-button">Get in Touch</a>
+                        </div>
                     </div>
-                    <div class="storeLinks">
-                        <a href="http://itunes.apple.com/app/id672076838?uo=5&at=1l3vcSo"><img src="images/appstore.png"></a>
-                        <a href="https://play.google.com/store/apps/details?id=io.appsimple.guidedmind&hl=en"><img alt='Get it on Google Play' src="images/androidBadge.png"/></a>
+                </div>
+                
+                <!-- Footer -->
+                <footer class="app-footer">
+                    <div class="footer-content">
+                        <span id="copyright">Copyright © 2025 <a href="/">AppSimple</a> - 
+                            <a href="mailto:support@appsimple.io">support@appsimple.io</a> - 
+                            <a href="/privacy">Privacy</a> - 
+                            <a href="/terms">Terms</a></span>
                     </div>
-                </div>
-            	<a id="mainImage" href="http://itunes.apple.com/app/id672076838?uo=5&at=1l3vcSo">
-            		<img src="images/iPhone.png"/>
-                </a>
-            </div>
-            <div id="iconSeparatorContainer">
-            	<div id="leftLine" class="line"></div>
-            	<a href="http://itunes.apple.com/app/id672076838?uo=5&at=1l3vcSo">
-            		<img id="icon" src="images/guidedMind.png"/>
-                </a>
-            	<div id="rightLine" class="line"></div>
-            </div>
-            <div id="screenShotsContainer">
-            	<div class="screenShotContainer">
-                	<img class="screenShot" src="images/iPhone_2.png">
-                </div>
-            	<div class="screenShotContainer">
-                	<img class="screenShot" src="images/iPhone_3.png">
-                </div>
-            	<div class="screenShotContainer">
-                	<img class="screenShot" src="images/iPhone_4.png">
-                </div>
-            	<div class="screenShotContainer">
-                	<img class="screenShot" src="images/iPhone_5.png">
-                </div>
-            </div>
-            <div id="rating">
-            	<img src="images/guidedMindRating.png">
-            </div>
-            <p class="appDescription">Relax and get guided through meditations on a variety of topics dealing with the stresses and challenges of day-to-day life.</p>
-            <br>
-            <p class="appDescription">Updated frequently with new guides and meditations.</p>
-            <br>
-            <br>
-            <p class="appDescription">FEATURES</p>
-            <br>
-            <p class="appDescription">・Easy & effective step-by-step, voice-guided meditations</p>
-            <p class="appDescription">・Short (~5min), medium (~15min), and long (30+ min) meditations</p>
-            <p class="appDescription">・8 different meditation guides (speakers)</p>
-            <p class="appDescription">・20+ FREE high quality meditations</p>
-            <p class="appDescription">・150+ high quality meditations</p>
-            <p class="appDescription">・14 FREE nature soundscapes</p>
-            <p class="appDescription">・20+ instrumental tracks</p>
-            <p class="appDescription">・Looping for continuous play</p>
-            <p class="appDescription">・Download any meditation and listen without an internet connection</p>
-            <p class="appDescription">・Easy-to-use interface</p>
-            <p class="appDescription">・Instructions on how to use the app to meditate</p>
-            <p class="appDescription">・Information about each guide</p>
-            <p class="appDescription">・Meditations for both beginners & experienced meditators</p>
-            <br>
-            <br>
-            <p class="appDescription">TOPICS</p>
-            <br>
-            <p class="appDescription">・Body Image</p>
-            <p class="appDescription">・Change</p>
-            <p class="appDescription">・Creativity</p>
-            <p class="appDescription">・Letting Go</p>
-            <p class="appDescription">・Mortality</p>
-            <p class="appDescription">・Motivation</p>
-            <p class="appDescription">・Pain</p>
-            <p class="appDescription">・Pregnancy</p>
-            <p class="appDescription">・Sleep & Insomnia</p>
-            <p class="appDescription">・Stress</p>
-            <p class="appDescription">・Weight loss</p>
-            <p class="appDescription">・Wellbeing</p>
-            <p class="appDescription">・And many, many more!</p>
-            <br>
-            <br>
-            <p class="appDescription">GUIDES</p>
-            <br>
-            <p class="appDescription">・Brad Austen</p>
-            <p class="appDescription">・Glenda Cedarleaf</p>
-            <p class="appDescription">・Terri Cole</p>
-            <p class="appDescription">・Kerie Logan</p>
-            <p class="appDescription">・Marcelo Mansour</p>
-            <p class="appDescription">・Dr. Emmett Miller</p>
-            <p class="appDescription">・Yvonne Racine</p>
-            <p class="appDescription">・Candi Raudebaugh</p>
-            <p class="appDescription">・Travis Usinger</p>
-            <br>
-            <br>
-            <p class="appDescription">REVIEWS</p>
-            <br>
-            <p class="appDescription">"Love the variety of the meditations! - You can find the one or ones that are right for you." - LawlwyL</p>
-            <br>
-            <p class="appDescription">"Highest Recommendation - This app is rich in content even without in-app purchases. The new version works smoothly. This app is top quality throughout." - Gates of Eden</p>
-            <br>
-            <p class="appDescription">"One of the best apps i own. - Has helped me greatly in times I needed to de-stress, relax while crocheting, and even with my anxiety. This is my go-to app when I'm feeling the tension or I just want a few minutes to relax and gather myself." - DoctorMom77</p>
-            <br>
-            <p class="appDescription">"Guided Mind is a great app for guided meditation, whether you're a 'pro' or just getting started. The user interface is clean and easy to navigate and the app runs smooth as butter. It's also great that you can pick and choose which topics you want for incredibly low prices (these same GM Topics can cost anywhere from $5-$20 anywhere else). It's a great deal." - syntheticvoid</p>
-            <br>
-            <p class="appDescription">"Very helpful - By far and away the best guided imagery app I have found. With a vast range of in app purchases, there is something for everyone. This app is helping me through a tough time in my life and I appreciate this so much. Thanks to the developers." - GubTrain</p>
-            <br>
-            <p class="appDescription">More topics are added frequently. If you or anyone you know would like to get their content in this app, please email support@appsimple.io.</p>
-            <br>
-            <div class="storeLinks">
-            	<a href="http://itunes.apple.com/app/id672076838?uo=5&at=1l3vcSo"><img src="images/appstore.png"></a>
-            	<a href="https://play.google.com/store/apps/details?id=io.appsimple.guidedmind&hl=en"><img alt='Get it on Google Play' src="
-images/androidBadge.png"/></a>
-			</div>
-            <a id="pressKit" href="https://docs.google.com/document/d/1tgmRSrVNTy9L-rI3jAD4cAgCTBSYZxrvza0XGV3ASf4/edit?usp=sharing">Press Kit</a>
-            <div>
-            	<h4>Apps for everyone.</h4>
+                </footer>
             </div>
         </div>
-        <div>
-        	<span id="copyright">Copyright © 2017 <a href="\">AppSimple LLC</a> - <a href="mailto:support@appsimple.io">support@appsimple.io</a> - <a href="../privacy.html">Privacy</a> - <a href="../terms.html">Terms</a></span>
-        </div>
-</body>
+        
+        <!-- Custom styles for case study pages -->
+        <style>
+            .app-icon {
+                width: 120px;
+                height: 120px;
+                object-fit: contain;
+            }
+            
+            .app-icon-container {
+                display: flex;
+                justify-content: center;
+                padding: var(--space-md);
+            }
+            
+            .screenshots-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: var(--space-md);
+                margin-bottom: var(--space-md);
+            }
+            
+            .app-screenshot {
+                width: 100%;
+                border-radius: var(--radius-md);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                transition: transform var(--transition-normal);
+            }
+            
+            .app-screenshot:hover {
+                transform: translateY(-5px);
+            }
+            
+            .project-metadata {
+                display: flex;
+                flex-wrap: wrap;
+                gap: var(--space-sm);
+                background-color: var(--neutral-50);
+                padding: var(--space-sm);
+                border-radius: var(--radius-md);
+                margin-top: var(--space-sm);
+            }
+            
+            .metadata-item {
+                flex: 1 0 45%;
+                min-width: 180px;
+                padding: var(--space-xs);
+            }
+            
+            .stat-item {
+                text-align: center;
+                padding: var(--space-md);
+                background-color: var(--primary-light);
+                border-radius: var(--radius-md);
+            }
+              
+            .stat-item:nth-child(even) {
+                background-color: var(--secondary-light);
+            }
+              
+            .stat-number {
+                font-size: var(--text-2xl);
+                font-weight: var(--font-bold);
+                color: var(--primary);
+                margin-bottom: var(--space-xs);
+            }
+              
+            .stat-label {
+                color: var(--neutral-600);
+                font-size: var(--text-sm);
+            }
+            
+            .testimonial {
+                padding: var(--space-md);
+                background-color: var(--neutral-50);
+                border-radius: var(--radius-md);
+                margin-top: var(--space-md);
+                position: relative;
+            }
+              
+            .testimonial::before {
+                content: '"';
+                position: absolute;
+                top: 1rem;
+                left: 1.5rem;
+                font-size: 4rem;
+                line-height: 1;
+                color: var(--neutral-200);
+                font-family: serif;
+            }
+              
+            .testimonial-content {
+                margin-bottom: var(--space-sm);
+                font-style: italic;
+                color: var(--neutral-700);
+                padding-left: var(--space-lg);
+            }
+              
+            .testimonial-author {
+                text-align: right;
+                font-weight: var(--font-medium);
+                color: var(--neutral-800);
+            }
+            
+            .justify-center {
+                justify-content: center;
+            }
+            
+            .gap {
+                gap: var(--space-md);
+            }
+            
+            @media (max-width: 768px) {
+                .screenshots-grid {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+                
+                .app-icon {
+                    width: 80px;
+                    height: 80px;
+                }
+                
+                .metadata-item {
+                    flex: 1 0 100%;
+                }
+                
+                .flex-wrap {
+                    flex-wrap: wrap;
+                }
+            }
+            
+            @media (max-width: 480px) {
+                .screenshots-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
+        </style>
+    </body>
 </html>
