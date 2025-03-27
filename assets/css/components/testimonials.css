@@ -1,0 +1,75 @@
+/* components/stats-cards.css - Statistics display component styling */
+
+/* Stats grid container */
+.about-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+    margin-bottom: var(--space-xl);
+  }
+  
+  /* Individual stat card */
+  .stat-item {
+    text-align: center;
+    padding: var(--space-md);
+    background-color: var(--primary-light);
+    border-radius: var(--radius-md);
+    transition: transform var(--transition-normal),
+                box-shadow var(--transition-normal);
+  }
+  
+  .stat-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  }
+  
+  .stat-item:nth-child(even) {
+    background-color: var(--secondary-light);
+  }
+  
+  /* Stat number - the large figure */
+  .stat-number {
+    font-size: var(--text-2xl);
+    font-weight: var(--font-bold);
+    color: var(--primary);
+    margin-bottom: var(--space-xs);
+  }
+  
+  /* Stat label - descriptive text */
+  .stat-label {
+    color: var(--neutral-600);
+    font-size: var(--text-sm);
+  }
+  
+  /* Optional stat icon container */
+  .stat-icon-container {
+    margin-bottom: var(--space-xs);
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .stat-icon {
+    color: var(--primary);
+    width: 32px;
+    height: 32px;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .about-stats {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-sm);
+    }
+    
+    .stat-number {
+      font-size: calc(var(--text-2xl) * 0.9);
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .about-stats {
+      grid-template-columns: 1fr;
+    }
+  }
