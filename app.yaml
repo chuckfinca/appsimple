@@ -12,7 +12,7 @@ handlers:
     upload: index\.html
 
   # Pages without .html extension
-  - url: /(services|process|about|contact)
+  - url: /(services|process|about|contact|portfolio)
     static_files: pages/\1.html
     upload: pages/.*\.html
 

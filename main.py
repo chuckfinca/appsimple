@@ -234,7 +234,7 @@ async def mobile_page(page: str):
 @app.get("/{page}", response_class=HTMLResponse)
 async def read_page(page: str):
     # Handle pages in the pages directory
-    if pages_dir and page in ["services", "process", "about", "contact"]:
+    if pages_dir and page in ["services", "process", "about", "portfolio", "contact"]:
         page_path = os.path.join(pages_dir, f"{page}.html")
         if os.path.exists(page_path):
             return FileResponse(page_path)

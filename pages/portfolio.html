@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Portfolio - AppSimple</title>
+        
+        <!-- Common styles for all regular pages -->
+        <link rel="stylesheet" href="../assets/css/main.css" />
+        <link rel="stylesheet" href="../assets/css/pages/portfolio.css" />
+
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-C04ZYS5CZP"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-C04ZYS5CZP');
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="content">
+                <div class="content-inner">
+                    <nav class="content-nav">
+                        <ul>
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/services">Services</a></li>
+                            <li><a href="/process">Process</a></li>
+                            <li><a href="/about">About</a></li>
+                            <li><a href="/portfolio" class="active">Portfolio</a></li>
+                            <li><a href="/contact">Contact</a></li>
+                        </ul>
+                    </nav>
+
+                    <!-- Portfolio Section -->
+                    <div class="portfolio-section">
+                        <h2>Portfolio</h2>
+                        <div class="portfolio-intro">
+                            <p>My work spans across mobile application development and AI implementation solutions. Below you'll find a collection of projects that showcase my technical expertise and problem-solving approach across different domains.</p>
+                        </div>
+                        
+                        <!-- Portfolio Filter -->
+                        <div class="portfolio-filter">
+                            <button class="filter-button active" data-filter="all">All Projects</button>
+                            <button class="filter-button" data-filter="mobile">Mobile Apps</button>
+                            <button class="filter-button" data-filter="ai">AI Solutions</button>
+                            <button class="filter-button" data-filter="hybrid">Hybrid Projects</button>
+                        </div>
+                        
+                        <!-- Portfolio Grid -->
+                        <div class="portfolio-grid">
+                            <!-- Bodhi Mind -->
+                            <div class="portfolio-item" data-categories="mobile">
+                                <div class="portfolio-card">
+                                    <div class="portfolio-image">
+                                        <img src="/mobile/images/bodhiMind.png" alt="Bodhi Mind App" class="portfolio-icon">
+                                    </div>
+                                    <div class="portfolio-content">
+                                        <h3>Bodhi Mind</h3>
+                                        <p class="portfolio-type">Mobile App Development</p>
+                                        <p class="portfolio-description">Subscription-based meditation content platform with intelligent content organization for iOS.</p>
+                                        <div class="portfolio-tags">
+                                            <span class="tag">iOS</span>
+                                            <span class="tag">Content Platform</span>
+                                            <span class="tag">Subscription</span>
+                                        </div>
+                                        <a href="/mobile/bodhimind" class="portfolio-link">View Case Study</a>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Guided Mind -->
+                            <div class="portfolio-item" data-categories="mobile">
+                                <div class="portfolio-card">
+                                    <div class="portfolio-image">
+                                        <img src="/mobile/images/guidedMind.png" alt="Guided Mind App" class="portfolio-icon">
+                                    </div>
+                                    <div class="portfolio-content">
+                                        <h3>Guided Mind</h3>
+                                        <p class="portfolio-type">Mobile App Development</p>
+                                        <p class="portfolio-description">Meditation content marketplace connecting multiple teachers with users across iOS and Android.</p>
+                                        <div class="portfolio-tags">
+                                            <span class="tag">iOS</span>
+                                            <span class="tag">Android</span>
+                                            <span class="tag">Marketplace</span>
+                                        </div>
+                                        <a href="/mobile/guidedmind" class="portfolio-link">View Case Study</a>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Livewire -->
+                            <div class="portfolio-item" data-categories="mobile">
+                                <div class="portfolio-card">
+                                    <div class="portfolio-image">
+                                        <img src="/mobile/images/livewire.png" alt="WWOZ Livewire App" class="portfolio-icon">
+                                    </div>
+                                    <div class="portfolio-content">
+                                        <h3>WWOZ Livewire</h3>
+                                        <p class="portfolio-type">Mobile App Development</p>
+                                        <p class="portfolio-description">New Orleans music calendar app providing venue and event information for local performances.</p>
+                                        <div class="portfolio-tags">
+                                            <span class="tag">iOS</span>
+                                            <span class="tag">Calendar</span>
+                                            <span class="tag">Local Events</span>
+                                        </div>
+                                        <a href="/mobile/livewire" class="portfolio-link">View Case Study</a>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Mind Timer -->
+                            <div class="portfolio-item" data-categories="mobile">
+                                <div class="portfolio-card">
+                                    <div class="portfolio-image">
+                                        <img src="/mobile/images/mindTimer.png" alt="Mind Timer App" class="portfolio-icon">
+                                    </div>
+                                    <div class="portfolio-content">
+                                        <h3>Mind Timer</h3>
+                                        <p class="portfolio-type">Mobile App Development</p>
+                                        <p class="portfolio-description">Simple, focused meditation timer for iOS with interval sessions and multiple sounds.</p>
+                                        <div class="portfolio-tags">
+                                            <span class="tag">iOS</span>
+                                            <span class="tag">Utility</span>
+                                            <span class="tag">Meditation</span>
+                                        </div>
+                                        <a href="/mobile/mindtimer" class="portfolio-link">View Case Study</a>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- AI Project Placeholder - Uncomment when you have an AI case study -->
+                            <div class="portfolio-item coming-soon" data-categories="ai">
+                                <div class="portfolio-card">
+                                    <div class="portfolio-image">
+                                        <div class="placeholder-icon">AI</div>
+                                    </div>
+                                    <div class="portfolio-content">
+                                        <h3>AI Implementation Case Studies</h3>
+                                        <p class="portfolio-type">Coming Soon</p>
+                                        <p class="portfolio-description">I'm currently working on AI implementation projects. Detailed case studies will be added here soon.</p>
+                                        <div class="portfolio-tags">
+                                            <span class="tag">Machine Learning</span>
+                                            <span class="tag">Process Automation</span>
+                                            <span class="tag">Data Analysis</span>
+                                        </div>
+                                        <a href="/contact" class="portfolio-link">Contact for Details</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Hybrid Capabilities Section -->
+                        <div class="portfolio-hybrid-section">
+                            <h3>Combining Mobile Development & AI Implementation</h3>
+                            <p>My background in creating intuitive mobile applications combined with expertise in AI implementation allows me to deliver unique value through solutions that integrate both domains:</p>
+                            
+                            <div class="hybrid-capabilities">
+                                <div class="hybrid-capability">
+                                    <div class="expertise-icon-container">
+                                        <svg class="icon expertise-icon" viewBox="0 0 24 24">
+                                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                                            <line x1="8" y1="21" x2="16" y2="21"></line>
+                                            <line x1="12" y1="17" x2="12" y2="21"></line>
+                                        </svg>
+                                    </div>
+                                    <div class="hybrid-content">
+                                        <h4>Mobile Apps with AI Capabilities</h4>
+                                        <p>Designing and building mobile applications that leverage AI for enhanced personalization, content recommendations, and user experience.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="hybrid-capability">
+                                    <div class="expertise-icon-container">
+                                        <svg class="icon expertise-icon" viewBox="0 0 24 24">
+                                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                                        </svg>
+                                    </div>
+                                    <div class="hybrid-content">
+                                        <h4>AI-Powered Business Tools</h4>
+                                        <p>Creating specialized business applications that combine intuitive mobile interfaces with powerful AI processing capabilities.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="hybrid-capability">
+                                    <div class="expertise-icon-container">
+                                        <svg class="icon expertise-icon" viewBox="0 0 24 24">
+                                            <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>
+                                        </svg>
+                                    </div>
+                                    <div class="hybrid-content">
+                                        <h4>Enhanced User Experiences</h4>
+                                        <p>Developing solutions that use AI to create more intelligent, responsive, and personalized mobile experiences.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Portfolio CTA -->
+                        <div class="process-cta">
+                            <h3>Looking for mobile, AI, or hybrid solutions?</h3>
+                            <p>Whether you need a mobile application, AI implementation, or a solution that combines both, let's discuss how my experience can help bring your project to life.</p>
+                            <a href="/contact" class="process-cta-button">Start a Conversation</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Footer -->
+                <footer class="app-footer">
+                    <div class="footer-content">
+                        <span id="copyright">Copyright © 2025 <a href="/">AppSimple</a> - 
+                            <a href="mailto:support@appsimple.io">support@appsimple.io</a> - 
+                            <a href="/privacy">Privacy</a> - 
+                            <a href="/terms">Terms</a></span>
+                    </div>
+                </footer>
+            </div>
+        </div>
+        
+        <!-- Portfolio Filter Script -->
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const filterButtons = document.querySelectorAll('.filter-button');
+                const portfolioItems = document.querySelectorAll('.portfolio-item');
+                
+                filterButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        // Remove active class from all buttons
+                        filterButtons.forEach(btn => btn.classList.remove('active'));
+                        
+                        // Add active class to clicked button
+                        this.classList.add('active');
+                        
+                        // Get filter value
+                        const filterValue = this.getAttribute('data-filter');
+                        
+                        // Filter items
+                        portfolioItems.forEach(item => {
+                            const categories = item.getAttribute('data-categories').split(' ');
+                            
+                            if (filterValue === 'all' || categories.includes(filterValue)) {
+                                item.style.display = 'block';
+                            } else {
+                                item.style.display = 'none';
+                            }
+                        });
+                    });
+                });
+            });
+        </script>
+    </body>
+</html>
