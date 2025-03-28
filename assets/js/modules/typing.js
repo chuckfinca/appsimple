@@ -8,7 +8,7 @@ const TypingModule = (function () {
     initialDelay: 1000,
     speedVariation: 0.3, // Speed variation factor (0.3 means 30% variation)
     longPauseDuration: 1500, // Pause after sentences
-    shortPauseDuration: 80, // Pause before/after company name
+    shortPauseDuration: 40, // Pause before/after company name
     wordPauseProbability: 0.15, // Probability of a pause after regular words
     thinkingDuration: [50, 100] // Range for random "thinking" pauses
   };
@@ -166,10 +166,10 @@ const TypingModule = (function () {
         delay = config.longPauseDuration;
       } else if (segment.isSpecial) {
         // Short pause after company name
-        delay = config.shortPauseDuration / 2 ;
+        delay = config.shortPauseDuration ;
       } else if (segments[segmentIndex + 1] && segments[segmentIndex + 1].isSpecial) {
         // Short pause before company name
-        delay = config.shortPauseDuration;
+        delay = config.shortPauseDuration / 3;
       }
       
       setTimeout(() => {
