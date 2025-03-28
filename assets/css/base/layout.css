@@ -1,104 +1,121 @@
-/* base/layout.css - Core layout styles */
+/* base/layout.css - Updated layout styles */
 body {
-    min-height: 100vh;
-    scroll-behavior: smooth;
-    text-rendering: optimizeSpeed;
-    line-height: 1.5;
-    /* Add these background properties */
-    background: linear-gradient(135deg, white 0%, var(--primary-light) 100%);
-    background-image: radial-gradient(var(--neutral-200) 1px, transparent 1px);
-    background-size: 30px 30px;
-    /* Make sure background is fixed so it doesn't scroll with content */
-    background-attachment: fixed;
-  }
+  min-height: 100vh;
+  scroll-behavior: smooth;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+  /* Add these background properties */
+  background: linear-gradient(135deg, white 0%, var(--primary-light) 100%);
+  background-image: radial-gradient(var(--neutral-200) 1px, transparent 1px);
+  background-size: 30px 30px;
+  /* Make sure background is fixed so it doesn't scroll with content */
+  background-attachment: fixed;
+}
 
 /* Basic container */
 .container {
-    width: 100%;
-    min-height: 100vh;
-    position: relative;
-  }
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+}
   
-  /* Content container - ensures footer at bottom */
-  .content {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
+/* Content container - ensures footer at bottom */
+.content {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
   
+.content-inner {
+  flex: 1;
+  max-width: var(--container-default); /* Back to default (~800px) */
+  width: 95%;
+  margin: 0 auto;
+  padding: 0;
+}
+
+/* Typography and content spacing improvements */
+.services-intro, 
+.portfolio-intro,
+.about-intro,
+.process-intro {
+  max-width: 80ch; /* Optimal reading width */
+  margin-bottom: var(--space-lg);
+}
+
+/* Section spacing - consistent across all pages */
+.about-section,
+.process-section,
+.contact-section,
+.service-section,
+.portfolio-section {
+  margin-bottom: var(--space-xl);
+  width: 100%;
+}
+  
+/* Section headings */
+.section-heading {
+  font-size: var(--text-xl);
+  font-weight: var(--font-bold);
+  margin-bottom: var(--space-md);
+  color: var(--neutral-800);
+  width: 100%;
+}
+  
+/* Content wrapping */
+.content-wrapper {
+  max-width: var(--container-default);
+  margin: 0 auto;
+  padding: var(--space-md);
+}
+  
+.content-wrapper-narrow {
+  max-width: var(--container-narrow);
+}
+  
+.content-wrapper-wide {
+  max-width: var(--container-wide);
+}
+  
+/* Grid layout */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--space-md);
+}
+  
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+  
+@media (max-width: 768px) {
   .content-inner {
-    flex: 1;
-    max-width: var(--container-default);
-    width: 100%; /* Make sure this is present */
-    margin: 0 auto;
-    padding: 0 var(--space-md);
+    width: 92%;
   }
-  
-  /* Section spacing - consistent across all pages */
+    
   .about-section,
   .process-section,
   .contact-section,
-  .service-section {
-    margin-bottom: var(--space-xl);
+  .service-section,
+  .portfolio-section {
+    margin-bottom: var(--space-lg);
   }
-  
-  /* Section headings */
-  .section-heading {
-    font-size: var(--text-xl);
-    font-weight: var(--font-bold);
-    margin-bottom: var(--space-md);
-    color: var(--neutral-800);
-  }
-  
-  /* Content wrapping */
-  .content-wrapper {
-    max-width: var(--container-default);
-    margin: 0 auto;
-    padding: var(--space-md);
-  }
-  
-  .content-wrapper-narrow {
-    max-width: var(--container-narrow);
-  }
-  
-  .content-wrapper-wide {
-    max-width: var(--container-wide);
-  }
-  
-  /* Grid layout */
+    
   .grid {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    gap: var(--space-md);
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-sm);
   }
+}
   
-  /* Responsive adjustments */
-  @media (max-width: 1024px) {
-    .grid {
-      grid-template-columns: repeat(6, 1fr);
-    }
+@media (max-width: 480px) {
+  .content-inner {
+    width: 90%;
   }
-  
-  @media (max-width: 768px) {
-    .content-inner {
-      padding: 0 var(--space-sm);
-    }
     
-    .about-section,
-    .process-section,
-    .contact-section,
-    .service-section {
-      margin-bottom: var(--space-lg);
-    }
-    
-    .grid {
-      grid-template-columns: repeat(4, 1fr);
-      gap: var(--space-sm);
-    }
+  .grid {
+    grid-template-columns: 1fr;
   }
-  
-  @media (max-width: 480px) {
-    .grid {
-      grid-template-columns: 1fr;
-    }
-  }
+}

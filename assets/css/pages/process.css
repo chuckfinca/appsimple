@@ -2,11 +2,8 @@
 
 /* Process page intro */
 .process-intro {
-  max-width: 700px;
-  margin: 0 auto var(--space-lg);
-}
-
-.process-intro p {
+  width: 100%; /* Full width of parent container */
+  margin-bottom: var(--space-lg);
   font-size: var(--text-md);
   line-height: var(--leading-relaxed);
   color: var(--neutral-600);
@@ -16,12 +13,14 @@
 .timeline-section-header {
   margin-top: var(--space-xl);
   margin-bottom: var(--space-md);
+  width: 100%;
 }
 
 /* FAQ section */
 .process-faq {
   margin-top: var(--space-xl);
   margin-bottom: var(--space-xl);
+  width: 100%;
 }
 
 .faq-item {
@@ -48,6 +47,7 @@
   text-align: center;
   border-radius: var(--radius-md);
   margin-top: var(--space-xl);
+  width: 100%;
 }
 
 .process-cta h3 {
@@ -56,7 +56,7 @@
 
 .process-cta p {
   margin-bottom: var(--space-md);
-  max-width: 600px;
+  max-width: 600px; /* Constrained width for CTA */
   margin-left: auto;
   margin-right: auto;
 }
@@ -80,7 +80,7 @@
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-  .process-intro p {
+  .process-intro {
     font-size: var(--text-sm);
   }
   
