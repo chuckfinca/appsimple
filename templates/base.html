@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}AppSimple{% endblock %}</title>
+    <link rel="stylesheet" href="/assets/css/main.css" />
+    {% block extra_css %}{% endblock %}
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C04ZYS5CZP"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-C04ZYS5CZP');
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            {% include "components/navigation.html" %}
+            
+            <div class="content-inner">
+                {% block content %}{% endblock %}
+            </div>
+            
+            <footer class="app-footer">
+                <div class="footer-content">
+                    <span id="copyright">Copyright © 2025 <a href="/">AppSimple</a> - 
+                        <a href="mailto:support@appsimple.io">support@appsimple.io</a> - 
+                        <a href="/privacy">Privacy</a> - 
+                        <a href="/terms">Terms</a></span>
+                </div>
+            </footer>
+        </div>
+    </div>
+    
+    <script src="/assets/js/modules/navigation.js"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

@@ -1,10 +1,10 @@
 from fastapi import FastAPI, Request, HTTPException
-from fastapi.responses import HTMLResponse, FileResponse, PlainTextResponse
+from fastapi.responses import HTMLResponse, FileResponse, PlainTextResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
 import os
-import uvicorn
-from pathlib import Path
 import logging
+from pathlib import Path
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -12,250 +12,146 @@ logger = logging.getLogger(__name__)
 
 app = FastAPI()
 
-# Find the base directory in a more robust way
-# First, try the current working directory
-cwd = os.getcwd()
-logger.info(f"Current working directory: {cwd}")
+# Find base directory - use current working directory
+base_dir = os.getcwd()
+logger.info(f"Base directory: {base_dir}")
 
-# Check possible locations for the 'mobile' directory
-possible_locations = [
-    cwd,  # Current directory
-    os.path.join(cwd, "mobile"),  # mobile subfolder
-    os.path.dirname(cwd),  # Parent directory
-    os.path.join(os.path.dirname(cwd), "mobile"),  # mobile folder in parent
-    str(Path(__file__).resolve().parent),  # Directory of this script
-]
+# Set up templates
+templates_dir = os.path.join(base_dir, "templates")
+if not os.path.exists(templates_dir):
+    os.makedirs(templates_dir)
+    logger.info(f"Created templates directory: {templates_dir}")
+templates = Jinja2Templates(directory=templates_dir)
 
-# Find the mobile directory
-mobile_path = None
-for loc in possible_locations:
-    test_path = loc if loc.endswith("mobile") else os.path.join(loc, "mobile")
-    logger.info(f"Checking for mobile directory in: {test_path}")
-    if os.path.isdir(test_path):
-        logger.info(f"Found mobile directory at: {test_path}")
-        mobile_path = test_path
-        # Check if it contains index.html
-        if os.path.exists(os.path.join(test_path, "index.html")):
-            logger.info(f"Found index.html in {test_path}")
-            break
-        else:
-            logger.warning(f"Found directory but no index.html in {test_path}")
+# Mount static directories
+# Assets directory (CSS, JS, etc.)
+assets_dir = os.path.join(base_dir, "assets")
+if os.path.exists(assets_dir):
+    app.mount("/assets", StaticFiles(directory=assets_dir), name="assets")
+    logger.info(f"Mounted /assets -> {assets_dir}")
 
-if not mobile_path:
-    logger.error("Mobile directory not found in any expected location!")
-    # We'll continue and handle this in the routes
+# Mobile directory (legacy content)
+mobile_dir = os.path.join(base_dir, "mobile")
+if os.path.exists(mobile_dir):
+    app.mount("/mobile", StaticFiles(directory=mobile_dir), name="mobile")
+    logger.info(f"Mounted /mobile -> {mobile_dir}")
 
-# Mount static directories if we found them
-if mobile_path:
-    # We'll use explicit routes for HTML files instead of mounting the whole directory
-    # This gives us more control and avoids potential routing conflicts
-    
-    # Mount CSS directory
-    css_path = os.path.join(mobile_path, "css")
-    if os.path.isdir(css_path):
-        logger.info(f"Found CSS directory at: {css_path}")
-        app.mount("/mobile/css", StaticFiles(directory=css_path), name="mobile_css")
-    
-    # Mount images directory
-    images_path = os.path.join(mobile_path, "images")
-    if os.path.isdir(images_path):
-        logger.info(f"Found images directory at: {images_path}")
-        app.mount("/mobile/images", StaticFiles(directory=images_path), name="mobile_images")
-        
-    logger.info(f"Using explicit routes for mobile HTML files instead of mounting directory")
-
-# Try to find the 'assets' directory
-assets_path = None
-for loc in possible_locations:
-    test_path = os.path.join(loc, "assets")
-    if os.path.isdir(test_path):
-        assets_path = test_path
-        logger.info(f"Found assets directory at: {test_path}")
-        break
-
-if assets_path:
-    app.mount("/assets", StaticFiles(directory=assets_path), name="assets")
-    logger.info(f"Mounted /assets -> {assets_path}")
-
-# Root directory for main HTML files
-html_root = None
-for loc in possible_locations:
-    test_path = loc
-    if os.path.exists(os.path.join(test_path, "index.html")):
-        html_root = test_path
-        logger.info(f"Found main index.html in: {test_path}")
-        break
-
-# Pages directory
-pages_dir = None
-for loc in possible_locations:
-    test_path = os.path.join(loc, "pages")
-    if os.path.isdir(test_path):
-        pages_dir = test_path
-        logger.info(f"Found pages directory at: {test_path}")
-        break
-
-# Debug route to show all paths
+# Debug route to show configuration
 @app.get("/debug", response_class=PlainTextResponse)
 async def debug():
     result = []
-    result.append(f"Current working directory: {cwd}")
-    result.append(f"Mobile path: {mobile_path}")
-    result.append(f"Assets path: {assets_path}")
-    result.append(f"HTML root: {html_root}")
-    result.append(f"Pages directory: {pages_dir}")
+    result.append(f"Base directory: {base_dir}")
+    result.append(f"Templates directory: {templates_dir}")
+    result.append(f"Assets directory: {assets_dir}")
+    result.append(f"Mobile directory: {mobile_dir}")
     
-    # Check for mobile index
-    if mobile_path:
-        mobile_index = os.path.join(mobile_path, "index.html")
-        result.append(f"Mobile index.html exists: {os.path.exists(mobile_index)}")
-        
-        # List mobile directory contents
-        result.append(f"Mobile directory contents: {os.listdir(mobile_path)}")
-    
-    # Check for specific mobile pages
-    for page in ["bodhimind.html", "guidedmind.html", "livewire.html", "mindtimer.html"]:
-        if mobile_path:
-            page_path = os.path.join(mobile_path, page)
-            result.append(f"{page} exists: {os.path.exists(page_path)}")
+    # List directories
+    if os.path.exists(templates_dir):
+        result.append(f"Templates directory contents: {os.listdir(templates_dir)}")
     
     return "\n".join(result)
 
-# Main routes - fallback to individual file serving if mounting didn't work
+# Root route - explicitly handle the homepage
 @app.get("/", response_class=HTMLResponse)
-async def read_index():
-    if html_root:
-        index_path = os.path.join(html_root, "index.html")
-        if os.path.exists(index_path):
-            return FileResponse(index_path)
-    return HTMLResponse(content="Main index.html not found", status_code=404)
+async def read_root(request: Request):
+    logger.info("Rendering index.html template")
+    return templates.TemplateResponse("index.html", {"request": request})
 
-@app.get("/mobile", response_class=HTMLResponse)
-async def mobile_index():
-    # This is a fallback if the static file mounting didn't work
-    if mobile_path:
-        index_path = os.path.join(mobile_path, "index.html")
-        if os.path.exists(index_path):
-            logger.info(f"Serving mobile index from: {index_path}")
-            return FileResponse(index_path)
-        else:
-            logger.error(f"Mobile index.html not found at: {index_path}")
-    return HTMLResponse(content="Mobile index.html not found", status_code=404)
-
-# Handle specific mobile pages by name for explicit control
-@app.get("/mobile/bodhimind", response_class=HTMLResponse)
-async def mobile_bodhimind():
-    if mobile_path:
-        page_path = os.path.join(mobile_path, "bodhimind.html")
-        if os.path.exists(page_path):
-            logger.info(f"Serving bodhimind from: {page_path}")
-            return FileResponse(page_path)
-    return HTMLResponse(content="Bodhi Mind page not found", status_code=404)
-
-@app.get("/mobile/guidedmind", response_class=HTMLResponse)
-async def mobile_guidedmind():
-    if mobile_path:
-        page_path = os.path.join(mobile_path, "guidedmind.html")
-        if os.path.exists(page_path):
-            logger.info(f"Serving guidedmind from: {page_path}")
-            return FileResponse(page_path)
-    return HTMLResponse(content="Guided Mind page not found", status_code=404)
-
-@app.get("/mobile/livewire", response_class=HTMLResponse)
-async def mobile_livewire():
-    if mobile_path:
-        page_path = os.path.join(mobile_path, "livewire.html")
-        if os.path.exists(page_path):
-            logger.info(f"Serving livewire from: {page_path}")
-            return FileResponse(page_path)
-    return HTMLResponse(content="Livewire page not found", status_code=404)
-
-@app.get("/mobile/mindtimer", response_class=HTMLResponse)
-async def mobile_mindtimer():
-    if mobile_path:
-        page_path = os.path.join(mobile_path, "mindtimer.html")
-        if os.path.exists(page_path):
-            logger.info(f"Serving mindtimer from: {page_path}")
-            return FileResponse(page_path)
-    return HTMLResponse(content="Mind Timer page not found", status_code=404)
-
-@app.get("/mobile/privacy", response_class=HTMLResponse)
-async def mobile_privacy():
-    if mobile_path:
-        page_path = os.path.join(mobile_path, "privacy.html")
-        if os.path.exists(page_path):
-            logger.info(f"Serving mobile privacy from: {page_path}")
-            return FileResponse(page_path)
-    return HTMLResponse(content="Mobile privacy page not found", status_code=404)
-
-@app.get("/mobile/terms", response_class=HTMLResponse)
-async def mobile_terms():
-    if mobile_path:
-        page_path = os.path.join(mobile_path, "terms.html")
-        if os.path.exists(page_path):
-            logger.info(f"Serving mobile terms from: {page_path}")
-            return FileResponse(page_path)
-    return HTMLResponse(content="Mobile terms page not found", status_code=404)
-
-# Generic handler for any mobile page with .html explicitly in URL
-@app.get("/mobile/{page}.html", response_class=HTMLResponse)
-async def mobile_page_with_html(page: str):
-    if mobile_path:
-        page_path = os.path.join(mobile_path, f"{page}.html")
-        if os.path.exists(page_path):
-            logger.info(f"Serving mobile page from: {page_path}")
-            return FileResponse(page_path)
-        else:
-            logger.error(f"Mobile page not found at: {page_path}")
-    return HTMLResponse(content=f"Mobile page {page}.html not found", status_code=404)
-
-# Generic handler for any other mobile page 
-@app.get("/mobile/{page}", response_class=HTMLResponse)
-async def mobile_page(page: str):
-    # This is a fallback if the specific routes above don't match
-    if mobile_path:
-        # First try without .html extension (might be a directory)
-        dir_path = os.path.join(mobile_path, page)
-        if os.path.isdir(dir_path):
-            index_path = os.path.join(dir_path, "index.html")
-            if os.path.exists(index_path):
-                logger.info(f"Serving directory index from: {index_path}")
-                return FileResponse(index_path)
+# Redirect from old mobile URLs to new wrapped versions
+@app.get("/mobile/{app_name}", response_class=HTMLResponse)
+async def mobile_redirect(request: Request, app_name: str):
+    # Check if it's an HTML file request
+    if app_name.endswith('.html'):
+        app_name = app_name[:-5]  # Remove .html extension
         
-        # Then try with .html extension
-        page_path = os.path.join(mobile_path, f"{page}.html")
-        if os.path.exists(page_path):
-            logger.info(f"Serving mobile page from: {page_path}")
-            return FileResponse(page_path)
-        else:
-            logger.error(f"Mobile page not found at: {page_path}")
-    return HTMLResponse(content=f"Mobile page {page} not found", status_code=404)
+    # Redirect to the wrapped version
+    return RedirectResponse(url=f"/view/mobile/{app_name}")
 
-@app.get("/{page}", response_class=HTMLResponse)
-async def read_page(page: str):
-    # Handle pages in the pages directory
-    if pages_dir and page in ["services", "process", "about", "portfolio", "contact"]:
-        page_path = os.path.join(pages_dir, f"{page}.html")
-        if os.path.exists(page_path):
-            return FileResponse(page_path)
+# Wrapped view for mobile pages
+@app.get("/view/mobile/{app_name}", response_class=HTMLResponse)
+async def view_mobile_app(request: Request, app_name: str):
+    # Check if the mobile page exists
+    page_path = os.path.join(mobile_dir, f"{app_name}.html")
+    if not os.path.exists(page_path):
+        logger.error(f"Mobile page not found: {page_path}")
+        return HTMLResponse(content=f"Mobile page {app_name} not found", status_code=404)
     
-    # Handle root pages
-    if html_root and page in ["privacy", "terms"]:
-        page_path = os.path.join(html_root, f"{page}.html")
-        if os.path.exists(page_path):
-            return FileResponse(page_path)
-            
-    return HTMLResponse(content=f"Page {page} not found", status_code=404)
+    # Render the legacy wrapper template
+    return templates.TemplateResponse(
+        "legacy_wrapper.html",
+        {
+            "request": request,
+            "app_name": app_name,
+            "mobile_path": f"/mobile/{app_name}.html",
+            "page_title": app_name.replace('-', ' ').title()
+        }
+    )
 
-# Favicon route
-@app.get("/favicon.ico")
-async def favicon():
-    if html_root:
-        favicon_path = os.path.join(html_root, "favicon.ico")
-        if os.path.exists(favicon_path):
-            return FileResponse(favicon_path)
-    return HTMLResponse(content="Favicon not found", status_code=404)
+# Explicitly handle common pages with templates
+@app.get("/about", response_class=HTMLResponse)
+async def read_about(request: Request):
+    return templates.TemplateResponse("about.html", {"request": request})
+
+@app.get("/services", response_class=HTMLResponse)
+async def read_services(request: Request):
+    return templates.TemplateResponse("services.html", {"request": request})
+
+@app.get("/process", response_class=HTMLResponse)
+async def read_process(request: Request):
+    return templates.TemplateResponse("process.html", {"request": request})
+
+@app.get("/portfolio", response_class=HTMLResponse)
+async def read_portfolio(request: Request):
+    return templates.TemplateResponse("portfolio.html", {"request": request})
+
+@app.get("/contact", response_class=HTMLResponse)
+async def read_contact(request: Request):
+    return templates.TemplateResponse("contact.html", {"request": request})
+
+# Main site routes - try templates first, then static files
+@app.get("/{path:path}", response_class=HTMLResponse)
+async def catch_all(request: Request, path: str = ""):
+    # Log the request path
+    logger.info(f"Catch-all route handling path: {path}")
+    
+    # Default to index for root path
+    if path == "":
+        return templates.TemplateResponse("index.html", {"request": request})
+    
+    # Try to render a template first
+    template_path = f"{path}.html"
+    template_file = os.path.join(templates_dir, template_path)
+    logger.info(f"Checking for template: {template_file}")
+    if os.path.exists(template_file):
+        logger.info(f"Rendering template: {template_path}")
+        return templates.TemplateResponse(template_path, {"request": request})
+    
+    # If there's no template, try to serve a static file
+    file_path = path if path.endswith(('.html', '.css', '.js', '.png', '.jpg', '.gif')) else f"{path}.html"
+    full_path = os.path.join(base_dir, file_path)
+    logger.info(f"Checking for static file: {full_path}")
+    if os.path.exists(full_path):
+        logger.info(f"Serving static file: {full_path}")
+        return FileResponse(full_path)
+    
+    # Check if it might be a page in a subdirectory
+    if '/' in path:
+        parts = path.split('/')
+        dir_path = '/'.join(parts[:-1])
+        file_name = parts[-1]
+        
+        # Check if it's a page in the pages directory
+        pages_dir = os.path.join(base_dir, 'pages')
+        if os.path.exists(pages_dir):
+            page_path = os.path.join(pages_dir, f"{file_name}.html")
+            if os.path.exists(page_path):
+                logger.info(f"Serving page from subdirectory: {page_path}")
+                return FileResponse(page_path)
+    
+    # Not found
+    logger.error(f"Page not found: {path}")
+    return HTMLResponse(content=f"Page not found: {path}", status_code=404)
 
 if __name__ == "__main__":
-    # Run the application with uvicorn
+    import uvicorn
     uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)

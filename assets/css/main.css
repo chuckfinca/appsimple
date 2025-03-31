@@ -7,6 +7,9 @@
 @import url("base/animations.css");
 @import url("base/layout.css");
 
+/* Import the navigation component */
+@import url("components/site-navigation.css");
+
 /* Import component styles */
 @import url("components/hero.css");
 @import url("components/navigation.css");

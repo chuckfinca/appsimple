@@ -92,9 +92,6 @@ body {
 }
   
 @media (max-width: 768px) {
-  .content-inner {
-    width: 92%;
-  }
     
   .about-section,
   .process-section,
@@ -111,9 +108,6 @@ body {
 }
   
 @media (max-width: 480px) {
-  .content-inner {
-    width: 90%;
-  }
     
   .grid {
     grid-template-columns: 1fr;

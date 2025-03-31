@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}AI Implementation Specialist{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="/assets/css/pages/index.css" />
+<link rel="stylesheet" href="/assets/css/components/menu.css" />
+{% endblock %}
+
+{% block content %}
+<div class="hero" id="hero">
+    <div class="typing-container">
+        <span class="typing-text" id="typing-text"></span><span class="cursor"></span>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<!-- Configuration script for typing module -->
+<script>
+    // Centralized configuration for the typing module
+    const PAGE_CONFIG = {
+        typingText: "Hi there. What can AppSimple do for you?",
+        typingSpeed: 70,
+        speedVariation: 0.3,
+        initialDelay: 1000,
+        longPauseDuration: 1200, // Pause after sentences (e.g., after "Hi there.")
+        shortPauseDuration: 400,  // Pause before/after company name
+        wordPauseProbability: 0.15, // 15% chance of a thinking pause after words
+        thinkingDuration: [200, 500] // Range for thinking pauses
+    };
+</script>
+
+<!-- JavaScript modules - correct loading order -->
+<script src="/assets/js/modules/utils.js"></script>
+<script src="/assets/js/modules/typing.js"></script>
+<script src="/assets/js/main.js"></script>
+{% endblock %}

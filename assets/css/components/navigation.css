@@ -56,10 +56,10 @@
   @media (max-width: 480px) {
   .content-nav ul {
       flex-wrap: wrap;
-      gap: var(--space-sm);
+      gap: 0.8rem;
   }
     
   .content-nav a {
-      font-size: var(--text-xs);
+      font-size: 9pt;
   }
 }
