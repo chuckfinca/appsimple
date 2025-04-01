@@ -57,36 +57,6 @@ async def read_root(request: Request):
     logger.info("Rendering index.html template")
     return templates.TemplateResponse("index.html", {"request": request})
 
-# Redirect from old mobile URLs to new wrapped versions
-@app.get("/mobile/{app_name}", response_class=HTMLResponse)
-async def mobile_redirect(request: Request, app_name: str):
-    # Check if it's an HTML file request
-    if app_name.endswith('.html'):
-        app_name = app_name[:-5]  # Remove .html extension
-        
-    # Redirect to the wrapped version
-    return RedirectResponse(url=f"/view/mobile/{app_name}")
-
-# Wrapped view for mobile pages
-@app.get("/view/mobile/{app_name}", response_class=HTMLResponse)
-async def view_mobile_app(request: Request, app_name: str):
-    # Check if the mobile page exists
-    page_path = os.path.join(mobile_dir, f"{app_name}.html")
-    if not os.path.exists(page_path):
-        logger.error(f"Mobile page not found: {page_path}")
-        return HTMLResponse(content=f"Mobile page {app_name} not found", status_code=404)
-    
-    # Render the legacy wrapper template
-    return templates.TemplateResponse(
-        "legacy_wrapper.html",
-        {
-            "request": request,
-            "app_name": app_name,
-            "mobile_path": f"/mobile/{app_name}.html",
-            "page_title": app_name.replace('-', ' ').title()
-        }
-    )
-
 # Explicitly handle common pages with templates
 @app.get("/about", response_class=HTMLResponse)
 async def read_about(request: Request):
@@ -107,6 +77,27 @@ async def read_portfolio(request: Request):
 @app.get("/contact", response_class=HTMLResponse)
 async def read_contact(request: Request):
     return templates.TemplateResponse("contact.html", {"request": request})
+
+# Direct access to mobile pages (new pattern)
+@app.get("/mobile/{app_name}", response_class=HTMLResponse)
+async def mobile_page(request: Request, app_name: str):
+    # Handle both with and without .html extension
+    if not app_name.endswith('.html'):
+        app_name = f"{app_name}.html"
+        
+    # Check if the mobile page exists
+    page_path = os.path.join(mobile_dir, app_name)
+    if not os.path.exists(page_path):
+        logger.error(f"Mobile page not found: {page_path}")
+        return HTMLResponse(content=f"Mobile page {app_name} not found", status_code=404)
+    
+    # Return the file directly
+    return FileResponse(page_path)
+
+@app.get("/portfolio/bodhimind", response_class=HTMLResponse)
+async def bodhimind_page(request: Request):
+    """Render the Bodhi Mind app page using the template system"""
+    return templates.TemplateResponse("bodhimind.html", {"request": request})
 
 # Main site routes - try templates first, then static files
 @app.get("/{path:path}", response_class=HTMLResponse)
@@ -133,20 +124,6 @@ async def catch_all(request: Request, path: str = ""):
     if os.path.exists(full_path):
         logger.info(f"Serving static file: {full_path}")
         return FileResponse(full_path)
-    
-    # Check if it might be a page in a subdirectory
-    if '/' in path:
-        parts = path.split('/')
-        dir_path = '/'.join(parts[:-1])
-        file_name = parts[-1]
-        
-        # Check if it's a page in the pages directory
-        pages_dir = os.path.join(base_dir, 'pages')
-        if os.path.exists(pages_dir):
-            page_path = os.path.join(pages_dir, f"{file_name}.html")
-            if os.path.exists(page_path):
-                logger.info(f"Serving page from subdirectory: {page_path}")
-                return FileResponse(page_path)
     
     # Not found
     logger.error(f"Page not found: {path}")
