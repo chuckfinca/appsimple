@@ -8,7 +8,7 @@
 /* App title and description */
 .app-description {
   max-width: 800px;
-  margin-bottom: var(--space-xl);
+  margin-bottom: var(--space-lg);
 }
 
 .app-title {

@@ -1,162 +1,66 @@
-<!doctype html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Contact - AppSimple</title>
+{% extends "base.html" %}
 
-        <!-- Common styles for all regular pages -->
-        <link rel="stylesheet" href="../assets/css/main.css" />
-        <link rel="stylesheet" href="../assets/css/pages/contact.css" />
+{% block title %}Services - AppSimple{% endblock %}
 
-        <!-- Google tag (gtag.js) -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-C04ZYS5CZP"></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
+{% block extra_css %}
+<link rel="stylesheet" href="/assets/css/pages/contact.css" />
+{% endblock %}
 
-            gtag('config', 'G-C04ZYS5CZP');
-        </script>
-    </head>
-    <body>
-        <div class="container">
-            <div class="content">
-                <div class="content-inner">
-                    <nav class="content-nav">
-                        <ul>
-                            <li><a href="/">Home</a></li>
-                            <li><a href="/services">Services</a></li>
-                            <li><a href="/process">Process</a></li>
-                            <li><a href="/about">About</a></li>
-                            <li><a href="/portfolio">Portfolio</a></li>
-                            <li><a href="/contact" class="active">Contact</a></li>
-                        </ul>
-                    </nav>
+{% block content %}
+<!-- Contact Section -->
+<h1 class="page-title">Get in Touch</h1>
+<p class="page-intro">Ready to explore how AI can transform your business? Have questions about my services? I'd love to hear from you. Choose the method that works best for you.</p>
 
-                    <!-- Contact Section -->
-                    <h1 class="page-title">Get in Touch</h1>
-                    <p class="page-intro">Ready to explore how AI can transform your business? Have questions about my services? I'd love to hear from you. Choose the method that works best for you.</p>
-
-                    <div class="contact-methods">
-                        <div class="contact-method">
-                            <div class="contact-icon-container">
-                                <svg class="icon contact-icon" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
-                                    <rect x="2" y="4" width="20" height="16" rx="2"></rect>
-                                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
-                                </svg>
-                            </div>
-                            <a href="mailto:hello@appsimple.io">hello@appsimple.io</a>
-                        </div>
-
-                        <div class="contact-method">
-                            <div class="contact-icon-container">
-                                <svg class="icon contact-icon" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
-                                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                                    <rect x="2" y="9" width="4" height="12"></rect>
-                                    <circle cx="4" cy="4" r="2"></circle>
-                                </svg>
-                            </div>
-                            <a href="https://linkedin.com/in/charlesfeinn" target="_blank">LinkedIn</a>
-                        </div>
-                    </div>
-
-                    <h2 class="section-heading">Send a Message</h2>
-                    <p class="section-intro">Fill out the form below, and I'll get back to you within 24 hours.</p>
-
-                    <form id="contact-form" class="contact-form" action="https://formspree.io/f/xpwplpjw" method="POST">
-                        <div class="form-group">
-                            <label class="form-label" for="name">Name</label>
-                            <input type="text" id="name" name="name" class="form-input" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label" for="email">Email</label>
-                            <input type="email" id="email" name="email" class="form-input" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label" for="company">Company (Optional)</label>
-                            <input type="text" id="company" name="company" class="form-input">
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label" for="message">How can I help?</label>
-                            <textarea id="message" name="message" class="form-textarea" required></textarea>
-                        </div>
-
-                        <!-- Add a form status element that will be hidden by default -->
-                        <div id="form-status" class="form-status" style="display: none;"></div>
-
-                        <button type="submit" class="form-button">Send Message</button>
-                    </form>
-                </div>
-
-                <!-- Footer -->
-                <footer class="app-footer">
-                    <div class="footer-content">
-                        <span id="copyright">Copyright © 2025 <a href="/">AppSimple</a> -
-                            <a href="mailto:support@appsimple.io">support@appsimple.io</a> -
-                            <a href="/privacy">Privacy</a> -
-                            <a href="/terms">Terms</a></span>
-                    </div>
-                </footer>
-            </div>
+<div class="contact-methods">
+    <div class="contact-method">
+        <div class="contact-icon-container">
+            <svg class="icon contact-icon" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
+                <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+            </svg>
         </div>
+        <a href="mailto:hello@appsimple.io">hello@appsimple.io</a>
+    </div>
 
-        <!-- Form submission script -->
-        <script>
-          var form = document.getElementById("contact-form");
+    <div class="contact-method">
+        <div class="contact-icon-container">
+            <svg class="icon contact-icon" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                <rect x="2" y="9" width="4" height="12"></rect>
+                <circle cx="4" cy="4" r="2"></circle>
+            </svg>
+        </div>
+        <a href="https://linkedin.com/in/charlesfeinn" target="_blank">LinkedIn</a>
+    </div>
+</div>
 
-          async function handleSubmit(event) {
-            event.preventDefault();
-            var status = document.getElementById("form-status");
-            var submitButton = form.querySelector('.form-button');
-            var originalButtonText = submitButton.innerText;
+<h2 class="section-heading">Send a Message</h2>
+<p class="section-intro">Fill out the form below, and I'll get back to you within 24 hours.</p>
 
-            // Show loading state
-            submitButton.innerText = "Sending...";
-            submitButton.disabled = true;
+<form id="contact-form" class="contact-form" action="https://formspree.io/f/xpwplpjw" method="POST">
+    <div class="form-group">
+        <label class="form-label" for="name">Name</label>
+        <input type="text" id="name" name="name" class="form-input" required>
+    </div>
 
-            var data = new FormData(event.target);
+    <div class="form-group">
+        <label class="form-label" for="email">Email</label>
+        <input type="email" id="email" name="email" class="form-input" required>
+    </div>
 
-            fetch(event.target.action, {
-              method: form.method,
-              body: data,
-              headers: {
-                'Accept': 'application/json'
-              }
-            }).then(response => {
-              if (response.ok) {
-                // Success message with your site's styling
-                status.style.display = "block";
-                status.className = "form-status form-success";
-                status.innerHTML = "Thank you for your message! I'll get back to you soon.";
-                form.reset();
-              } else {
-                response.json().then(data => {
-                  status.style.display = "block";
-                  status.className = "form-status form-error";
+    <div class="form-group">
+        <label class="form-label" for="company">Company (Optional)</label>
+        <input type="text" id="company" name="company" class="form-input">
+    </div>
 
-                  if (Object.hasOwn(data, 'errors')) {
-                    status.innerHTML = data["errors"].map(error => error["message"]).join(", ");
-                  } else {
-                    status.innerHTML = "Oops! There was a problem sending your message. Please try again.";
-                  }
-                });
-              }
-            }).catch(error => {
-              status.style.display = "block";
-              status.className = "form-status form-error";
-              status.innerHTML = "Oops! There was a problem sending your message. Please try again.";
-            }).finally(() => {
-              // Reset button state
-              submitButton.innerText = originalButtonText;
-              submitButton.disabled = false;
-            });
-          }
+    <div class="form-group">
+        <label class="form-label" for="message">How can I help?</label>
+        <textarea id="message" name="message" class="form-textarea" required></textarea>
+    </div>
 
-          form.addEventListener("submit", handleSubmit);
-        </script>
-    </body>
-</html>
+    <!-- Add a form status element that will be hidden by default -->
+    <div id="form-status" class="form-status" style="display: none;"></div>
+
+    <button type="submit" class="form-button">Send Message</button>
+</form>
+{% endblock %}
