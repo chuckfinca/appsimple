@@ -108,7 +108,9 @@ body {
 }
   
 @media (max-width: 480px) {
-    
+  .section-heading {
+    font-size: var(--text-lg);
+  }
   .grid {
     grid-template-columns: 1fr;
   }
