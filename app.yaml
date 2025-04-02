@@ -1,18 +1,26 @@
 runtime: python39
 service: default
 
+# Add this entrypoint:
+entrypoint: gunicorn -b :$PORT -k uvicorn.workers.UvicornWorker main:app
+
 handlers:
   # Static assets - for faster serving
+  # Consider moving images into assets or adding a handler for /images
   - url: /assets
     static_dir: assets
 
-  # Direct access to mobile files (to support iframe src)
+  # Direct access to mobile files (to support iframe src / legacy)
+  # Check if these are still needed or should be portfolio pages
   - url: /mobile
     static_dir: mobile
 
-  # Main application for templating and dynamic content
+  # Main application (FastAPI) - handled by the entrypoint
   - url: /.*
-    script: auto
+    script: auto # 'script: auto' is okay here as the entrypoint overrides the command
 
 env_variables:
   PYTHONUNBUFFERED: "1"
+
+# Optional: Add instance class for better performance if needed
+# instance_class: F2

@@ -140,13 +140,49 @@
   background-color: var(--neutral-50);
 }
 
+.back-navigation {
+  margin: var(--space-sm) 0;
+  font-family: 'Inter', sans-serif;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  color: var(--primary); /* Using your neutral color instead of blue */
+  text-decoration: none;
+  font-size: 0.875rem; /* Slightly smaller for minimalist look */
+  font-weight: 500; /* Medium weight for better typography */
+  transition: all var(--transition-normal);
+  padding: 0.25rem 0;
+  letter-spacing: 0.02em; /* Slightly increased letter spacing */
+}
+
+.back-link:hover {
+  color: var(--primary-dark); /* Darker on hover instead of colored */
+}
+
+.back-arrow {
+  margin-right: 0.5rem;
+  width: 18px; /* Smaller icon for minimalist look */
+  height: 18px;
+  stroke-width: 2px;
+  transition: transform var(--transition-normal);
+}
+
 /* ===== RESPONSIVE ADJUSTMENTS ===== */
 @media (max-width: 768px) {
+
   /* Header responsive */
-  .metadata-container {
-    flex-direction: column;
-    align-items: flex-start;
+  .project-metadata-grid {
+    gap: var(--space-md);
   }
+
+  .metadata-container {
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap; /* Allow wrapping if needed but maintain row direction */
+  }
+  
   
   /* Content responsive */
   .screenshots-grid {
@@ -175,6 +211,19 @@
     margin-right: 0;
     margin-bottom: var(--space-md);
   }
+
+  .back-navigation {
+    margin: 0.5rem 0 1rem;
+  }
+  
+  .back-link {
+    font-size: 0.8125rem;
+  }
+  
+  .back-arrow {
+    width: 16px;
+    height: 16px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -184,6 +233,11 @@
     gap: var(--space-xs);
     width: 100%;
     max-width: 100%;
+  }
+
+  .metadata-container {
+    flex-direction: column;
+    align-items: flex-start;
   }
   
   .app-description {

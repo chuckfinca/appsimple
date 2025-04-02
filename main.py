@@ -94,10 +94,14 @@ async def mobile_page(request: Request, app_name: str):
     # Return the file directly
     return FileResponse(page_path)
 
-@app.get("/portfolio/bodhimind", response_class=HTMLResponse)
-async def bodhimind_page(request: Request):
-    """Render the Bodhi Mind app page using the template system"""
-    return templates.TemplateResponse("bodhimind.html", {"request": request})
+VALID_CASE_STUDIES = ["bodhimind", "guidedmind", "mindtimer", "livewire"]
+
+@app.get("/portfolio/{case_study_name}", response_class=HTMLResponse)
+async def case_study_page(request: Request, case_study_name: str):
+    if case_study_name not in VALID_CASE_STUDIES:
+        raise HTTPException(status_code=404, detail=f"Case study not found")
+    
+    return templates.TemplateResponse(f"{case_study_name}.html", {"request": request})
 
 # Main site routes - try templates first, then static files
 @app.get("/{path:path}", response_class=HTMLResponse)
