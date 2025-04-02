@@ -21,36 +21,32 @@ document.addEventListener("DOMContentLoaded", function() {
       thinkingDuration: config.thinkingDuration || [200, 500] // Range for thinking pauses
     });
     
-    // Initialize options animation if the container exists
-    const optionsContainer = document.getElementById("options-container");
-    if (optionsContainer) {
-      // Store instance globally so typing module can access it on completion
-      window.optionsInstance = OptionsModule.init({
-        containerId: "options-container",
-        optionsData: [
-          "Need to extend your reach through intelligent mobile experiences?",
-          "Looking to reduce operational friction with mobile + AI solutions?",
-          "Want a smarter mobile app that learns from user behavior?"
-        ],
-        showDelay: 800 // Slightly longer delay for better timing after typing
-      });
-    }
-
-    // Initialize options carousel if the container exists
     const carouselContainer = document.getElementById("options-carousel");
     if (carouselContainer) {
+      // Define the prompt and link data
+      const carouselOptions = [
+        { prompt: "I need a custom mobile app for my business", link: "/portfolio", linkText: "View Portfolio" },
+        { prompt: "I want to implement AI in my existing workflow", link: "/process", linkText: "See My Process" },
+        { prompt: "I need help reducing operational costs with smart automation", link: "/services", linkText: "Explore Services" },
+        { prompt: "I want a mobile solution that grows with my business", link: "/about", linkText: "Learn About Me" },
+        { prompt: "I'm trying to determine if AI is right for my company", link: "/contact", linkText: "Let's Talk" }
+      ];
+
       // Store instance globally so typing module can access it on completion
       window.carouselInstance = CarouselModule.init({
         containerId: "options-carousel",
-        optionsData: [
-          "Need to extend your reach through intelligent mobile experiences?",
-          "Looking to reduce operational friction with mobile + AI solutions?",
-          "Want a smarter mobile app that learns from user behavior?"
-        ],
-        showDelay: 800,     // Delay after typing completes
-        cycleDelay: 4000,   // Each message displays for 4 seconds
-        fadeTransition: 1200 // Smooth fade between messages
+        optionsData: carouselOptions, // Pass the data here
+        cycleDelay: 5500,   // Each message + link displays for 5.5 seconds
+        fadeTransition: 800 // Smooth fade between messages
       });
+
+      if (!window.carouselInstance) {
+          console.error("Failed to initialize CarouselModule.");
+      }
+    } else {
+        console.log("Options carousel container not found. Carousel not initialized."); // Optional debug log
     }
-  }
+  } else {
+    console.log("Typing text element not found. Typing animation not initialized."); // Optional debug log
+    }
 });
