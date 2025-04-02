@@ -1,0 +1,67 @@
+/* components/options-carousel.css - Minimalist text carousel after typing */
+
+.options-container {
+    width: 100%;
+    max-width: 700px;
+    margin: 1.5rem auto 0;
+    opacity: 0;
+    height: 2em; /* Fixed height to prevent layout shifts */
+    position: relative;
+    transition: opacity 1s ease;
+    text-align: center;
+  }
+  
+  .options-container.visible {
+    opacity: 1;
+  }
+  
+  .carousel-item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    opacity: 0;
+    transition: opacity 1.2s ease;
+    font-size: var(--text-md);
+    font-weight: var(--font-light);
+    color: var(--neutral-600); /* Lighter color to match screenshot */
+    line-height: 1.5;
+    pointer-events: none;
+    z-index: 1;
+  }
+  
+  .carousel-item.active {
+    opacity: 1;
+    pointer-events: auto;
+    z-index: 2;
+  }
+  
+  /* Future interactive state styles */
+  .carousel-prompt {
+    display: none;
+    width: 100%;
+    text-align: center;
+    margin-top: 1rem;
+  }
+  
+  .carousel-input-mode .carousel-prompt {
+    display: block;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .options-container {
+      margin-top: 1.5rem;
+    }
+    
+    .carousel-item {
+      font-size: var(--text-sm);
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .options-container {
+      margin-top: 1rem;
+    }
+  }

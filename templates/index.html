@@ -4,12 +4,16 @@
 
 {% block extra_css %}
 <link rel="stylesheet" href="/assets/css/pages/index.css" />
+<link rel="stylesheet" href="/assets/css/components/options-carousel.css" />
 {% endblock %}
 
 {% block content %}
 <div class="hero" id="hero">
     <div class="typing-container">
         <span class="typing-text" id="typing-text"></span><span class="cursor"></span>
+    </div>
+    <div class="options-container" id="options-carousel">
+        <!-- Options will be dynamically inserted here -->
     </div>
 </div>
 {% endblock %}
@@ -33,5 +37,6 @@
 <!-- JavaScript modules - correct loading order -->
 <script src="/assets/js/modules/utils.js"></script>
 <script src="/assets/js/modules/typing.js"></script>
+<script src="/assets/js/modules/options-carousel.js"></script>
 <script src="/assets/js/main.js"></script>
 {% endblock %}

@@ -150,6 +150,12 @@ const TypingModule = (function () {
     if (segmentIndex >= segments.length) {
       // Apply final link functionality
       makeCompanyNameClickable(element);
+      
+      // Trigger the options animation if available
+      if (window.carouselInstance && typeof window.carouselInstance.show === 'function') {
+        window.carouselInstance.show();
+      }
+      
       return;
     }
     
