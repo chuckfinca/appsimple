@@ -1,23 +1,13 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		
-        <!-- Google tag (gtag.js) -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-C04ZYS5CZP"></script>
-        <script>
-			window.dataLayer = window.dataLayer || [];
-			function gtag(){dataLayer.push(arguments);}
-			gtag('js', new Date());
+{% extends "base.html" %}
 
-			gtag('config', 'G-C04ZYS5CZP');
-        </script>
-	</head>
-	<body>
-		<div id="wrapper">
-		<div>
-			<h1>Terms & Conditions</h1>
-		</div>
+{% block title %}Mobile App Terms of Service - AppSimple{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="/assets/css/pages/legal.css" />
+{% endblock %}
+
+{% block content %}
+<h1>Terms & Conditions</h1>
 <div class='grayText'><strong>1. GENERAL INFORMATION</strong></div>
 <div class='grayText'><strong>1.1 APPSIMPLE PRODUCTS</strong></div>
 <div class='innerText'>These Terms & Conditions (these “Terms”) contain the terms and conditions on which we supply content, products or services listed on www.appsimple.io (the “Website”), through our applications (the “Apps”) or via other delivery methods to you (the Website and such content, products, services and the Apps are referred to herein collectively as the “Products” or individually as the “Product”, which may be updated from time-to-time at the sole discretion of AppSimple). Please read these terms and conditions, carefully before ordering any Products from the Website or third party App stores (e.g. the Apple App Store). The terms “AppSimple”, “us”, or “we” refers to AppSimple, LLC. The term “Device” refers to the device which is used to access the Products including but not limited to computers, smart phones and tablets. The term “you” refers to the user of the Products. When you order (“Order”) any Products, or otherwise use or access the Products, you agree to be bound by these Terms and all applicable laws, rules and regulations. You may also be asked to click “I accept” at the appropriate place prior to your purchase of access to the Products. At such time, if you do not click “I accept”, you may not be able to complete such purchase or gain such access. By using the Products, you indicate that you accept these Terms and that you agree to abide by them. If you do not agree to these Terms, please refrain from using the Products.</div>
@@ -182,9 +172,4 @@ Product memberships and subscriptions are not transferable and therefore cannot 
 <div class='innerText'>If any provision of these Terms is found unenforceable, then that provision will be severed from these Terms and not affect the validity and enforceability of any remaining provisions.</div>
 <div class='innerText'>These Terms are effective and were last updated on October 16, 2017.</div>
 <div class='innerText'>AppSimple, LLC. is located at 928 2nd St, New Orleans, LA 70130.</div>
-
-		<div>
-			<span id="copyright">Copyright © 2025 <a href="\">AppSimple</a> - <a href="mailto:support@appsimple.io">support@appsimple.io</a> - <a href="/../privacy">Privacy</a> - <a href="/../terms">Terms</a></span>
-		</div>
-	</body>
-</html>
+{% endblock %}

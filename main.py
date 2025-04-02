@@ -78,22 +78,6 @@ async def read_portfolio(request: Request):
 async def read_contact(request: Request):
     return templates.TemplateResponse("contact.html", {"request": request})
 
-# Direct access to mobile pages (new pattern)
-@app.get("/mobile/{app_name}", response_class=HTMLResponse)
-async def mobile_page(request: Request, app_name: str):
-    # Handle both with and without .html extension
-    if not app_name.endswith('.html'):
-        app_name = f"{app_name}.html"
-        
-    # Check if the mobile page exists
-    page_path = os.path.join(mobile_dir, app_name)
-    if not os.path.exists(page_path):
-        logger.error(f"Mobile page not found: {page_path}")
-        return HTMLResponse(content=f"Mobile page {app_name} not found", status_code=404)
-    
-    # Return the file directly
-    return FileResponse(page_path)
-
 VALID_CASE_STUDIES = ["bodhimind", "guidedmind", "mindtimer", "livewire"]
 
 @app.get("/portfolio/{case_study_name}", response_class=HTMLResponse)

@@ -1,0 +1,206 @@
+/* pages/legal.css - Shared styles for legal pages (privacy, terms) */
+
+/* Base container for legal pages */
+.legal-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 var(--space-md);
+}
+
+/* Main page sections */
+.page-section {
+  padding: 20px 0;
+}
+
+/* Policy sections (logical document divisions) */
+.policy-section {
+  margin-bottom: 30px;
+  width: 100%;
+}
+
+/* Last section shouldn't have bottom margin */
+.policy-section:last-child {
+  margin-bottom: 0;
+}
+
+/* Typography adjustments for legal content */
+.policy-section h2 {
+  font-size: var(--text-lg);
+  margin-top: 25px;
+  margin-bottom: 15px;
+  color: var(--neutral-800);
+  font-weight: var(--font-bold);
+}
+
+.policy-section h3 {
+  font-size: var(--text-md);
+  margin-top: 20px;
+  margin-bottom: 10px;
+  color: var(--neutral-700);
+  font-weight: var(--font-medium);
+}
+
+.policy-section p {
+  margin-bottom: 15px;
+  line-height: 1.6;
+  color: var(--neutral-600);
+}
+
+/* Ordered and unordered lists for legal content */
+.policy-section ul,
+.policy-section ol {
+  padding-left: 20px;
+  margin-bottom: 20px;
+}
+
+.policy-section li {
+  margin-bottom: 8px;
+  line-height: 1.6;
+  color: var(--neutral-600);
+}
+
+.policy-section li:last-child {
+  margin-bottom: 0;
+}
+
+/* Definition lists for legal terms */
+.policy-section dl {
+  margin-bottom: 20px;
+}
+
+.policy-section dt {
+  font-weight: var(--font-medium);
+  margin-bottom: 5px;
+  color: var(--neutral-800);
+}
+
+.policy-section dd {
+  margin-left: 20px;
+  margin-bottom: 15px;
+  color: var(--neutral-600);
+}
+
+/* Tables for legal documents */
+.policy-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.policy-table th {
+  background-color: var(--neutral-100);
+  text-align: left;
+  padding: 10px;
+  border: 1px solid var(--neutral-300);
+  font-weight: var(--font-medium);
+  color: var(--neutral-800);
+}
+
+.policy-table td {
+  padding: 10px;
+  border: 1px solid var(--neutral-300);
+  color: var(--neutral-600);
+}
+
+.policy-table tr:nth-child(even) {
+  background-color: var(--neutral-50);
+}
+
+/* Callout box for mobile app notice */
+.mobile-callout {
+  background-color: var(--primary-light);
+  border-left: 4px solid var(--primary);
+  padding: var(--space-md);
+  margin-bottom: var(--space-md);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.mobile-callout-icon {
+  flex-shrink: 0;
+  color: var(--primary);
+  width: 24px;
+  height: 24px;
+}
+
+.mobile-callout-text {
+  flex: 1;
+}
+
+/* Additional callout variations */
+.info-callout {
+  background-color: var(--primary-light);
+  border-left: 4px solid var(--primary);
+  padding: var(--space-md);
+  margin-bottom: var(--space-md);
+  border-radius: var(--radius-md);
+}
+
+.warning-callout {
+  background-color: var(--secondary-light);
+  border-left: 4px solid var(--secondary);
+  padding: var(--space-md);
+  margin-bottom: var(--space-md);
+  border-radius: var(--radius-md);
+}
+
+/* Updates section at bottom of legal docs */
+.updates-section {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid var(--neutral-200);
+  font-style: italic;
+  color: var(--neutral-500);
+}
+
+/* Effective date formatting */
+.effective-date {
+  font-weight: var(--font-medium);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .legal-container {
+    padding: 0 var(--space-sm);
+  }
+  
+  .policy-section h2 {
+    font-size: calc(var(--text-lg) * 0.9);
+  }
+  
+  .policy-section h3 {
+    font-size: calc(var(--text-md) * 0.9);
+  }
+  
+  .mobile-callout {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .mobile-callout-icon {
+    margin-bottom: var(--space-xs);
+  }
+  
+  /* Horizontal scroll for tables on mobile */
+  .table-container {
+    width: 100%;
+    overflow-x: auto;
+    margin-bottom: 20px;
+  }
+  
+  .policy-table {
+    min-width: 600px; /* Ensure it forces horizontal scroll on mobile */
+  }
+}
+
+@media (max-width: 480px) {
+  .policy-section h2 {
+    font-size: var(--text-md);
+  }
+  
+  .policy-section h3 {
+    font-size: var(--text-sm);
+  }
+}
