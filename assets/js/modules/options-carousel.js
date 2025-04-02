@@ -10,11 +10,12 @@ const CarouselModule = (function() {
     ],
     showDelay: 500,         // Delay after typing before showing carousel
     cycleDelay: 4000,       // How long each option stays visible
-    fadeTransition: 1200    // Transition duration between options
+    fadeTransition: 800     // Fade transition duration (ms)
   };
   
   let currentIndex = 0;
   let intervalId = null;
+  let isTransitioning = false;
   
   // Create carousel HTML
   function createCarouselHTML() {
@@ -44,22 +45,37 @@ const CarouselModule = (function() {
     container.appendChild(promptContainer);
   }
   
-  // Cycle to the next item
+  // Cycle to the next item with improved transition
   function cycleToNextItem() {
+    if (isTransitioning) return;
+    
     const container = document.getElementById(config.containerId);
     if (!container) return;
     
     const items = container.querySelectorAll('.carousel-item');
     if (!items.length) return;
     
-    // Remove active class from current item
-    items[currentIndex].classList.remove('active');
+    isTransitioning = true;
     
-    // Update index
+    // Store references to current and next elements
+    const currentItem = items[currentIndex];
     currentIndex = (currentIndex + 1) % items.length;
+    const nextItem = items[currentIndex];
     
-    // Add active class to new item
-    items[currentIndex].classList.add('active');
+    // Start transition
+    currentItem.style.transition = `opacity ${config.fadeTransition}ms ease`;
+    currentItem.classList.remove('active');
+    
+    // After current item has faded out, fade in the next
+    setTimeout(() => {
+      nextItem.style.transition = `opacity ${config.fadeTransition}ms ease`;
+      nextItem.classList.add('active');
+      
+      // Reset transition state after animation completes
+      setTimeout(() => {
+        isTransitioning = false;
+      }, config.fadeTransition);
+    }, 50); // Small delay between fade out and fade in
   }
   
   // Start the carousel cycling
@@ -93,9 +109,6 @@ const CarouselModule = (function() {
     
     // Add class to enable prompt display
     container.classList.add('carousel-input-mode');
-    
-    // This would be expanded later to handle user input
-    console.log("Interactive mode enabled - to be implemented");
   }
   
   // Initialize module
