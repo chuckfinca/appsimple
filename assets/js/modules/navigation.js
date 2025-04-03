@@ -1,10 +1,11 @@
-// Updated navigation.js for fullscreen mobile menu
+// Updated navigation.js for split portfolio navigation
 document.addEventListener('DOMContentLoaded', function() {
   // Get navigation elements
   const menuToggle = document.querySelector('.menu-toggle');
   const navMenu = document.querySelector('.nav-menu');
   const dropdowns = document.querySelectorAll('.dropdown');
   const navLinks = document.querySelectorAll('.nav-links a:not(.dropdown a)');
+  const portfolioToggle = document.querySelector('.portfolio-toggle');
   
   // Handle menu toggle for mobile
   if (menuToggle && navMenu) {
@@ -26,28 +27,27 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
   
-  // Mobile - handle dropdown toggles
-  dropdowns.forEach(dropdown => {
-    const link = dropdown.querySelector('a');
-    const subLinks = dropdown.querySelectorAll('.dropdown-menu a');
-    
-    if (link) {
-      link.addEventListener('click', function(e) {
-        if (window.innerWidth <= 768) {
-          e.preventDefault();
-          
-          // Close other dropdowns first
-          dropdowns.forEach(d => {
-            if (d !== dropdown && d.classList.contains('active')) {
-              d.classList.remove('active');
-            }
-          });
-          
-          // Toggle current dropdown
-          dropdown.classList.toggle('active');
+  // Handle portfolio toggle specifically
+  if (portfolioToggle) {
+    portfolioToggle.addEventListener('click', function(e) {
+      e.preventDefault();
+      const parentDropdown = this.closest('.dropdown');
+      
+      // Close other dropdowns first
+      dropdowns.forEach(d => {
+        if (d !== parentDropdown && d.classList.contains('active')) {
+          d.classList.remove('active');
         }
       });
-    }
+      
+      // Toggle current dropdown
+      parentDropdown.classList.toggle('active');
+    });
+  }
+  
+  // Mobile - handle other dropdown toggles
+  dropdowns.forEach(dropdown => {
+    const subLinks = dropdown.querySelectorAll('.dropdown-menu a');
     
     // Close menu when clicking on a submenu link
     subLinks.forEach(subLink => {
@@ -69,45 +69,31 @@ document.addEventListener('DOMContentLoaded', function() {
   // Handle common paths
   let activePath = currentPath;
   
-  // Special handling for mobile view pages
-  if (currentPath.startsWith('/view/mobile/')) {
-    // For mobile wrapper pages, highlight portfolio
-    activePath = '/portfolio';
+  // Special handling for portfolio case study pages
+  if (currentPath.startsWith('/portfolio/')) {
+    // For case study pages, highlight portfolio
+    document.getElementById('portfolio-link')?.classList.add('active');
     
-    // Also highlight the specific app in the dropdown
-    const appName = currentPath.split('/').pop();
-    const appLink = document.querySelector(`.dropdown-menu a[href="/view/mobile/${appName}"]`);
-    if (appLink) {
-      appLink.classList.add('active');
+    // Also highlight the specific case study in the dropdown
+    const casePath = currentPath.split('/').pop();
+    const caseLink = document.getElementById(`${casePath}-link`);
+    if (caseLink) {
+      caseLink.classList.add('active');
       
-      // Also activate parent dropdown in mobile
-      const parentDropdown = appLink.closest('.dropdown');
-      if (parentDropdown) {
+      // Expand dropdown on desktop
+      const parentDropdown = caseLink.closest('.dropdown');
+      if (parentDropdown && window.innerWidth > 768) {
         parentDropdown.classList.add('active');
       }
     }
-  } else if (currentPath === '/') {
-    // For homepage
-    activePath = '/';
   } else {
-    // For other pages, get the first path segment
-    activePath = '/' + currentPath.split('/')[1];
-  }
-  
-  // Find and activate the matching link
-  const allLinks = document.querySelectorAll('.nav-links a');
-  allLinks.forEach(link => {
-    const href = link.getAttribute('href');
-    if (href === activePath) {
-      link.classList.add('active');
-      
-      // If it's in a dropdown, activate the dropdown
-      const parentDropdown = link.closest('.dropdown');
-      if (parentDropdown) {
-        parentDropdown.classList.add('active');
-      }
+    // For other pages, highlight the main section
+    const mainPath = '/' + (currentPath.split('/')[1] || '');
+    const mainLink = document.querySelector(`.nav-links a[href="${mainPath}"]`);
+    if (mainLink) {
+      mainLink.classList.add('active');
     }
-  });
+  }
   
   // Handle ESC key to close menu
   document.addEventListener('keydown', function(e) {

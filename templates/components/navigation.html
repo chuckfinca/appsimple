@@ -14,14 +14,24 @@
           <li><a href="/services" id="services-link">Services</a></li>
           <li><a href="/process" id="process-link">Process</a></li>
           <li><a href="/about" id="about-link">About</a></li>
-          <li class="dropdown">
-            <a href="/portfolio" id="portfolio-link">Portfolio</a>
+          
+          <!-- Updated Portfolio navigation with split access -->
+          <li class="dropdown portfolio-item">
+            <div class="portfolio-nav-group">
+              <a href="/portfolio" id="portfolio-link" class="portfolio-main-link">Portfolio</a>
+              <button class="portfolio-toggle" aria-label="Toggle case studies">
+                <svg class="toggle-icon" viewBox="0 0 24 24" width="28" height="28">
+                  <path d="M12 7v10M7 12h10" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                </svg>
+              </button>
+            </div>
             <ul class="dropdown-menu">
               <li><a href="/portfolio/bodhimind" id="bodhimind-link">Bodhi Mind</a></li>
               <li><a href="/portfolio/guidedmind" id="guidedmind-link">Guided Mind</a></li>
               <li><a href="/portfolio/livewire" id="livewire-link">Livewire</a></li>
             </ul>
           </li>
+          
           <li><a href="/contact" id="contact-link">Contact</a></li>
         </ul>
       </div>

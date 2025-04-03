@@ -141,6 +141,44 @@
     padding: 0.5rem;
   }
   
+  /* ========== PORTFOLIO SPLIT NAVIGATION ========== */
+  .portfolio-nav-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .portfolio-toggle {
+    display: none; /* Hidden on desktop by default */
+    background: none;
+    border: none;
+    padding: 0.25rem;
+    width: 3.5rem;
+    height: 3.5rem;
+    cursor: pointer;
+    color: var(--neutral-600);
+    transition: color 0.2s ease, transform 0.2s ease;
+    border-radius: 50%;
+  }
+
+  .portfolio-toggle:hover {
+    color: var(--primary);
+  }
+
+  .portfolio-toggle:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(70, 130, 180, 0.2);
+  }
+
+  .toggle-icon {
+    transition: transform 0.3s ease;
+  }
+
+  .dropdown.active .toggle-icon {
+    transform: rotate(45deg);
+  }
+  
   /* ========== MOBILE MENU TOGGLE ========== */
   .menu-toggle {
     display: none;
@@ -214,19 +252,20 @@
       padding: 1rem;
     }
     
-    /* Full screen menu that shows the background */
+    /* Full screen menu with reliable content display */
     .nav-menu {
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
-      bottom: 0;
-      width: 100vw;
-      height: 100vh;
+      width: 100%;
       background-color: transparent;
       display: flex;
-      align-items: center;
-      justify-content: center;
+      flex-direction: column;
+      justify-content: flex-start;
+      overflow-y: auto;
+      max-height: 100%;
+      padding: 4rem 1rem 2rem;
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.3s ease;
@@ -246,6 +285,8 @@
       padding: 0;
       gap: 0;
       margin: 0;
+      width: 100%;
+      padding-bottom: 4rem; /* Extra space at bottom */
     }
     
     .nav-links li {
@@ -272,24 +313,22 @@
       display: none;
     }
     
-    /* Mobile dropdown */
+    /* Mobile dropdown - more reliable approach */
     .dropdown-menu {
       position: static;
       background: none;
       box-shadow: none;
       width: 100%;
-      max-height: 0;
-      overflow: hidden;
+      display: none; /* Hide by default */
       opacity: 1;
       visibility: visible;
       transform: none;
-      transition: max-height 0.3s ease;
-      margin: 0.5rem 0;
+      margin: 0.75rem 0;
       padding: 0;
     }
     
     .dropdown.active .dropdown-menu {
-      max-height: 300px;
+      display: block; /* Simple display toggle for reliability */
     }
     
     .dropdown::after {
@@ -301,78 +340,41 @@
       color: #4B5563;
       text-align: center;
     }
-  }
-
-  @media (max-width: 768px) {
-    /* Mobile menu styling */
-    .nav-menu {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background-color: transparent;
-      z-index: 999;
+    
+    /* Portfolio split navigation - mobile specific */
+    .portfolio-toggle {
       display: flex;
       align-items: center;
       justify-content: center;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
     }
     
-    .nav-menu.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
-    
-    /* Center menu content */
-    .nav-links {
-      flex-direction: column;
-      align-items: center;
+    .portfolio-nav-group {
+      width: 100%;
       justify-content: center;
-      width: 100%;
-      max-width: 280px;
-      margin: 0 auto;
+      position: relative;
     }
     
-    .nav-links li {
-      width: 100%;
-      text-align: center;
-      margin: 0.75rem 0;
-    }
-    
-    .nav-links a {
+    /* Center the main Portfolio link */
+    .portfolio-main-link {
       font-size: 1.75rem;
       padding: 0.75rem;
-      display: inline-block;
-      color: var(--neutral-800);
       font-weight: var(--font-medium);
     }
     
-    /* Remove any desktop-specific styles */
-    .nav-links a::after {
+    /* Position the toggle button absolutely to maintain centered text */
+    .portfolio-toggle {
+      position: absolute;
+      right: 0;
+      margin-right: 0.75rem;
+      font-size: 2rem; /* Much larger icon display */
+    }
+    
+    /* Ensure dropdown still works properly with reliable display */
+    .portfolio-item.dropdown .dropdown-menu {
       display: none;
     }
     
-    /* Simple dropdown for mobile */
-    .dropdown-menu {
-      position: static;
-      opacity: 1;
-      visibility: visible;
-      transform: none;
-      box-shadow: none;
-      width: 100%;
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.3s ease;
-      margin: 0.5rem 0;
-      padding: 0;
-      background: transparent;
-    }
-    
-    .dropdown.active .dropdown-menu {
-      max-height: 300px;
-      padding: 0.5rem 0;
+    .portfolio-item.dropdown.active .dropdown-menu {
+      display: block;
     }
   }
