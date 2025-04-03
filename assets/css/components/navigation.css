@@ -3,8 +3,6 @@
     position: sticky;
     top: 0;
     background-color: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
     z-index: 100;
     border-bottom: 1px solid var(--neutral-200);
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
@@ -151,6 +149,7 @@
     border: none;
     padding: 0.5rem;
     z-index: 1000;
+    position: relative;
   }
   
   .hamburger-bar {
@@ -176,6 +175,24 @@
     transform: translateY(-7px) rotate(-45deg);
   }
   
+  /* Hide only content and footer when menu is open */
+  body.menu-open .content-inner,
+  body.menu-open .app-footer {
+    display: none;
+  }
+  
+  /* Keep nav-menu visible on menu open, just change background to transparent */
+  body.menu-open .site-nav {
+    background-color: transparent;
+    box-shadow: none;
+    border-bottom: none;
+  }
+
+  /* Hide the logo when menu is open */
+  body.menu-open .site-logo {
+    visibility: hidden;
+  }
+  
   /* Prevent scrolling when menu is open */
   body.menu-open {
     overflow: hidden;
@@ -197,16 +214,16 @@
       padding: 1rem;
     }
     
-    /* Hide desktop menu */
+    /* Full screen menu that shows the background */
     .nav-menu {
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
       bottom: 0;
-      width: 100%;
-      height: 100%;
-      background-color: white;
+      width: 100vw;
+      height: 100vh;
+      background-color: transparent;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -214,7 +231,6 @@
       pointer-events: none;
       transition: opacity 0.3s ease;
       z-index: 999;
-      overflow-y: auto;
     }
     
     .nav-menu.active {
@@ -227,8 +243,9 @@
       flex-direction: column;
       align-items: center;
       text-align: center;
-      padding: 1rem;
+      padding: 0;
       gap: 0;
+      margin: 0;
     }
     
     .nav-links li {
@@ -238,9 +255,16 @@
     }
     
     .nav-links a {
-      font-size: 1.5rem;
-      color: #1F2937;
-      padding: 0.5rem;
+      font-size: 1.75rem;
+      color: var(--neutral-800);
+      padding: 0.75rem;
+      font-weight: var(--font-medium);
+      transition: transform 0.2s ease, color 0.2s ease;
+    }
+    
+    .nav-links a:hover {
+      transform: translateY(-2px);
+      color: var(--primary);
     }
     
     /* Remove underline effect on mobile */
@@ -285,10 +309,10 @@
       position: fixed;
       top: 0;
       left: 0;
-      width: 100vw; /* Use viewport units to ensure full width */
-      height: 100vh; /* Use viewport units to ensure full height */
-      background-color: white;
-      z-index: 999; /* Keep high to ensure it's on top */
+      width: 100vw;
+      height: 100vh;
+      background-color: transparent;
+      z-index: 999;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -319,9 +343,11 @@
     }
     
     .nav-links a {
-      font-size: 1.5rem;
-      padding: 0.5rem;
+      font-size: 1.75rem;
+      padding: 0.75rem;
       display: inline-block;
+      color: var(--neutral-800);
+      font-weight: var(--font-medium);
     }
     
     /* Remove any desktop-specific styles */
