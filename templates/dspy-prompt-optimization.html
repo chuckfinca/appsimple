@@ -1,0 +1,270 @@
+{% extends "base.html" %}
+
+{% block title %}DSPy Prompt Optimization Case Study - Charles Feinn // AppSimple{% endblock %}
+
+{# No extra_css needed as case-study styles should be in main.css #}
+
+{% block content %}
+<div class="back-navigation">
+    <a href="/portfolio" class="back-link">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="back-arrow">
+        <path d="M19 12H5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M12 19L5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>Back to Portfolio</span>
+    </a>
+</div>
+
+<!-- Case Study Header -->
+<div class="case-study-header">
+    <h1 class="page-title mb-md">Case Study: Automating LLM Prompt Optimization</h1>
+
+    <!-- Title and description at the top -->
+    <div class="app-description">
+        <h2 class="app-title mb-sm">Improving Benchmark Performance with DSPy</h2>
+        <p class="page-intro">An internal research project exploring programmatic prompt optimization using the DSPy framework to improve the performance of Llama 3.1 8B on the MMLU benchmark, surpassing manual prompt engineering efforts.</p>
+    </div>
+
+    <!-- Visual (Animation or Static Image) -->
+    <div class="mb-lg text-center"> {# Center the visual #}
+        <img src="/assets/images/dspy-mmlu-animation.svg" alt="DSPy Optimization Process Animation" style="max-width: 100%; height: auto; border-radius: var(--radius-md); box-shadow: var(--shadow-md);">
+        {# Consider adding a caption if needed #}
+    </div>
+
+    <!-- Metadata Grid -->
+    <div class="metadata-container">
+        <!-- Placeholder Icon (Optional - could use a generic AI/Optimization icon) -->
+        <div class="app-icon-container">
+            <img src="/assets/images/dspy_logo.png" alt="DSPy Logo" class="app-icon">
+        </div>
+
+        <!-- Compact metadata grid -->
+        <div class="project-metadata-grid">
+            <div class="metadata-column">
+                <div class="metadata-label">Project Type:</div>
+                <div class="metadata-value">Internal R&D / AI Engineering</div>
+            </div>
+            <div class="metadata-column">
+                <div class="metadata-label">Technology Focus:</div>
+                <div class="metadata-value">LLM Optimization, DSPy</div>
+            </div>
+            <div class="metadata-column">
+                <div class="metadata-label">Models Used:</div>
+                <div class="metadata-value">Llama 3.1 8B, GPT-4o-mini</div>
+            </div>
+             <div class="metadata-column">
+                <div class="metadata-label">Benchmark:</div>
+                <div class="metadata-value">MMLU</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- The Challenge -->
+<div class="process-step">
+    <div class="process-step-content">
+        <div class="process-step-header">
+            <div class="expertise-icon-container">
+                 <svg class="icon expertise-icon" viewBox="0 0 24 24">
+                    <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
+                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                    <line x1="12" y1="17" x2="12.01" y2="17"/>
+                </svg>
+            </div>
+            <h3>The Challenge</h3>
+        </div>
+        <div class="process-step-content-body">
+            <p>Manually crafting effective prompts for Large Language Models (LLMs) is a time-consuming and often unreliable process. Subtle changes in wording can lead to significant variations in performance, making it difficult to consistently achieve optimal results.</p>
+            <p>In previous experiments (<a href="https://chuckfinca.github.io/machine_learnings/posts/24-10-03-challenges-in-reproducing-llm-evaluation-results/" target="_blank" rel="noopener noreferrer">see blog post</a>), manual attempts to reproduce Meta's published MMLU benchmark score (73.0 macro avg) for the Llama 3.1 8B model only yielded a score of 68.3. This significant gap highlighted the limitations of manual prompt engineering and the need for a more systematic, automated approach to unlock the model's full potential.</p>
+            <p>The core challenges were:</p>
+            <ul class="service-list">
+                <li>The inefficiency and inconsistency of manual prompt tuning.</li>
+                <li><!-- ADDITION: Time cost/scalability -->The significant time investment required for manual optimization, making it difficult to adapt quickly to new models or evolving requirements.</li>
+                <li>Difficulty in reaching state-of-the-art performance levels through trial-and-error.</li>
+                <li>The need for a reproducible and data-driven method for prompt optimization.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- My Approach -->
+<div class="process-step">
+    <div class="process-step-content">
+        <div class="process-step-header">
+            <div class="expertise-icon-container">
+                 <svg class="icon expertise-icon" viewBox="0 0 24 24">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                </svg>
+            </div>
+            <h3>My Approach</h3>
+        </div>
+        <div class="process-step-content-body">
+            <p>To address the limitations of manual prompting, I explored using DSPy, an open-source framework designed for programming LLMs rather than just prompting them. DSPy automates the process of finding effective prompts based on data.</p>
+            <p>My approach involved:</p>
+            <ul class="service-list">
+                <li><strong>Defining the Task Structure:</strong> Created a DSPy `Signature` to clearly define the inputs (subject, question, choices) and the desired constrained output (A, B, C, or D) for the MMLU task.</li>
+                <li><strong>Building a DSPy Program:</strong> Implemented a `ChainOfThought` module within DSPy to encourage reasoning, adding fallback logic to handle potential output formatting issues.</li>
+                <li><strong>Leveraging Data for Optimization:</strong> Utilized the MMLU development and validation datasets to train and evaluate different prompt candidates automatically.</li>
+                <li><strong>Automated Optimization:</strong> Employed the `MIPROv2` optimizer within DSPy. This involved using a powerful "teacher" model (GPT-4o-mini) to generate and refine instructions and few-shot examples for the target Llama 3.1 8B model.</li>
+                <li><strong>Objective Evaluation:</strong> Used `answer_exact_match` as the metric to guide the optimization process towards prompts that maximize accuracy.</li>
+            </ul>
+             <!-- REVISED GOAL STATEMENT -->
+             <p>The goal was not just to improve performance but also to validate DSPy as a tool for creating more efficient, systematic, and adaptable AI engineering workflows compared to manual trial-and-error.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Technical Implementation -->
+<div class="process-step">
+    <div class="process-step-content">
+        <div class="process-step-header">
+            <div class="expertise-icon-container">
+                <svg class="icon expertise-icon" viewBox="0 0 24 24">
+                    <path d="M16 18l6-6-6-6"/>
+                    <path d="M8 6l-6 6 6 6"/>
+                </svg>
+            </div>
+            <h3>Technical Implementation</h3>
+        </div>
+        <div class="process-step-content-body">
+            <p>The implementation leveraged several key components within the Python ecosystem:</p>
+            <h4 class="mt-md mb-sm">Core Framework: DSPy</h4>
+             <ul class="service-list">
+                <li><strong>`dspy.Signature` (`MMLUSignature`):</strong> Defined inputs (`subject`, `question`, `choices`) and a constrained `Literal['A', 'B', 'C', 'D']` output (`answer`) for clear task specification.</li>
+                <li><strong>`dspy.Module` (`MMLUMultipleChoiceModule`):</strong> Wrapped a `dspy.ChainOfThought` predictor using the signature. Implemented temperature fallback logic to improve robustness against invalid model outputs.</li>
+                <li><strong>`dspy.MIPROv2` Optimizer:</strong> Configured with `auto="medium"` settings, using GPT-4o-mini as both the `prompt_model` and `teacher_model` to generate optimized instructions and few-shot demonstrations.</li>
+                <li><strong>`dspy.evaluate.answer_exact_match` Metric:</strong> Used to score prompt candidates during optimization based on accuracy.</li>
+                <li><strong>`dspy.Evaluate`:</strong> Employed for the final evaluation on the held-out test set, running across all MMLU subjects.</li>
+            </ul>
+
+             <h4 class="mt-md mb-sm">Models & Data:</h4>
+             <ul class="service-list">
+                <li><strong>Target Model (`lm_task`):</strong> Meta's `meta-llama/Meta-Llama-3.1-8B-Instruct` accessed via Hugging Face (`dspy.HFModel`).</li>
+                <li><strong>Optimization Model (`lm_train`):</strong> OpenAI's `gpt-4o-mini` accessed via the OpenAI API (`dspy.OpenAI`).</li>
+                <li><strong>Dataset:</strong> `cais/mmlu` dataset loaded using Hugging Face `datasets` and formatted into `dspy.Example` objects using a custom preparation function (`prepare_mmlu_dataset`).</li>
+                <li><strong>Data Splits:</strong> MMLU 'dev' set used for training examples within optimization, 'validation' set used for scoring candidates during optimization, and 'test' set reserved for final, unbiased evaluation.</li>
+            </ul>
+
+             <h4 class="mt-md mb-sm">Environment:</h4>
+             <ul class="service-list">
+                 <li>Python environment with `dspy-ai`, `datasets`, and necessary dependencies.</li>
+                 <li>Execution primarily on Google Colab using GPU acceleration (A100).</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Results & Impact -->
+<div class="process-step">
+    <div class="process-step-content">
+        <div class="process-step-header">
+            <div class="expertise-icon-container">
+                 <svg class="icon expertise-icon" viewBox="0 0 24 24">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                    <polyline points="22 4 12 14.01 9 11.01"/>
+                </svg>
+            </div>
+            <h3>Results & Impact</h3>
+        </div>
+        <div class="process-step-content-body">
+            <p>The automated prompt optimization using DSPy yielded significant improvements over manual methods:</p>
+
+            <!-- Key Metrics -->
+            <div class="about-stats mt-md mb-lg">
+                <div class="stat-item">
+                    <div class="stat-number">68.3%</div>
+                    <div class="stat-label">Best Manual MMLU Score (Macro Avg)</div>
+                </div>
+                <div class="stat-item" style="background-color: var(--secondary-light);"> {# Use secondary color for emphasis #}
+                    <div class="stat-number" style="color: var(--secondary);">71.1%</div>
+                    <div class="stat-label">DSPy Optimized MMLU Score (Macro Avg)</div>
+                </div>
+                 <div class="stat-item">
+                    <div class="stat-number">+2.8 pts</div>
+                    <div class="stat-label">Improvement with DSPy</div>
+                </div>
+            </div>
+
+            <p>Key outcomes included:</p>
+            <ul class="service-list">
+                <li><strong>Performance Boost:</strong> Achieved a **71.1% macro average** MMLU score, a substantial **+2.8 percentage point** increase compared to the best manually engineered prompt (68.3%).</li>
+                <li><strong>Closing the Gap:</strong> The optimized score came significantly closer to Meta's published 73.0% score for the Llama 3.1 8B model.</li>
+                <li><!-- ADDITION: Efficiency --><strong>Efficiency Demonstrated:</strong> While not explicitly timed against the manual process in this project, the automated nature of DSPy inherently replaces hours of manual tuning with a programmatic, repeatable compilation step.</li>
+                 <li><strong>Validation of Technique:</strong> Confirmed the effectiveness of DSPy and programmatic prompting as a powerful tool for enhancing LLM performance on specific tasks.</li>
+            </ul>
+             <p>This internal project demonstrates the capability to leverage advanced frameworks like DSPy to systematically tune and optimize LLM behavior, leading to more effective and reliable AI solutions compared to relying solely on manual prompt adjustments.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Key Learnings -->
+<div class="process-step">
+    <div class="process-step-content">
+        <div class="process-step-header">
+            <div class="expertise-icon-container">
+                <svg class="icon expertise-icon" viewBox="0 0 24 24">
+                    <path d="M18 8h1a4 4 0 0 1 0 8h-1"/>
+                    <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
+                    <line x1="6" y1="1" x2="6" y2="4"/>
+                    <line x1="10" y1="1" x2="10" y2="4"/>
+                    <line x1="14" y1="1" x2="14" y2="4"/>
+                </svg>
+            </div>
+            <h3>Key Learnings</h3>
+        </div>
+        <div class="process-step-content-body">
+            <p>This exploration into DSPy provided several valuable insights:</p>
+            <ul class="service-list">
+                <li><strong>DSPy's Power:</strong> Programmatic prompting frameworks like DSPy can significantly outperform manual prompt engineering, both in terms of final performance and efficiency.</li>
+                <li><strong>Letting Go:</strong> Effective use of DSPy involves defining the task structure (inputs/outputs) clearly and letting the framework optimize the details, rather than over-specifying instructions initially.</li>
+                 <li><strong>Importance of Data:</strong> High-quality training and validation data are crucial for guiding the optimization process effectively.</li>
+                <li><strong>Metric Alignment:</strong> Choosing the right evaluation metric (`answer_exact_match` in this case) directly impacts the quality of the optimized prompt.</li>
+                <li><!-- ADDITION: Adaptability/Future-proofing --><strong>Adaptability & Future-Proofing:</strong> DSPy's programmatic approach makes it significantly easier to re-optimize prompts when underlying models change (e.g., testing Llama 3.1 vs Llama 4). This modularity is crucial for staying current in the rapidly evolving LLM landscape and offers a more sustainable method than continuous manual re-tuning for each new model.</li>
+                <li><strong>Robustness Matters:</strong> Real-world LLM interactions require handling potential errors, such as invalid output formats, which necessitated adding fallback logic (like varying temperature).</li>
+                <li><strong>Community Value:</strong> Engaging with the DSPy community (like their Discord) proved invaluable for troubleshooting and understanding best practices.</li>
+            </ul>
+             <!-- REVISED CONCLUDING SENTENCE -->
+            <p>These learnings reinforce the value of systematic, data-driven approaches to LLM development and optimization, moving beyond simple prompt tweaking towards more robust and adaptable AI engineering.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Applying This to Client Solutions -->
+<div class="process-step">
+    <div class="process-step-content">
+        <div class="process-step-header">
+            <div class="expertise-icon-container">
+               <svg class="icon expertise-icon" viewBox="0 0 24 24">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <polyline points="19 12 12 19 5 12"></polyline>
+                </svg>
+            </div>
+            <h3>Applying This to Client Solutions</h3>
+        </div>
+        <div class="process-step-content-body">
+            <p>While this project focused on a standard benchmark, the principles and techniques demonstrated are directly applicable to building high-performing, custom AI solutions for specific business problems. Leveraging DSPy allows for:</p>
+            <ul class="service-list">
+                 <!-- REVISED/ADDED BULLETS -->
+                <li><strong>Faster Development & Iteration:</strong> Automating prompt optimization significantly reduces the time spent on manual trial-and-error, allowing for quicker deployment, refinement, and adaptation of AI solutions.</li>
+                 <li><strong>Tailored Performance:</strong> Optimizing prompts specifically for a client's unique data and task ensures the AI solution performs optimally in their context.</li>
+                <li><strong>More Reliable Solutions:</strong> Building programs with clear signatures and metrics leads to more predictable and robust LLM behavior.</li>
+                 <li><strong>Model Agnosticism & Future-Proofing:</strong> Designing solutions with frameworks like DSPy facilitates easier swapping and testing of different underlying LLMs (from various providers like OpenAI, Anthropic, Meta, Mistral, or open-source models). Optimized prompts can be adapted or re-optimized for new, better, or more cost-effective models as they become available, protecting the client's investment.</li>
+                <li><strong>Focus on Value:</strong> By automating the tedious tuning process, engineering effort can be directed towards solving the core business problem and delivering tangible value.</li>
+            </ul>
+             <!-- REVISED CONCLUDING PARAGRAPH -->
+            <p>This modular and adaptable approach ensures clients aren't locked into a single provider and can benefit from the rapid advancements across the entire AI ecosystem.</p>
+        </div>
+    </div>
+</div>
+
+<!-- CTA for services -->
+<div class="process-cta">
+    <h3>Need to optimize AI performance for your business task?</h3>
+    <p>Getting the best results from LLMs requires more than just basic prompting. My expertise includes leveraging advanced frameworks like DSPy to systematically optimize AI performance for specific goals. Let's discuss how I can build a high-performing, reliable AI solution tailored to your unique challenges.</p>
+    <a href="/contact" class="process-cta-button">Discuss Your AI Project</a>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<!-- No additional JavaScript needed for this case study -->
+{% endblock %}

@@ -38,7 +38,6 @@
   width: 100%; /* Take full available width */
   text-align: left; /* Ensure text inside is left-aligned */
   padding: 0; /* Remove padding if handled by .hero */
-  margin-bottom: 1.5rem; /* Add space before options container */
 }
 
 .typing-text {

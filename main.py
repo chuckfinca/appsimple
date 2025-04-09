@@ -78,7 +78,7 @@ async def read_portfolio(request: Request):
 async def read_contact(request: Request):
     return templates.TemplateResponse("contact.html", {"request": request})
 
-VALID_CASE_STUDIES = ["bodhimind", "guidedmind", "mindtimer", "livewire"]
+VALID_CASE_STUDIES = ["bodhimind", "guidedmind", "mindtimer", "livewire", "dspy-prompt-optimization", "llm-evaluation-prompting"]
 
 @app.get("/portfolio/{case_study_name}", response_class=HTMLResponse)
 async def case_study_page(request: Request, case_study_name: str):

@@ -13,7 +13,28 @@
         <span class="typing-text" id="typing-text"></span><span class="cursor"></span>
     </div>
     <div class="options-container" id="options-carousel">
-        <!-- Options will be dynamically inserted here -->
+        <!-- START: Inserted Static Options -->
+        <div class="carousel-item">
+            <p class="carousel-prompt">I need a custom mobile app for my business</p>
+            <a href="/portfolio" class="carousel-link">View Portfolio →</a>
+        </div>
+        <div class="carousel-item">
+            <p class="carousel-prompt">I want to implement AI in my existing workflow</p>
+            <a href="/process" class="carousel-link">See My Process →</a>
+        </div>
+        <div class="carousel-item">
+            <p class="carousel-prompt">I need help reducing operational costs with smart automation</p>
+            <a href="/services" class="carousel-link">Explore Services →</a>
+        </div>
+        <div class="carousel-item">
+            <p class="carousel-prompt">I want a mobile solution that grows with my business</p>
+            <a href="/about" class="carousel-link">Learn About Me →</a>
+        </div>
+        <div class="carousel-item">
+            <p class="carousel-prompt">I'm trying to determine if AI is right for my company</p>
+            <a href="/contact" class="carousel-link">Let's Talk →</a>
+        </div>
+        <!-- END: Inserted Static Options -->
     </div>
 </div>
 {% endblock %}
@@ -22,21 +43,20 @@
 <!-- Configuration script for typing module -->
 <script>
     // Centralized configuration for the typing module
-    const PAGE_CONFIG = {
-        typingText: "Hi there. What can AppSimple do for you?",
-        typingSpeed: 70,
-        speedVariation: 0.3,
+    window.PAGE_CONFIG = {
+        typingText: "Hi, I'm Charles Feinn, the engineer behind AppSimple. What can I do for you?",
+        typingSpeed: 50,
+        speedVariation: 0.1,
         initialDelay: 1000,
-        longPauseDuration: 1200, // Pause after sentences (e.g., after "Hi there.")
-        shortPauseDuration: 400,  // Pause before/after company name
+        longPauseDuration: 1200, // Pause after sentences
+        shortPauseDuration: 400,  // Pause before company name
         wordPauseProbability: 0.15, // 15% chance of a thinking pause after words
-        thinkingDuration: [200, 500] // Range for thinking pauses
+        thinkingDuration: [100, 250] // Range for thinking pauses
     };
 </script>
 
 <!-- JavaScript modules - correct loading order -->
 <script src="/assets/js/modules/utils.js"></script>
 <script src="/assets/js/modules/typing.js"></script>
-<script src="/assets/js/modules/options-carousel.js"></script>
 <script src="/assets/js/main.js"></script>
 {% endblock %}

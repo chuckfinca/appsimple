@@ -208,8 +208,7 @@
   }
   
   .app-icon-container {
-    margin-right: 0;
-    margin-bottom: var(--space-md);
+    margin: 0 auto;
   }
 
   .back-navigation {
@@ -242,10 +241,6 @@
   
   .app-description {
     margin-bottom: var(--space-md);
-  }
-  
-  .app-icon-container {
-    margin: 0 auto;
   }
   
   /* Content responsive - small screens */

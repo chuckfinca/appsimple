@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+  <!-- Background -->
+  <rect width="800" height="400" fill="#f8f9fa"/>
+  
+  <!-- DSPy "Brain" Structure -->
+  <g transform="translate(100, 50)">
+    <!-- Neural Network Nodes -->
+    <circle cx="300" cy="150" r="120" fill="#e9ecef" stroke="#495057" stroke-width="2"/>
+    
+    <!-- Prompt Engineering Gears -->
+    <g transform="translate(250, 120)">
+      <path d="M0,0 L40,0 L50,10 L40,20 L0,20 L-10,10 Z" fill="#748ffc" transform="rotate(45)">
+        <animateTransform
+          attributeName="transform"
+          type="rotate"
+          from="0"
+          to="360"
+          dur="10s"
+          repeatCount="indefinite"/>
+      </path>
+    </g>
+    <g transform="translate(320, 160)">
+      <path d="M0,0 L40,0 L50,10 L40,20 L0,20 L-10,10 Z" fill="#748ffc" transform="rotate(-45)">
+        <animateTransform
+          attributeName="transform"
+          type="rotate"
+          from="360"
+          to="0"
+          dur="8s"
+          repeatCount="indefinite"/>
+      </path>
+    </g>
+
+    <!-- Input/Output Streams -->
+    <path d="M50,150 Q175,50 300,150" fill="none" stroke="#91a7ff" stroke-width="3">
+      <animate
+        attributeName="d"
+        dur="3s"
+        repeatCount="indefinite"
+        values="M50,150 Q175,50 300,150;
+                M50,150 Q175,250 300,150;
+                M50,150 Q175,50 300,150"/>
+    </path>
+    
+    <path d="M300,150 Q425,250 550,150" fill="none" stroke="#748ffc" stroke-width="3">
+      <animate
+        attributeName="d"
+        dur="3s"
+        repeatCount="indefinite"
+        values="M300,150 Q425,250 550,150;
+                M300,150 Q425,50 550,150;
+                M300,150 Q425,250 550,150"/>
+    </path>
+
+    <!-- MMLU Questions -->
+    <g transform="translate(20, 130)">
+      <rect width="60" height="40" rx="5" fill="#dee2e6"/>
+      <text x="30" y="25" text-anchor="middle" fill="#495057" font-family="monospace">MMLU</text>
+    </g>
+
+    <!-- Optimized Prompts -->
+    <g transform="translate(520, 130)">
+      <rect width="80" height="40" rx="5" fill="#748ffc"/>
+      <text x="40" y="25" text-anchor="middle" fill="white" font-family="monospace">Prompt++</text>
+    </g>
+  </g>
+
+  <!-- Title -->
+  <text x="400" y="350" text-anchor="middle" font-family="Arial" font-size="20" fill="#495057">
+    DSPy Prompt Optimization Flow
+  </text>
+</svg>

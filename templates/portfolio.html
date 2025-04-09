@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Services - AppSimple{% endblock %}
+{% block title %}Portfolio - Charles Feinn // AppSimple{% endblock %} {# Updated Title #}
 
 {% block extra_css %}
 <link rel="stylesheet" href="/assets/css/pages/portfolio.css" />
@@ -10,17 +10,60 @@
 <!-- Portfolio Section -->
 <h1 class="page-title">Portfolio</h1>
 <p class="page-intro">My work spans across mobile application development and applied AI solutions. Below you'll find a collection of projects that showcase my technical expertise and problem-solving approach across different domains.</p>
-    
+
 <!-- Portfolio Filter -->
 <div class="portfolio-filter">
     <button class="filter-button active" data-filter="all">All Projects</button>
     <button class="filter-button" data-filter="mobile">Mobile Apps</button>
-    <button class="filter-button" data-filter="ai">AI Solutions</button>
+    <button class="filter-button" data-filter="ai">AI Engineering</button> {# Changed label slightly #}
     <button class="filter-button" data-filter="hybrid">Hybrid Projects</button>
 </div>
 
 <!-- Portfolio Grid -->
 <div class="portfolio-grid">
+
+    <!-- DSPy Prompt Optimization -->
+    <div class="portfolio-item" data-categories="ai hybrid">
+        <div class="portfolio-card">
+            <div class="app-icon-container">
+                <img src="/assets/images/dspy_logo.png" alt="DSPy Logo" class="app-icon">
+            </div>
+            <div class="portfolio-content">
+                <h3>Automating LLM Prompt Optimization</h3>
+                <p class="portfolio-type">AI Engineering / LLM Optimization</p>
+                <p class="portfolio-description">Using the DSPy framework to programmatically optimize prompts, significantly improving Llama 3.1 8B performance on the MMLU benchmark over manual methods.</p>
+                <div class="portfolio-tags">
+                    <span class="tag">DSPy</span>
+                    <span class="tag">Prompt Optimization</span>
+                    <span class="tag">LLM Evaluation</span>
+                    <span class="tag">Automation</span>
+                </div>
+                <a href="/portfolio/dspy-prompt-optimization" class="portfolio-link">View Case Study</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- LLM Evaluation & Prompting -->
+    <div class="portfolio-item" data-categories="ai hybrid">
+        <div class="portfolio-card">
+            <div class="portfolio-image">
+                 <div class="placeholder-icon" style="font-size: 1.5rem; font-weight: 600;">Eval</div>
+            </div>
+            <div class="portfolio-content">
+                <h3>Building & Refining an LLM Evaluation System</h3>
+                <p class="portfolio-type">AI Engineering / LLM Evaluation</p>
+                <p class="portfolio-description">Developed a custom framework for MMLU benchmarking and investigated the critical impact of prompt engineering on LLM evaluation reproducibility.</p>
+                <div class="portfolio-tags">
+                    <span class="tag">LLM Evaluation</span>
+                    <span class="tag">Benchmarking</span>
+                    <span class="tag">Prompt Engineering</span>
+                    <span class="tag">Python</span>
+                </div>
+                <a href="/portfolio/llm-evaluation-prompting" class="portfolio-link">View Case Study</a>
+            </div>
+        </div>
+    </div>
+
     <!-- Bodhi Mind -->
     <div class="portfolio-item" data-categories="mobile">
         <div class="portfolio-card">
@@ -40,7 +83,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- Guided Mind -->
     <div class="portfolio-item" data-categories="mobile">
         <div class="portfolio-card">
@@ -60,7 +103,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- Livewire -->
     <div class="portfolio-item" data-categories="mobile">
         <div class="portfolio-card">
@@ -80,47 +123,9 @@
             </div>
         </div>
     </div>
-    
-    <!-- Mind Timer -->
-    <div class="portfolio-item" data-categories="mobile">
-        <div class="portfolio-card">
-            <div class="portfolio-image">
-                <img src="/assets/images/mindTimer.png" alt="Mind Timer App" class="portfolio-icon">
-            </div>
-            <div class="portfolio-content">
-                <h3>Mind Timer</h3>
-                <p class="portfolio-type">Mobile App Development</p>
-                <p class="portfolio-description">Simple, focused meditation timer for iOS with interval sessions and multiple sounds.</p>
-                <div class="portfolio-tags">
-                    <span class="tag">iOS</span>
-                    <span class="tag">Utility</span>
-                    <span class="tag">Meditation</span>
-                </div>
-                <a href="/portfolio/mindtimer" class="portfolio-link">View Case Study</a>
-            </div>
-        </div>
-    </div>
-    
-    <!-- AI Project Placeholder -->
-    <div class="portfolio-item coming-soon" data-categories="ai">
-        <div class="portfolio-card">
-            <div class="portfolio-image">
-                <div class="placeholder-icon">AI</div>
-            </div>
-            <div class="portfolio-content">
-                <h3>Applied AI Case Studies</h3>
-                <p class="portfolio-type">Coming Soon</p>
-                <p class="portfolio-description">I'm currently working on projects leveraging AI. Detailed case studies will be added here soon.</p>
-                <div class="portfolio-tags">
-                    <span class="tag">Machine Learning</span>
-                    <span class="tag">Process Automation</span>
-                    <span class="tag">Data Analysis</span>
-                </div>
-                <a href="/contact" class="portfolio-link">Contact for Details</a>
-            </div>
-        </div>
-    </div>
-</div>
+
+</div> <!-- End Portfolio Grid -->
+
 
 <!-- Hybrid Capabilities Section -->
 <h2 class="section-heading">Combining Mobile Development & Applied AI</h2>
@@ -140,7 +145,7 @@
             <p>Designing and building mobile applications that leverage AI for enhanced personalization, content recommendations, and user experience.</p>
         </div>
     </div>
-    
+
     <div class="hybrid-capability">
         <div class="expertise-icon-container">
             <svg class="icon expertise-icon" viewBox="0 0 24 24">
@@ -153,7 +158,7 @@
             <p>Creating specialized business applications that combine intuitive mobile interfaces with powerful AI processing capabilities.</p>
         </div>
     </div>
-    
+
     <div class="hybrid-capability">
         <div class="expertise-icon-container">
             <svg class="icon expertise-icon" viewBox="0 0 24 24">
@@ -173,4 +178,34 @@
     <p>Whether you need a mobile application, an AI-powered solution, or a solution that combines both, let's discuss how my experience can help bring your project to life.</p>
     <a href="/contact" class="process-cta-button">Start a Conversation</a>
 </div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  // Portfolio Filtering Logic
+  document.addEventListener('DOMContentLoaded', function() {
+    const filterButtons = document.querySelectorAll('.portfolio-filter .filter-button');
+    const portfolioItems = document.querySelectorAll('.portfolio-grid .portfolio-item');
+
+    filterButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        // Update active button state
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        this.classList.add('active');
+
+        const filterValue = this.getAttribute('data-filter');
+
+        // Show/hide portfolio items
+        portfolioItems.forEach(item => {
+          const categories = item.getAttribute('data-categories');
+          if (filterValue === 'all' || (categories && categories.split(' ').includes(filterValue))) {
+            item.style.display = 'block'; // Or restore original display value
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      });
+    });
+  });
+</script>
 {% endblock %}

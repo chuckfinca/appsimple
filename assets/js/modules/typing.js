@@ -1,206 +1,154 @@
-// Purpose: Creates and manages a typing animation effect with variable speeds, pauses, and styling
+// Purpose: Creates and manages a typing animation effect with variable speeds, pauses, and styling, with live linking.
 const TypingModule = (function () {
-  // Private variables
+  // --- Configuration and State ---
   let config = {
     text: "",
     targetElement: null,
     baseSpeed: 90,
     initialDelay: 1000,
-    speedVariation: 0.3, // Speed variation factor (0.3 means 30% variation)
-    longPauseDuration: 1500, // Pause after sentences
-    shortPauseDuration: 40, // Pause before/after company name
-    wordPauseProbability: 0.15, // Probability of a pause after regular words
-    thinkingDuration: [50, 100] // Range for random "thinking" pauses
+    speedVariation: 0.3,
+    longPauseDuration: 1500,
+    shortPauseDuration: 40,
+    wordPauseProbability: 0.15,
+    thinkingDuration: [50, 100]
   };
-  
-  // Process text into segments for special handling and pauses
+
+  // Define link targets - used by typeWriter now
+  const linkTargets = [
+      { text: "Charles Feinn", href: "/about", style: "text-decoration: none;" }, // Let inner spans handle bold/color
+      { text: "AppSimple", href: "mailto:charles@appsimple.io", style: "text-decoration: none;" }
+  ];
+
+  // --- processTextForTyping (Unchanged - keep the working version) ---
   function processTextForTyping(text) {
     const segments = [];
-    const companyName = "AppSimple";
-    
-    // Simple approach: first handle the company name, then consider sentence pauses
-    let remainingText = text;
-    let position;
-    
-    // First pass: Process company name occurrences
-    while ((position = remainingText.indexOf(companyName)) !== -1) {
-      // Add text before company name
-      if (position > 0) {
-        segments.push({
-          text: remainingText.substring(0, position),
-          isSpecial: false,
-          isEndOfSentence: false
-        });
-      }
-      
-      // Add company name as special segment
-      segments.push({
-        text: companyName,
-        isSpecial: true,
-        isEndOfSentence: false
-      });
-      
-      // Update remaining text
-      remainingText = remainingText.substring(position + companyName.length);
-    }
-    
-    // Add any remaining text
-    if (remainingText.length > 0) {
-      segments.push({
-        text: remainingText,
-        isSpecial: false,
-        isEndOfSentence: false
-      });
-    }
-    
-    // Second pass: Process sentence endings for pauses
-    for (let i = 0; i < segments.length; i++) {
-      // Skip special segments (company name)
-      if (segments[i].isSpecial) continue;
-      
-      const text = segments[i].text;
-      
-      // Find periods in this segment
-      for (let j = 0; j < text.length; j++) {
-        if (text[j] === '.' && j < text.length - 1) {
-          // Found a period that's not at the end
-          
-          // Split this segment
-          const before = text.substring(0, j + 1); // Include the period
-          const after = text.substring(j + 1);
-          
-          // Replace current segment with before part
-          segments[i] = {
-            text: before,
-            isSpecial: false,
-            isEndOfSentence: true
-          };
-          
-          // Insert after part as new segment
-          segments.splice(i + 1, 0, {
-            text: after,
-            isSpecial: false,
-            isEndOfSentence: false
-          });
-          
-          break; // Process one period at a time
-        } else if (j === text.length - 1 && text[j] === '.') {
-          // Period at the end of the segment
-          segments[i].isEndOfSentence = true;
+    const specialStrings = linkTargets.map(t => t.text); // Get special strings from linkTargets
+    const escapedSpecialStrings = specialStrings.map(s => s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'));
+    const specialRegex = new RegExp(escapedSpecialStrings.join('|'), 'g');
+    const sentenceEndPunctuationRegex = /[.?!]/g;
+    let currentIndex = 0;
+
+    while (currentIndex < text.length) {
+        specialRegex.lastIndex = currentIndex;
+        const specialMatch = specialRegex.exec(text);
+        const nextSpecialIndex = specialMatch ? specialMatch.index : Infinity;
+        const matchedSpecialString = specialMatch ? specialMatch[0] : null;
+
+        sentenceEndPunctuationRegex.lastIndex = currentIndex;
+        const sentenceMatch = sentenceEndPunctuationRegex.exec(text);
+        const nextSentenceEndIndex = sentenceMatch ? sentenceMatch.index : Infinity;
+
+        if (nextSpecialIndex === Infinity && nextSentenceEndIndex === Infinity) {
+            if (currentIndex < text.length) {
+                segments.push({ text: text.substring(currentIndex), isSpecial: false, isEndOfSentence: false });
+            }
+            break;
         }
-      }
+
+        if (nextSpecialIndex <= nextSentenceEndIndex) {
+            if (nextSpecialIndex > currentIndex) {
+                segments.push({ text: text.substring(currentIndex, nextSpecialIndex), isSpecial: false, isEndOfSentence: false });
+            }
+            segments.push({ text: matchedSpecialString, isSpecial: true, isEndOfSentence: false }); // Mark as special
+            currentIndex = nextSpecialIndex + matchedSpecialString.length;
+        } else {
+            let segmentEndIndex = nextSentenceEndIndex + 1;
+            if (segmentEndIndex < text.length && text[segmentEndIndex] === ' ') {
+                 segmentEndIndex++;
+            }
+            const segmentText = text.substring(currentIndex, segmentEndIndex);
+            segments.push({ text: segmentText, isSpecial: false, isEndOfSentence: true });
+            currentIndex = segmentEndIndex;
+        }
     }
-    
-    return segments;
+    return segments.filter(segment => segment.text.length > 0);
   }
 
-  // Type a single character with appropriate styling
-  function typeCharacter(element, char, isSpecial) {
-    // Create a text node or styled span based on character type
+  // --- typeCharacter (Modified: Takes an optional parent element) ---
+  // Appends the character/span to 'parentElement' if provided, otherwise to 'baseElement'
+  function typeCharacter(baseElement, char, isSpecial, parentElement = null) {
+    const targetContainer = parentElement || baseElement; // Append here
+
     if (isSpecial) {
-      // For special text (company name), create a styled span
       const span = document.createElement('span');
+      // Apply visual styling to the inner span
       span.style.fontWeight = 'bold';
       span.style.color = '#4682B4'; // Primary color
       span.textContent = char;
-      element.appendChild(span);
+      targetContainer.appendChild(span);
     } else {
-      // For normal text, just append the character
       const textNode = document.createTextNode(char);
-      element.appendChild(textNode);
+      targetContainer.appendChild(textNode);
     }
   }
 
-  // Add clickable link functionality after typing completes
-  function makeCompanyNameClickable(element) {
-    // Find all spans (which should be our company name characters)
-    const companySpans = element.querySelectorAll('span');
-    if (companySpans.length === 0) return;
-    
-    // Get the text content of all spans to verify it's our company name
-    const textContent = Array.from(companySpans).map(span => span.textContent).join('');
-    if (textContent !== 'AppSimple') return;
-    
-    // Create a single link element
-    const link = document.createElement('a');
-    link.href = "mailto:hello@appsimple.io"; // Updated email address
-    link.style.textDecoration = "none";
-    link.style.color = "inherit";
-    
-    // Clone the first span to use as our container
-    const container = companySpans[0].cloneNode(false);
-    container.textContent = textContent;
-    
-    // Replace all the individual character spans with our single container
-    const parent = companySpans[0].parentNode;
-    link.appendChild(container);
-    
-    // Replace the first span with our link and remove the rest
-    parent.replaceChild(link, companySpans[0]);
-    for (let i = 1; i < companySpans.length; i++) {
-      if (companySpans[i].parentNode) {
-        companySpans[i].parentNode.removeChild(companySpans[i]);
-      }
-    }
-  }
-
-  // Type writer that handles segmented text with natural pauses
-  function typeWriter(element, segments, baseSpeed, segmentIndex = 0, charIndex = 0) {
-    // If we've typed all segments, we're done
+  // --- typeWriter (Modified: Creates links on-the-fly) ---
+  // Takes an additional 'currentLinkWrapper' argument
+  function typeWriter(element, segments, baseSpeed, segmentIndex = 0, charIndex = 0, currentLinkWrapper = null) {
+    // --- Base Case: All segments typed ---
     if (segmentIndex >= segments.length) {
-      // Apply final link functionality
-      makeCompanyNameClickable(element);
-      
-      // Trigger the options animation if available
-      if (window.carouselInstance && typeof window.carouselInstance.show === 'function') {
-        window.carouselInstance.show();
+      if (config.onComplete && typeof config.onComplete === 'function') {
+        config.onComplete();
       }
-      
       return;
     }
-    
-    // Get current segment
+
+    // --- Get current segment ---
     const segment = segments[segmentIndex];
-    
-    // If we've typed all characters in this segment, move to next segment
+    let nextLinkWrapper = currentLinkWrapper; // Assume we continue in the current wrapper
+
+    // --- Segment Transition Logic ---
     if (charIndex >= segment.text.length) {
       let delay = 0;
-      
-      // Add appropriate pause
+      // Calculate pause *before* moving to the next segment
       if (segment.isEndOfSentence) {
-        // Long pause after end of sentences
         delay = config.longPauseDuration;
       } else if (segment.isSpecial) {
-        // Short pause after company name
-        delay = config.shortPauseDuration ;
+        delay = config.shortPauseDuration;
       } else if (segments[segmentIndex + 1] && segments[segmentIndex + 1].isSpecial) {
-        // Short pause before company name
-        delay = config.shortPauseDuration / 3;
+        // Pause *before* typing the next special word
+         delay = config.shortPauseDuration / 2; // Slightly longer pause before special
       }
-      
+
       setTimeout(() => {
-        typeWriter(element, segments, baseSpeed, segmentIndex + 1, 0);
+        // IMPORTANT: Reset link wrapper when moving to the next segment
+        typeWriter(element, segments, baseSpeed, segmentIndex + 1, 0, null);
       }, delay);
       return;
     }
-    
-    // Get current character
+
+    // --- Character Typing Logic ---
     const currentChar = segment.text.charAt(charIndex);
-    
-    // Type this character with appropriate styling
-    typeCharacter(element, currentChar, segment.isSpecial);
-    
-    // Calculate variable speed for next character
+
+    // --- Link Creation (at the start of a special segment) ---
+    if (charIndex === 0 && segment.isSpecial) {
+        // Find the config for this special text
+        const targetConfig = linkTargets.find(t => t.text === segment.text);
+        if (targetConfig) {
+            const link = document.createElement('a');
+            link.href = targetConfig.href;
+            link.setAttribute('style', targetConfig.style);
+            element.appendChild(link); // Append the link wrapper to the main element
+            nextLinkWrapper = link; // Set this link as the parent for subsequent characters in *this* segment
+        } else {
+            // Fallback if somehow a special segment doesn't have a target
+            nextLinkWrapper = null;
+        }
+    } else if (charIndex === 0 && !segment.isSpecial) {
+        // Ensure we are not using a wrapper from a previous segment
+        nextLinkWrapper = null;
+    }
+
+    // --- Type the character (potentially inside the link wrapper) ---
+    typeCharacter(element, currentChar, segment.isSpecial, nextLinkWrapper);
+
+    // --- Calculate Speed for Next Character ---
     let variableSpeed = baseSpeed;
-    
-    // Slow down for punctuation - more subtle
+    // (Speed calculation logic remains the same as before)
     if ('.,:;!?'.includes(currentChar)) {
-      variableSpeed = baseSpeed * 1.2; // Reduced from 1.5x to 1.2x
+      variableSpeed = baseSpeed * 1.2;
     } else if (currentChar === ' ') {
-      // Normal speed for spaces
       variableSpeed = baseSpeed;
-      
-      // Add occasional "thinking" pauses after words
       if (Math.random() < config.wordPauseProbability) {
         const min = config.thinkingDuration[0];
         const max = config.thinkingDuration[1];
@@ -208,62 +156,46 @@ const TypingModule = (function () {
         variableSpeed += thinkingTime;
       }
     } else {
-      // Random variation for letters
       const variation = 1 - config.speedVariation/2 + Math.random() * config.speedVariation;
       variableSpeed *= variation;
-      
-      // Speed up typing in the middle of longer words
       const remaining = segment.text.substring(charIndex).indexOf(' ');
       if (remaining > 3) {
-        // We're in a longer word, speed up a bit
         const posInWord = charIndex - segment.text.substring(0, charIndex).lastIndexOf(' ');
         if (posInWord > 2) {
-          variableSpeed *= 0.85; // Speed up by 15%
+          variableSpeed *= 0.85;
         }
       }
     }
-    
-    // Move to next character after calculated delay
+
+    // --- Recursive Call for Next Character ---
     setTimeout(() => {
-      typeWriter(element, segments, baseSpeed, segmentIndex, charIndex + 1);
+      // Pass the potentially updated 'nextLinkWrapper' down
+      typeWriter(element, segments, baseSpeed, segmentIndex, charIndex + 1, nextLinkWrapper);
     }, variableSpeed);
   }
 
-  // Initialize module
-  function init(options) {
-    // Merge passed options with defaults
+  // --- init (Modified: Uses updated linkTargets source) ---
+   function init(options) {
     config = { ...config, ...options };
-
-    // Get DOM element
     const typingElement = document.getElementById(config.targetElement);
 
-    // Start typing animation only if element exists
     if (typingElement) {
-      // Process text into segments
+      // processTextForTyping now gets special strings from linkTargets
       const segments = processTextForTyping(config.text);
-      
-      // Ensure element is empty before starting
       typingElement.innerHTML = '';
-      
-      // Add the initial delay before starting the typing animation
       setTimeout(() => {
-        typeWriter(typingElement, segments, config.baseSpeed);
+        // Initial call to typeWriter starts with no link wrapper (null)
+        typeWriter(typingElement, segments, config.baseSpeed, 0, 0, null);
       }, config.initialDelay);
     }
 
-    // Return public methods
     return {
       restart: function () {
         if (typingElement) {
-          // Process text into segments again
           const segments = processTextForTyping(config.text);
-          
-          // Clear the element
           typingElement.innerHTML = "";
-          
-          // Apply the delay when restarting
           setTimeout(() => {
-            typeWriter(typingElement, segments, config.baseSpeed);
+            typeWriter(typingElement, segments, config.baseSpeed, 0, 0, null);
           }, config.initialDelay);
         }
       },
