@@ -4,7 +4,6 @@
 
 {% block extra_css %}
 <link rel="stylesheet" href="/assets/css/pages/index.css" />
-<!-- Link the new CSS file -->
 <link rel="stylesheet" href="/assets/css/components/interactive-carousel.css" />
 {% endblock %}
 
@@ -48,11 +47,24 @@
                     <polyline points="15 18 9 12 15 6"></polyline>
                 </svg>
             </button>
+             <!-- ADDED: Pause/Play Button -->
+            <button class="control-btn pause-play-btn" aria-label="Pause Cycling">
+                 <!-- Pause Icon (Visible by default) -->
+                 <svg class="icon pause-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                     <rect x="6" y="4" width="4" height="16"></rect>
+                     <rect x="14" y="4" width="4" height="16"></rect>
+                 </svg>
+                 <!-- Play Icon (Hidden by default) -->
+                 <svg class="icon play-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                 </svg>
+             </button>
             <button class="control-btn next-btn" aria-label="Next Option">
                 <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <polyline points="9 18 15 12 9 6"></polyline>
                 </svg>
             </button>
+             <!-- Keep Expand/Collapse Button - Moved to the end for visual flow -->
             <button class="control-btn toggle-expand-btn" aria-label="Expand Options">
                  <!-- Expand Icon -->
                 <svg class="icon expand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -84,9 +96,9 @@
     };
 </script>
 
-<!-- JavaScript modules - Load new carousel JS -->
+<!-- JavaScript modules - Order remains the same -->
 <script src="/assets/js/modules/utils.js"></script>
 <script src="/assets/js/modules/typing.js"></script>
-<script src="/assets/js/modules/interactive-carousel.js"></script> <!-- New Module -->
-<script src="/assets/js/main.js"></script> <!-- This will orchestrate -->
+<script src="/assets/js/modules/interactive-carousel.js"></script>
+<script src="/assets/js/main.js"></script>
 {% endblock %}
