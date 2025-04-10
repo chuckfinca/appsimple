@@ -1,4 +1,5 @@
-// Purpose: Creates and manages a typing animation effect with variable speeds, pauses, and styling, with live linking.
+// assets/js/modules/typing.js
+// (Keep the existing code from ftp.txt - it correctly uses the onComplete callback)
 const TypingModule = (function () {
   // --- Configuration and State ---
   let config = {
@@ -10,7 +11,8 @@ const TypingModule = (function () {
     longPauseDuration: 1500,
     shortPauseDuration: 40,
     wordPauseProbability: 0.15,
-    thinkingDuration: [50, 100]
+    thinkingDuration: [50, 100],
+    onComplete: null // Add onComplete callback option
   };
 
   // Define link targets - used by typeWriter now
@@ -19,7 +21,7 @@ const TypingModule = (function () {
       { text: "AppSimple", href: "mailto:charles@appsimple.io", style: "text-decoration: none;" }
   ];
 
-  // --- processTextForTyping (Unchanged - keep the working version) ---
+  // --- processTextForTyping (From ftp.txt) ---
   function processTextForTyping(text) {
     const segments = [];
     const specialStrings = linkTargets.map(t => t.text); // Get special strings from linkTargets
@@ -64,8 +66,7 @@ const TypingModule = (function () {
     return segments.filter(segment => segment.text.length > 0);
   }
 
-  // --- typeCharacter (Modified: Takes an optional parent element) ---
-  // Appends the character/span to 'parentElement' if provided, otherwise to 'baseElement'
+  // --- typeCharacter (From ftp.txt) ---
   function typeCharacter(baseElement, char, isSpecial, parentElement = null) {
     const targetContainer = parentElement || baseElement; // Append here
 
@@ -82,14 +83,15 @@ const TypingModule = (function () {
     }
   }
 
-  // --- typeWriter (Modified: Creates links on-the-fly) ---
-  // Takes an additional 'currentLinkWrapper' argument
+  // --- typeWriter (From ftp.txt - already calls onComplete) ---
   function typeWriter(element, segments, baseSpeed, segmentIndex = 0, charIndex = 0, currentLinkWrapper = null) {
     // --- Base Case: All segments typed ---
     if (segmentIndex >= segments.length) {
+      // **** THIS IS THE KEY PART ****
       if (config.onComplete && typeof config.onComplete === 'function') {
-        config.onComplete();
+        config.onComplete(); // Call the callback passed during init
       }
+      // *****************************
       return;
     }
 
@@ -104,10 +106,11 @@ const TypingModule = (function () {
       if (segment.isEndOfSentence) {
         delay = config.longPauseDuration;
       } else if (segment.isSpecial) {
-        delay = config.shortPauseDuration;
+        // No extra pause needed *after* special if followed by normal text
+         delay = 0;
       } else if (segments[segmentIndex + 1] && segments[segmentIndex + 1].isSpecial) {
-        // Pause *before* typing the next special word
-         delay = config.shortPauseDuration / 2; // Slightly longer pause before special
+         // Pause *before* typing the next special word
+         delay = config.shortPauseDuration;
       }
 
       setTimeout(() => {
@@ -174,9 +177,9 @@ const TypingModule = (function () {
     }, variableSpeed);
   }
 
-  // --- init (Modified: Uses updated linkTargets source) ---
+  // --- init (Modified: Accepts onComplete callback) ---
    function init(options) {
-    config = { ...config, ...options };
+    config = { ...config, ...options }; // Merge options, including onComplete
     const typingElement = document.getElementById(config.targetElement);
 
     if (typingElement) {
