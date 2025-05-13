@@ -1,16 +1,65 @@
 /* pages/about.css - About page specific styles */
 
-/* About intro section */
-.about-intro {
-  width: 100%; /* Full width of parent container */
-  margin-bottom: var(--space-md);
-  font-size: var(--text-md);
-  line-height: var(--leading-relaxed);
-  color: var(--neutral-600);
+/* --- NEW: Personal Photo & Intro Layout --- */
+.about-intro-container {
+  display: flex;
+  flex-direction: column; /* Stack image and text vertically on all screens initially */
+  align-items: center; /* Center items horizontally */
+  margin-bottom: var(--space-lg);
+  gap: var(--space-md); /* Space between image and text */
 }
 
-/* About image section */
-.about-image {
+.about-personal-photo-container {
+  flex-shrink: 0; /* Prevent image container from shrinking */
+  text-align: center; /* Center image within its container */
+}
+
+.about-personal-photo {
+  width: 180px; /* Adjust size as needed */
+  height: 180px;
+  border-radius: 50%; /* Circular photo */
+  object-fit: cover; /* Ensure image covers the area nicely */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  border: 3px solid white; /* Optional: small white border */
+}
+
+.about-intro-text {
+  text-align: center; /* Center the intro text */
+  max-width: 700px; /* Keep text readable */
+  font-size: 16pt;
+}
+
+/* On larger screens, place image and text side-by-side */
+@media (min-width: 768px) {
+  .about-intro-container {
+    flex-direction: row; /* Side-by-side layout */
+    align-items: center; /* Align vertically */
+    text-align: left; /* Align text left */
+    gap: var(--space-lg);
+  }
+  .about-intro-text {
+     text-align: left; /* Align text left on larger screens */
+     margin-bottom: 0; /* Remove bottom margin when side-by-side */
+  }
+  .about-personal-photo {
+    width: 200px; /* Slightly larger on desktop */
+    height: 200px;
+  }
+}
+/* --- End NEW Styles --- */
+
+
+/* About intro section - (Original Style Modified - now part of .about-intro-text) */
+/* .about-intro { */
+/*   width: 100%; */ /* Full width of parent container */
+/*   margin-bottom: var(--space-md); */
+/*   font-size: var(--text-md); */
+/*   line-height: var(--leading-relaxed); */
+/*   color: var(--neutral-600); */
+/* } */
+
+/* About image section (Original style - keep for potential banner image, but renamed to avoid conflict) */
+.about-banner-image {
   width: 100%;
   height: 300px;
   background-color: var(--neutral-100);
@@ -19,13 +68,13 @@
   overflow: hidden;
 }
 
-.about-image img {
+.about-banner-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-/* Stats section */
+/* Stats section (Keep As Is) */
 .about-stats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -57,7 +106,7 @@
   font-size: var(--text-sm);
 }
 
-/* Expertise item styling */
+/* Expertise item styling (Keep As Is) */
 .expertise-item {
   display: flex;
   align-items: flex-start;
@@ -69,7 +118,7 @@
   transform: translateX(5px);
 }
 
-/* Icon container */
+/* Icon container (Keep As Is) */
 .expertise-icon-container {
   display: flex;
   align-items: center;
@@ -81,7 +130,7 @@
   flex-shrink: 0;
   background-color: var(--neutral-50);
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.04);
-  transition: transform var(--transition-normal), 
+  transition: transform var(--transition-normal),
               box-shadow var(--transition-normal);
 }
 
@@ -90,14 +139,14 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
 }
 
-/* Icon styling */
+/* Icon styling (Keep As Is) */
 .expertise-icon {
   color: var(--primary);
   width: 32px;
   height: 32px;
 }
 
-/* Content styling */
+/* Content styling (Keep As Is) */
 .expertise-content {
   flex: 1;
 }
@@ -113,7 +162,7 @@
   color: var(--neutral-600);
 }
 
-/* Testimonials section */
+/* Testimonials section (Keep As Is - if you have testimonials) */
 .testimonials {
   margin-bottom: var(--space-xl);
   width: 100%;
@@ -153,41 +202,68 @@
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
+  /* Adjust existing responsive styles if needed */
   .about-stats {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr; /* Changed from 1fr to 2 columns */
     gap: var(--space-sm);
   }
-  
+
   .testimonial {
     padding: var(--space-md);
   }
-  
-  .about-intro {
-    font-size: var(--text-sm);
-  }
-  
+
+  /* Removed .about-intro rule as it's now handled by .about-intro-text */
+  /* .about-intro { */
+  /*   font-size: var(--text-sm); */
+  /* } */
+
   .expertise-icon-container {
     width: 48px;
     height: 48px;
   }
-  
+
   .expertise-icon {
     width: 28px;
     height: 28px;
   }
+
+  /* Adjust personal photo size on medium screens */
+  .about-personal-photo {
+     width: 160px; /* Slightly smaller if side-by-side kicks in at 768px */
+     height: 160px;
+  }
 }
 
 @media (max-width: 480px) {
+  /* Adjust new photo styles for small screens */
+   .about-intro-container {
+     flex-direction: column; /* Ensure stacking */
+     align-items: center; /* Center again */
+   }
+   .about-intro-text {
+     text-align: center; /* Center text */
+     font-size: var(--text-sm); /* Smaller text */
+   }
+  .about-personal-photo {
+    width: 150px; /* Even smaller */
+    height: 150px;
+  }
+
+  /* Adjust existing responsive styles */
+  .about-stats {
+    grid-template-columns: 1fr; /* Single column on smallest screens */
+  }
+
   .expertise-icon-container {
     width: 40px;
     height: 40px;
   }
-  
+
   .expertise-icon {
     width: 24px;
     height: 24px;
   }
-  
+
   .expertise-content h3 {
     font-size: var(--text-sm);
   }

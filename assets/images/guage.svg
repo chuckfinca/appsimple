@@ -1,0 +1,30 @@
+<svg viewBox="0 0 120 160" xmlns="http://www.w3.org/2000/svg">
+  <!-- Text "Eval" -->
+  <text x="60" y="30" font-family="Arial, sans-serif" font-size="22" font-weight="600" text-anchor="middle" fill="#1F2937">Eval</text>
+  
+  <!-- Circular background -->
+  <circle cx="60" cy="90" r="50" fill="#F9FAFB" stroke="#E5F0FF" stroke-width="2"/>
+  
+  <!-- Subtle radial gradient -->
+  <circle cx="60" cy="90" r="40" fill="url(#gradientBg)"/>
+  
+  <!-- Gauge icon with thicker stroke -->
+  <g transform="translate(36, 63) scale(2)">
+    <path d="m12 14 4-4" stroke="#4682B4" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <path d="M3.34 19a10 10 0 1 1 17.32 0" stroke="#4682B4" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  </g>
+  
+  <!-- Drop shadow filter -->
+  <defs>
+    <filter id="dropShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-opacity="0.08" flood-color="#000000"/>
+    </filter>
+    <radialGradient id="gradientBg" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+      <stop offset="0%" style="stop-color:rgba(70, 130, 180, 0.08);stop-opacity:1" />
+      <stop offset="70%" style="stop-color:rgba(255, 255, 255, 0);stop-opacity:0" />
+    </radialGradient>
+  </defs>
+  
+  <!-- Apply drop shadow to the entire circular container -->
+  <circle cx="60" cy="90" r="50" fill="none" filter="url(#dropShadow)"/>
+</svg>

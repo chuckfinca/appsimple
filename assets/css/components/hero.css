@@ -31,11 +31,16 @@
   visibility: hidden;
 }
 
+.typing-wrapper {
+  width: 100%; /* Ensure it takes available width */
+  max-width: var(--container-default); /* Match typing-container constraint */
+  min-height: 5rem; /* Adjust this value as needed */
+}
+
 /* Typing container - ensure it's left-aligned */
 .typing-container {
   position: relative;
   max-width: var(--container-default); /* Constrain width */
-  width: 100%; /* Take full available width */
   text-align: left; /* Ensure text inside is left-aligned */
   padding: 0; /* Remove padding if handled by .hero */
 }
