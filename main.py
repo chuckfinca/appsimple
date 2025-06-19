@@ -30,12 +30,6 @@ if os.path.exists(assets_dir):
     app.mount("/assets", StaticFiles(directory=assets_dir), name="assets")
     logger.info(f"Mounted /assets -> {assets_dir}")
 
-# Mobile directory (legacy content)
-mobile_dir = os.path.join(base_dir, "mobile")
-if os.path.exists(mobile_dir):
-    app.mount("/mobile", StaticFiles(directory=mobile_dir), name="mobile")
-    logger.info(f"Mounted /mobile -> {mobile_dir}")
-
 # Debug route to show configuration
 @app.get("/debug", response_class=PlainTextResponse)
 async def debug():
@@ -77,6 +71,16 @@ async def read_portfolio(request: Request):
 @app.get("/contact", response_class=HTMLResponse)
 async def read_contact(request: Request):
     return templates.TemplateResponse("contact.html", {"request": request})
+
+@app.get("/mobile/terms", response_class=HTMLResponse)
+async def mobile_terms(request: Request):
+    logger.info("Rendering mobile/terms.html template")
+    return templates.TemplateResponse("mobile/terms.html", {"request": request})
+
+@app.get("/mobile/privacy", response_class=HTMLResponse)
+async def mobile_privacy(request: Request):
+    logger.info("Rendering mobile/privacy.html template")
+    return templates.TemplateResponse("mobile/privacy.html", {"request": request})
 
 VALID_CASE_STUDIES = ["bodhimind", "guidedmind", "mindtimer", "livewire", "dspy-prompt-optimization", "llm-evaluation-prompting", "asimpleauthkit"]
 

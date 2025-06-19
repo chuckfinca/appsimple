@@ -10,11 +10,6 @@ handlers:
   - url: /assets
     static_dir: assets
 
-  # Direct access to mobile files (to support iframe src / legacy)
-  # Check if these are still needed or should be portfolio pages
-  - url: /mobile
-    static_dir: mobile
-
   # Main application (FastAPI) - handled by the entrypoint
   - url: /.*
     script: auto # 'script: auto' is okay here as the entrypoint overrides the command
