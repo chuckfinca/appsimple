@@ -78,14 +78,17 @@ async def read_portfolio(request: Request):
 async def read_contact(request: Request):
     return templates.TemplateResponse("contact.html", {"request": request})
 
-VALID_CASE_STUDIES = ["bodhimind", "guidedmind", "mindtimer", "livewire", "dspy-prompt-optimization", "llm-evaluation-prompting"]
+VALID_CASE_STUDIES = ["bodhimind", "guidedmind", "mindtimer", "livewire", "dspy-prompt-optimization", "llm-evaluation-prompting", "asimpleauthkit"]
 
 @app.get("/portfolio/{case_study_name}", response_class=HTMLResponse)
 async def case_study_page(request: Request, case_study_name: str):
     if case_study_name not in VALID_CASE_STUDIES:
         raise HTTPException(status_code=404, detail=f"Case study not found")
     
-    return templates.TemplateResponse(f"{case_study_name}.html", {"request": request})
+    template_path = f"portfolio/{case_study_name}.html" 
+    logger.info(f"Rendering case study template: {template_path}")
+        
+    return templates.TemplateResponse(template_path, {"request": request})
 
 # Main site routes - try templates first, then static files
 @app.get("/{path:path}", response_class=HTMLResponse)
