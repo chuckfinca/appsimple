@@ -82,7 +82,7 @@ async def mobile_privacy(request: Request):
     logger.info("Rendering mobile/privacy.html template")
     return templates.TemplateResponse("mobile/privacy.html", {"request": request})
 
-VALID_CASE_STUDIES = ["bodhimind", "guidedmind", "mindtimer", "livewire", "dspy-prompt-optimization", "llm-evaluation-prompting", "asimpleauthkit"]
+VALID_CASE_STUDIES = ["bodhimind", "guidedmind", "mindtimer", "livewire", "dspy-prompt-optimization", "llm-evaluation-prompting", "a-simple-auth-kit"]
 
 @app.get("/portfolio/{case_study_name}", response_class=HTMLResponse)
 async def case_study_page(request: Request, case_study_name: str):
