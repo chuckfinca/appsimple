@@ -66,10 +66,10 @@
             
             <ul class="service-list">
                 <li><strong>Architectural Mismatch with SwiftUI</strong>: Firebase's imperative, singleton-based APIs are fundamentally incompatible with SwiftUI's declarative, state-driven nature. This forces developers to write complex, bug-prone bridging code.</li>
-                <li><strong>"Callback Hell"</strong>: The SDK relies heavily on nested completion handlers (callbacks), which are difficult to reason about and lead to unmaintainable code, a problem that modern `async/await` is designed to solve.</li>
+                <li><strong>"Callback Hell"</strong>: The SDK relies heavily on nested completion handlers (callbacks), which are difficult to reason about and lead to unmaintainable code, a problem that modern <code>async/await</code> is designed to solve.</li>
                 <li><strong>Account Linking Complexity</strong>: The multi-step account linking flow is managed through callbacks and global state, making it extremely difficult to represent cleanly in a SwiftUI view hierarchy.</li>
-                <li><strong>Untestable by Design</strong>: The heavy use of global singletons (`Auth.auth()`) makes the SDK nearly impossible to mock, preventing isolated and reliable unit testing of an app's authentication logic.</li>
-                <li><strong>Generic Error UX</strong>: Firebase returns cryptic error codes (e.g., `invalid-credential`) that confuse users instead of guiding them toward a solution.</li>
+                <li><strong>Untestable by Design</strong>: The heavy use of global singletons (<code>Auth.auth()</code>) makes the SDK nearly impossible to mock, preventing isolated and reliable unit testing of an app's authentication logic.</li>
+                <li><strong>Generic Error UX</strong>: Firebase returns cryptic error codes (e.g., <code>invalid-credential</code>) that confuse users instead of guiding them toward a solution.</li>
             </ul>
             
             <p>The goal was to create a modern <strong>adapter</strong> or <strong>bridge</strong>—a reusable library that translates Firebase's difficult APIs into a system that feels truly native to SwiftUI and Swift Concurrency.</p>
@@ -91,10 +91,10 @@
             
             <h4 class="mt-md mb-sm">Architecture Strategy:</h4>
             <ul class="service-list">
-                <li><strong>The SwiftUI Bridge</strong>: The library's primary role is to serve as an adapter. It consumes Firebase's complex, callback-based operations and exposes them through a clean, state-driven `ObservableObject`, which is the cornerstone of state management in SwiftUI.</li>
-                <li><strong>State-Driven by Default</strong>: Instead of forcing developers to track scattered boolean flags (`isAuthenticating`, `isSignedIn`, `showError`), the library models everything as a single, comprehensive `AuthState` enum. This allows the entire UI to be driven by a simple `switch` statement.</li>
-                <li><strong>Protocol-Oriented Decoupling</strong>: Used dependency injection and protocols (`FirebaseAuthClientProtocol`, etc.) to completely isolate the core logic from Firebase singletons. This was the key to making the system 100% testable.</li>
-                <li><strong>Modern Concurrency Transformation</strong>: Aggressively wrapped all of Firebase's legacy completion handlers in modern `async/await` functions. This eliminates callback hell, simplifies error handling, and makes the asynchronous code vastly more readable and maintainable.</li>
+                <li><strong>The SwiftUI Bridge</strong>: The library's primary role is to serve as an adapter. It consumes Firebase's complex, callback-based operations and exposes them through a clean, state-driven <code>ObservableObject</code>, which is the cornerstone of state management in SwiftUI.</li>
+                <li><strong>State-Driven by Default</strong>: Instead of forcing developers to track scattered boolean flags (<code>isAuthenticating</code>, <code>isSignedIn</code>, <code>showError</code>), the library models everything as a single, comprehensive <code>AuthState</code> enum. This allows the entire UI to be driven by a simple <code>switch</code> statement.</li>
+                <li><strong>Protocol-Oriented Decoupling</strong>: Used dependency injection and protocols (<code>FirebaseAuthClientProtocol</code>, etc.) to completely isolate the core logic from Firebase singletons. This was the key to making the system 100% testable.</li>
+                <li><strong>Modern Concurrency Transformation</strong>: Aggressively wrapped all of Firebase's legacy completion handlers in modern <code>async/await</code> functions. This eliminates callback hell, simplifies error handling, and makes the asynchronous code vastly more readable and maintainable.</li>
             </ul>
 
             <h4 class="mt-md mb-sm">Production Features:</h4>
@@ -118,7 +118,7 @@
             <h3>Technical Implementation</h3>
         </div>
         <div class="process-step-content-body">
-            <p>The library's architecture balances simplicity for the consumer with sophisticated internal functionality. The core is the `AuthService`, which manages a state machine driven by the `AuthState` enum.</p>
+            <p>The library's architecture balances simplicity for the consumer with sophisticated internal functionality. The core is the <code>AuthService</code>, which manages a state machine driven by the <code>AuthState</code> enum.</p>
             
             <h4 class="mt-md mb-sm">The State Machine Core:</h4>
             <p>By defining every possible state, UI development becomes a simple matter of responding to the current state, which is published automatically.</p>
@@ -136,25 +136,25 @@ public enum AuthState: Equatable, Sendable {
             <h4 class="mt-md mb-sm">Automated Account Linking:</h4>
             <p>This flow is one of the most complex parts of Firebase Auth, and the library fully automates it:</p>
             <ul class="service-list">
-                <li>When a sign-in fails with `account-exists-with-different-credential`, the library catches the error and stores the pending credential.</li>
-                <li>It transitions the state to `.requiresAccountLinking`, providing the UI with the necessary context (email and provider).</li>
+                <li>When a sign-in fails with <code>account-exists-with-different-credential</code>, the library catches the error and stores the pending credential.</li>
+                <li>It transitions the state to <code>.requiresAccountLinking</code>, providing the UI with the necessary context (email and provider).</li>
                 <li>The app's UI prompts the user to sign in with their existing method (e.g., Google).</li>
-                <li>Upon successful re-authentication, `AuthService` automatically retrieves the stored credential and calls Firebase's `link(with:)` function.</li>
-                <li>The final state is `.signedIn`, with the user's account now linked to both providers, all handled transparently.</li>
+                <li>Upon successful re-authentication, <code>AuthService</code> automatically retrieves the stored credential and calls Firebase's <code>link(with:)</code> function.</li>
+                <li>The final state is <code>.signedIn</code>, with the user's account now linked to both providers, all handled transparently.</li>
             </ul>
             
             <h4 class="mt-md mb-sm">Secure Biometric Authentication:</h4>
             <ul class="service-list">
-                <li><strong>`BiometricController`</strong>: A dedicated controller that manages user preferences for biometrics.</li>
-                <li><strong>`SecureStorageProtocol`</strong>: An abstraction over `KeychainStorage` that securely stores the last authenticated user's ID, associating the biometric preference with a specific account on the device.</li>
-                <li><strong>Client-Controlled Policy</strong>: The library provides the *capability* but lets the consuming app decide *when* to require biometrics (e.g., on app launch), giving developers full control over the user experience.</li>
+                <li><strong><code>BiometricController</code></strong>: A dedicated controller that manages user preferences for biometrics.</li>
+                <li><strong><code>SecureStorageProtocol</code></strong>: An abstraction over <code>KeychainStorage</code> that securely stores the last authenticated user's ID, associating the biometric preference with a specific account on the device.</li>
+                <li><strong>Client-Controlled Policy</strong>: The library provides the <em>capability</em> but lets the consuming app decide <em>when</em> to require biometrics (e.g., on app launch), giving developers full control over the user experience.</li>
             </ul>
             
             <h4 class="mt-md mb-sm">Test-Driven Architecture:</h4>
             <ul class="service-list">
-                <li><strong>`MockFirebaseAuthenticator` & `MockFirebaseAuthClient`</strong>: Complete mock implementations of all Firebase-interacting protocols.</li>
+                <li><strong><code>MockFirebaseAuthenticator</code> & <code>MockFirebaseAuthClient</code></strong>: Complete mock implementations of all Firebase-interacting protocols.</li>
                 <li><strong>Behavioral Simulation</strong>: Mocks can be configured to return specific users or errors, allowing for testing of every path, including complex ones like account linking and merge conflicts.</li>
-                <li><strong>State Transition Verification</strong>: Tests (`AuthServiceTests.swift`) verify every state transition, ensuring the UI will always behave predictably. For example, <code>testCreateAccountWithEmail_Failure_EmailAlreadyInUse_setsStateToEmailInUseSuggestSignIn</code>.</li>
+                <li><strong>State Transition Verification</strong>: Tests (<code>AuthServiceTests.swift</code>) verify every state transition, ensuring the UI will always behave predictably. For example, <code>testCreateAccountWithEmail_Failure_EmailAlreadyInUse_setsStateToEmailInUseSuggestSignIn</code>.</li>
             </ul>
         </div>
     </div>
@@ -253,7 +253,7 @@ struct LoginView: View {
 <div class="index-cta mt-xl">
     <h3 class="mb-sm">Explore the Implementation</h3>
     <p class="mb-md">ASimpleAuthKit is a powerful example of how thoughtful architecture can solve complex, recurring problems in mobile development.</p>
-    <a href="https://github.com/charlesfeinn/ASimpleAuthKit" class="cta-button" target="_blank" rel="noopener">
+    <a href="https://github.com/chuckfinca/ASimpleAuthKit" class="cta-button" target="_blank" rel="noopener">
         View Project on GitHub
     </a>
 </div>

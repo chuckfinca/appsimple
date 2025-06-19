@@ -101,11 +101,11 @@
             <p>To address the limitations of manual prompting, I explored using DSPy, an open-source framework designed for programming LLMs rather than just prompting them. DSPy automates the process of finding effective prompts based on data.</p>
             <p>My approach involved:</p>
             <ul class="service-list">
-                <li><strong>Defining the Task Structure:</strong> Created a DSPy `Signature` to clearly define the inputs (subject, question, choices) and the desired constrained output (A, B, C, or D) for the MMLU task.</li>
-                <li><strong>Building a DSPy Program:</strong> Implemented a `ChainOfThought` module within DSPy to encourage reasoning, adding fallback logic to handle potential output formatting issues.</li>
+                <li><strong>Defining the Task Structure:</strong> Created a DSPy <code>Signature</code> to clearly define the inputs (subject, question, choices) and the desired constrained output (A, B, C, or D) for the MMLU task.</li>
+                <li><strong>Building a DSPy Program:</strong> Implemented a <code>ChainOfThought</code> module within DSPy to encourage reasoning, adding fallback logic to handle potential output formatting issues.</li>
                 <li><strong>Leveraging Data for Optimization:</strong> Utilized the MMLU development and validation datasets to train and evaluate different prompt candidates automatically.</li>
-                <li><strong>Automated Optimization:</strong> Employed the `MIPROv2` optimizer within DSPy. This involved using a powerful "teacher" model (GPT-4o-mini) to generate and refine instructions and few-shot examples for the target Llama 3.1 8B model.</li>
-                <li><strong>Objective Evaluation:</strong> Used `answer_exact_match` as the metric to guide the optimization process towards prompts that maximize accuracy.</li>
+                <li><strong>Automated Optimization:</strong> Employed the <code>MIPROv2</code> optimizer within DSPy. This involved using a powerful "teacher" model (GPT-4o-mini) to generate and refine instructions and few-shot examples for the target Llama 3.1 8B model.</li>
+                <li><strong>Objective Evaluation:</strong> Used <code>answer_exact_match</code> as the metric to guide the optimization process towards prompts that maximize accuracy.</li>
             </ul>
              <!-- REVISED GOAL STATEMENT -->
              <p>The goal was not just to improve performance but also to validate DSPy as a tool for creating more efficient, systematic, and adaptable AI engineering workflows compared to manual trial-and-error.</p>
@@ -129,24 +129,24 @@
             <p>The implementation leveraged several key components within the Python ecosystem:</p>
             <h4 class="mt-md mb-sm">Core Framework: DSPy</h4>
              <ul class="service-list">
-                <li><strong>`dspy.Signature` (`MMLUSignature`):</strong> Defined inputs (`subject`, `question`, `choices`) and a constrained `Literal['A', 'B', 'C', 'D']` output (`answer`) for clear task specification.</li>
-                <li><strong>`dspy.Module` (`MMLUMultipleChoiceModule`):</strong> Wrapped a `dspy.ChainOfThought` predictor using the signature. Implemented temperature fallback logic to improve robustness against invalid model outputs.</li>
-                <li><strong>`dspy.MIPROv2` Optimizer:</strong> Configured with `auto="medium"` settings, using GPT-4o-mini as both the `prompt_model` and `teacher_model` to generate optimized instructions and few-shot demonstrations.</li>
-                <li><strong>`dspy.evaluate.answer_exact_match` Metric:</strong> Used to score prompt candidates during optimization based on accuracy.</li>
-                <li><strong>`dspy.Evaluate`:</strong> Employed for the final evaluation on the held-out test set, running across all MMLU subjects.</li>
+                <li><strong><code>dspy.Signature</code> (<code>MMLUSignature</code>):</strong> Defined inputs (<code>subject</code>, <code>question</code>, <code>choices</code>) and a constrained <code>Literal['A', 'B', 'C', 'D']</code> output (<code>answer</code>) for clear task specification.</li>
+                <li><strong><code>dspy.Module</code> (<code>MMLUMultipleChoiceModule</code>):</strong> Wrapped a <code>dspy.ChainOfThought</code> predictor using the signature. Implemented temperature fallback logic to improve robustness against invalid model outputs.</li>
+                <li><strong><code>dspy.MIPROv2</code> Optimizer:</strong> Configured with <code>auto="medium"</code> settings, using GPT-4o-mini as both the <code>prompt_model</code> and <code>teacher_model</code> to generate optimized instructions and few-shot demonstrations.</li>
+                <li><strong><code>dspy.evaluate.answer_exact_match</code> Metric:</strong> Used to score prompt candidates during optimization based on accuracy.</li>
+                <li><strong><code>dspy.Evaluate</code>:</strong> Employed for the final evaluation on the held-out test set, running across all MMLU subjects.</li>
             </ul>
 
              <h4 class="mt-md mb-sm">Models & Data:</h4>
              <ul class="service-list">
-                <li><strong>Target Model (`lm_task`):</strong> Meta's `meta-llama/Meta-Llama-3.1-8B-Instruct` accessed via Hugging Face (`dspy.HFModel`).</li>
-                <li><strong>Optimization Model (`lm_train`):</strong> OpenAI's `gpt-4o-mini` accessed via the OpenAI API (`dspy.OpenAI`).</li>
-                <li><strong>Dataset:</strong> `cais/mmlu` dataset loaded using Hugging Face `datasets` and formatted into `dspy.Example` objects using a custom preparation function (`prepare_mmlu_dataset`).</li>
+                <li><strong>Target Model (<code>lm_task</code>):</strong> Meta's <code>meta-llama/Meta-Llama-3.1-8B-Instruct</code> accessed via Hugging Face (<code>dspy.HFModel</code>).</li>
+                <li><strong>Optimization Model (<code>lm_train</code>):</strong> OpenAI's <code>gpt-4o-mini</code> accessed via the OpenAI API (<code>dspy.OpenAI</code>).</li>
+                <li><strong>Dataset:</strong> <code>cais/mmlu</code> dataset loaded using Hugging Face <code>datasets</code> and formatted into <code>dspy.Example</code> objects using a custom preparation function (<code>prepare_mmlu_dataset</code>).</li>
                 <li><strong>Data Splits:</strong> MMLU 'dev' set used for training examples within optimization, 'validation' set used for scoring candidates during optimization, and 'test' set reserved for final, unbiased evaluation.</li>
             </ul>
 
              <h4 class="mt-md mb-sm">Environment:</h4>
              <ul class="service-list">
-                 <li>Python environment with `dspy-ai`, `datasets`, and necessary dependencies.</li>
+                 <li>Python environment with <code>dspy-ai</code>, <code>datasets</code>, and necessary dependencies.</li>
                  <li>Execution primarily on Google Colab using GPU acceleration (A100).</li>
             </ul>
         </div>
@@ -186,7 +186,7 @@
 
             <p>Key outcomes included:</p>
             <ul class="service-list">
-                <li><strong>Performance Boost:</strong> Achieved a **71.1% macro average** MMLU score, a substantial **+2.8 percentage point** increase compared to the best manually engineered prompt (68.3%).</li>
+                <li><strong>Performance Boost:</strong> Achieved a <strong>71.1% macro average</strong> MMLU score, a substantial <strong>+2.8 percentage point</strong> increase compared to the best manually engineered prompt (68.3%).</li>
                 <li><strong>Closing the Gap:</strong> The optimized score came significantly closer to Meta's published 73.0% score for the Llama 3.1 8B model.</li>
                 <li><!-- ADDITION: Efficiency --><strong>Efficiency Demonstrated:</strong> While not explicitly timed against the manual process in this project, the automated nature of DSPy inherently replaces hours of manual tuning with a programmatic, repeatable compilation step.</li>
                  <li><strong>Validation of Technique:</strong> Confirmed the effectiveness of DSPy and programmatic prompting as a powerful tool for enhancing LLM performance on specific tasks.</li>
@@ -217,7 +217,7 @@
                 <li><strong>DSPy's Power:</strong> Programmatic prompting frameworks like DSPy can significantly outperform manual prompt engineering, both in terms of final performance and efficiency.</li>
                 <li><strong>Letting Go:</strong> Effective use of DSPy involves defining the task structure (inputs/outputs) clearly and letting the framework optimize the details, rather than over-specifying instructions initially.</li>
                  <li><strong>Importance of Data:</strong> High-quality training and validation data are crucial for guiding the optimization process effectively.</li>
-                <li><strong>Metric Alignment:</strong> Choosing the right evaluation metric (`answer_exact_match` in this case) directly impacts the quality of the optimized prompt.</li>
+                <li><strong>Metric Alignment:</strong> Choosing the right evaluation metric (<code>answer_exact_match</code> in this case) directly impacts the quality of the optimized prompt.</li>
                 <li><!-- ADDITION: Adaptability/Future-proofing --><strong>Adaptability & Future-Proofing:</strong> DSPy's programmatic approach makes it significantly easier to re-optimize prompts when underlying models change (e.g., testing Llama 3.1 vs Llama 4). This modularity is crucial for staying current in the rapidly evolving LLM landscape and offers a more sustainable method than continuous manual re-tuning for each new model.</li>
                 <li><strong>Robustness Matters:</strong> Real-world LLM interactions require handling potential errors, such as invalid output formats, which necessitated adding fallback logic (like varying temperature).</li>
                 <li><strong>Community Value:</strong> Engaging with the DSPy community (like their Discord) proved invaluable for troubleshooting and understanding best practices.</li>
