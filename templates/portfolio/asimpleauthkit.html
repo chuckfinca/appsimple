@@ -46,7 +46,7 @@
             </div>
             <div class="metadata-column">
                 <div class="metadata-label">Timeline:</div>
-                <div class="metadata-value">3 months (iterative development)</div>
+                <div class="metadata-value">1 month (iterative development)</div>
             </div>
         </div>
     </div>
@@ -154,7 +154,7 @@ public enum AuthState: Equatable, Sendable {
             <ul class="service-list">
                 <li><strong>`MockFirebaseAuthenticator` & `MockFirebaseAuthClient`</strong>: Complete mock implementations of all Firebase-interacting protocols.</li>
                 <li><strong>Behavioral Simulation</strong>: Mocks can be configured to return specific users or errors, allowing for testing of every path, including complex ones like account linking and merge conflicts.</li>
-                <li><strong>State Transition Verification</strong>: Tests (`AuthServiceTests.swift`) verify every state transition, ensuring the UI will always behave predictably. For example, `testCreateAccountWithEmail_Failure_EmailAlreadyInUse_setsStateToEmailInUseSuggestSignIn`.</li>
+                <li><strong>State Transition Verification</strong>: Tests (`AuthServiceTests.swift`) verify every state transition, ensuring the UI will always behave predictably. For example, <code>testCreateAccountWithEmail_Failure_EmailAlreadyInUse_setsStateToEmailInUseSuggestSignIn</code>.</li>
             </ul>
         </div>
     </div>
