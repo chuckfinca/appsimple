@@ -1,0 +1,2 @@
+[console_scripts]
+run-appsimple-website = appsimple_website.runner:main

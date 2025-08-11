@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}404 - Page Not Found // AppSimple{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="/assets/css/pages/404.css" />
+{% endblock %}
+
+{% block content %}
+<div class="error-page-container">
+    <div class="error-icon-container">
+        <!-- A Lucide-style icon: Search with a question mark -->
+        <svg class="icon error-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+        </svg>
+    </div>
+
+    <h1 class="page-title">404 - Page Not Found</h1>
+    <p class="page-intro">
+        Oops! It seems the page you're looking for has been moved, deleted, or never existed in the first place.
+    </p>
+
+    <div class="error-actions">
+        <a href="/" class="cta-button">Go to Homepage</a>
+
+        <div class="helpful-links">
+            <p>Alternatively, you could try one of these popular pages:</p>
+            <div class="link-group">
+                <a href="/portfolio">View My Portfolio</a>
+                <span>&nbsp;|&nbsp;</span>
+                <a href="/services">Explore Services</a>
+                <span>&nbsp;|&nbsp;</span>
+                <a href="/contact">Contact Me</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -2,7 +2,7 @@ runtime: python39
 service: default
 
 # Add this entrypoint:
-entrypoint: gunicorn -b :$PORT -k uvicorn.workers.UvicornWorker main:app
+entrypoint: gunicorn -b :$PORT -k uvicorn.workers.UvicornWorker appsimple_website.main:app
 
 handlers:
   # Static assets - for faster serving

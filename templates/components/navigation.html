@@ -1,8 +1,11 @@
 <nav class="site-nav">
     <div class="nav-container">
-      <a href="/" class="site-logo">AppSimple</a>
+        <a href="/" class="site-logo">
+            <img src="/assets/images/logo.png" alt="AppSimple Logo" class="logo-image">
+            <span class="logo-text">AppSimple</span>
+        </a>
       
-      <button class="menu-toggle" aria-label="Toggle menu">
+      <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
         <span class="hamburger-bar"></span>
         <span class="hamburger-bar"></span>
         <span class="hamburger-bar"></span>
@@ -15,23 +18,16 @@
           <li><a href="/process" id="process-link">Process</a></li>
           <li><a href="/about" id="about-link">About</a></li>
           
-          <!-- Updated Portfolio navigation with split access -->
-          <li class="dropdown portfolio-item">
-            <div class="portfolio-nav-group">
-              <a href="/portfolio" id="portfolio-link" class="portfolio-main-link">Portfolio</a>
-              <button class="portfolio-toggle" aria-label="Toggle case studies">
-                <svg class="toggle-icon" viewBox="0 0 24 24" width="28" height="28">
-                  <path d="M12 7v10M7 12h10" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
-                </svg>
-              </button>
-            </div>
+          <li class="dropdown">
+            <a href="/portfolio" id="portfolio-link">Portfolio</a>
             <ul class="dropdown-menu">
+              <li><a href="/portfolio/fot-recommender" id="fot-recommender-link">FOT Recommender</a></li>
               <li><a href="/portfolio/a-simple-auth-kit" id="a-simple-auth-kit-link">ASimpleAuthKit</a></li>
               <li><a href="/portfolio/dspy-prompt-optimization" id="dspy-prompt-optimization-link">DSPy Prompt Optimization</a></li>
               <li><a href="/portfolio/llm-evaluation-prompting" id="llm-evaluation-prompting-link">LLM Evaluation Prompting</a></li>
               <li><a href="/portfolio/bodhimind" id="bodhimind-link">Bodhi Mind</a></li>
-              <li><a href="/portfolio/guidedmind" id="guidedmind-link">Guided Mind</a></li>
               <li><a href="/portfolio/livewire" id="livewire-link">Livewire</a></li>
+              <li><a href="/portfolio/guidedmind" id="guidedmind-link">Guided Mind</a></li>
             </ul>
           </li>
           
@@ -39,5 +35,4 @@
         </ul>
       </div>
     </div>
-  </nav>
-  <div class="menu-overlay"></div>
+</nav>
