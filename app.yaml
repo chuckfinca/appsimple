@@ -1,21 +1,29 @@
-runtime: python39
+# Use a more modern runtime for better performance and security
+runtime: python312
 service: default
-
-# Add this entrypoint:
 entrypoint: gunicorn -b :$PORT -k uvicorn.workers.UvicornWorker appsimple_website.main:app
 
 handlers:
-  # Static assets - for faster serving
-  # Consider moving images into assets or adding a handler for /images
+  # Handler for your CSS, JS, and asset images
   - url: /assets
     static_dir: assets
 
-  # Main application (FastAPI) - handled by the entrypoint
+  # NEW: Handler for your favicons and other root-level assets
+  - url: /static
+    static_dir: static
+  
+  # NEW: Explicit handlers for files expected at the root
+  - url: /favicon.ico
+    static_files: static/favicon.ico
+    upload: static/favicon.ico
+
+  - url: /robots.txt
+    static_files: robots.txt
+    upload: robots.txt
+
+  # Catch-all handler to route all other requests to your FastAPI app
   - url: /.*
-    script: auto # 'script: auto' is okay here as the entrypoint overrides the command
+    script: auto
 
 env_variables:
   PYTHONUNBUFFERED: "1"
-
-# Optional: Add instance class for better performance if needed
-# instance_class: F2
