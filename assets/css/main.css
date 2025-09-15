@@ -1,0 +1,29 @@
+/* main.css - Root CSS file that imports all others */
+
+/* Import base styles first */
+@import url("base/reset.css");
+@import url("base/colors.css");
+@import url("base/typography.css");
+@import url("base/animations.css");
+@import url("base/layout.css");
+
+/* Import component styles */
+@import url("components/navigation.css");
+@import url("components/hero.css");
+@import url("components/footer.css");
+@import url("components/service.css");
+@import url("components/expertise.css");
+@import url("components/form.css");
+@import url("components/icons.css");
+@import url("components/timeline.css");
+@import url("components/process-steps.css");
+@import url("components/case-study.css");
+@import url("components/testimonials.css");
+@import url("components/stats-cards.css");
+@import url("components/cta-sections.css");
+@import url("components/app-showcase.css");
+@import url("components/interactive-carousel.css");
+
+/* Import utilities last so they can override other styles */
+@import url("utils/helpers.css");
+@import url("utils/responsive.css");

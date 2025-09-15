@@ -1,0 +1,267 @@
+{% extends "base.html" %}
+
+{% block title %}ASimpleAuthKit Case Study - Charles Feinn // AppSimple{% endblock %}
+
+{% block content %}
+<div class="back-navigation">
+    <a href="/portfolio" class="back-link">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="back-arrow">
+        <path d="M19 12H5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M12 19L5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>Back to Portfolio</span>
+    </a>
+</div>
+
+<!-- Case Study Header -->
+<div class="case-study-header">
+    <h1 class="page-title mb-md">Case Study: ASimpleAuthKit</h1>
+
+    <!-- Title and description at the top -->
+    <div class="app-description">
+        <h2 class="app-title mb-sm">Production-Ready iOS Authentication Library</h2>
+        <p class="page-intro">A comprehensive Swift Package that simplifies Firebase Authentication integration for iOS apps, providing SwiftUI-friendly APIs, biometric authentication, account linking, and enterprise-grade security features.</p>
+    </div>
+
+    <!-- Package/Library Icon and Metadata -->
+    <div class="metadata-container">
+        <!-- Library icon -->
+        <div class="app-icon-container">
+            <div class="placeholder-icon" style="font-size: 1.5rem; font-weight: 600; background-color: var(--primary-light); color: var(--primary);">Auth</div>
+        </div>
+
+        <!-- Compact metadata grid -->
+        <div class="project-metadata-grid">
+            <div class="metadata-column">
+                <div class="metadata-label">Project Type:</div>
+                <div class="metadata-value">iOS Framework / Swift Package</div>
+            </div>
+            <div class="metadata-column">
+                <div class="metadata-label">Platform:</div>
+                <div class="metadata-value">iOS 16.0+</div>
+            </div>
+            <div class="metadata-column">
+                <div class="metadata-label">Technology Stack:</div>
+                <div class="metadata-value">Swift, Firebase SDK, SwiftUI</div>
+            </div>
+            <div class="metadata-column">
+                <div class="metadata-label">Timeline:</div>
+                <div class="metadata-value">1 month (iterative development)</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- The Challenge -->
+<div class="process-step">
+    <div class="process-step-content">
+        <div class="process-step-header">
+            <div class="expertise-icon-container">
+                <svg class="icon expertise-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+            </div>
+            <h3>The Challenge</h3>
+        </div>
+        <div class="process-step-content-body">
+            <p>Firebase Authentication is powerful but was designed in an era before SwiftUI and modern Swift concurrency. This creates a significant architectural mismatch for modern iOS apps. After building several applications with it, I repeatedly encountered the same pain points:</p>
+            
+            <ul class="service-list">
+                <li><strong>Architectural Mismatch with SwiftUI</strong>: Firebase's imperative, singleton-based APIs are fundamentally incompatible with SwiftUI's declarative, state-driven nature. This forces developers to write complex, bug-prone bridging code.</li>
+                <li><strong>"Callback Hell"</strong>: The SDK relies heavily on nested completion handlers (callbacks), which are difficult to reason about and lead to unmaintainable code, a problem that modern <code>async/await</code> is designed to solve.</li>
+                <li><strong>Account Linking Complexity</strong>: The multi-step account linking flow is managed through callbacks and global state, making it extremely difficult to represent cleanly in a SwiftUI view hierarchy.</li>
+                <li><strong>Untestable by Design</strong>: The heavy use of global singletons (<code>Auth.auth()</code>) makes the SDK nearly impossible to mock, preventing isolated and reliable unit testing of an app's authentication logic.</li>
+                <li><strong>Generic Error UX</strong>: Firebase returns cryptic error codes (e.g., <code>invalid-credential</code>) that confuse users instead of guiding them toward a solution.</li>
+            </ul>
+            
+            <p>The goal was to create a modern <strong>adapter</strong> or <strong>bridge</strong>—a reusable library that translates Firebase's difficult APIs into a system that feels truly native to SwiftUI and Swift Concurrency.</p>
+        </div>
+    </div>
+</div>
+
+<!-- My Approach -->
+<div class="process-step">
+    <div class="process-step-content">
+        <div class="process-step-header">
+            <div class="expertise-icon-container">
+                <svg class="icon expertise-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            </div>
+            <h3>My Approach</h3>
+        </div>
+        <div class="process-step-content-body">
+            <p>I designed ASimpleAuthKit to act as a sophisticated <strong>bridge between two worlds</strong>: the imperative Firebase SDK and the declarative SwiftUI framework. The approach was centered on developer experience, production readiness, and comprehensive testability.</p>
+            
+            <h4 class="mt-md mb-sm">Architecture Strategy:</h4>
+            <ul class="service-list">
+                <li><strong>The SwiftUI Bridge</strong>: The library's primary role is to serve as an adapter. It consumes Firebase's complex, callback-based operations and exposes them through a clean, state-driven <code>ObservableObject</code>, which is the cornerstone of state management in SwiftUI.</li>
+                <li><strong>State-Driven by Default</strong>: Instead of forcing developers to track scattered boolean flags (<code>isAuthenticating</code>, <code>isSignedIn</code>, <code>showError</code>), the library models everything as a single, comprehensive <code>AuthState</code> enum. This allows the entire UI to be driven by a simple <code>switch</code> statement.</li>
+                <li><strong>Protocol-Oriented Decoupling</strong>: Used dependency injection and protocols (<code>FirebaseAuthClientProtocol</code>, etc.) to completely isolate the core logic from Firebase singletons. This was the key to making the system 100% testable.</li>
+                <li><strong>Modern Concurrency Transformation</strong>: Aggressively wrapped all of Firebase's legacy completion handlers in modern <code>async/await</code> functions. This eliminates callback hell, simplifies error handling, and makes the asynchronous code vastly more readable and maintainable.</li>
+            </ul>
+
+            <h4 class="mt-md mb-sm">Production Features:</h4>
+            <ul class="service-list">
+                <li><strong>Biometric Authentication</strong>: Complete Face ID/Touch ID implementation with secure keychain storage.</li>
+                <li><strong>Account Linking Automation</strong>: Handles complex Firebase account linking flows transparently.</li>
+                <li><strong>Keychain Access Groups</strong>: Support for sharing authentication state between multiple apps.</li>
+                <li><strong>User-Centric Error Handling</strong>: Translates cryptic Firebase codes into helpful, actionable messages for end-users.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Technical Implementation -->
+<div class="process-step">
+    <div class="process-step-content">
+        <div class="process-step-header">
+            <div class="expertise-icon-container">
+                 <svg class="icon expertise-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+            </div>
+            <h3>Technical Implementation</h3>
+        </div>
+        <div class="process-step-content-body">
+            <p>The library's architecture balances simplicity for the consumer with sophisticated internal functionality. The core is the <code>AuthService</code>, which manages a state machine driven by the <code>AuthState</code> enum.</p>
+            
+            <h4 class="mt-md mb-sm">The State Machine Core:</h4>
+            <p>By defining every possible state, UI development becomes a simple matter of responding to the current state, which is published automatically.</p>
+            <pre style="background-color: var(--neutral-50); padding: var(--space-sm); border-radius: var(--radius-sm); font-size: 0.85rem; overflow-x: auto;">
+public enum AuthState: Equatable, Sendable {
+    case signedOut
+    case authenticating(String?)
+    case signedIn(AuthUser)
+    case requiresBiometrics
+    case requiresAccountLinking(email: String, attemptedProviderId: String?)
+    case emailInUseSuggestSignIn(email: String)
+    case requiresMergeConflictResolution
+}</pre>
+            
+            <h4 class="mt-md mb-sm">Automated Account Linking:</h4>
+            <p>This flow is one of the most complex parts of Firebase Auth, and the library fully automates it:</p>
+            <ul class="service-list">
+                <li>When a sign-in fails with <code>account-exists-with-different-credential</code>, the library catches the error and stores the pending credential.</li>
+                <li>It transitions the state to <code>.requiresAccountLinking</code>, providing the UI with the necessary context (email and provider).</li>
+                <li>The app's UI prompts the user to sign in with their existing method (e.g., Google).</li>
+                <li>Upon successful re-authentication, <code>AuthService</code> automatically retrieves the stored credential and calls Firebase's <code>link(with:)</code> function.</li>
+                <li>The final state is <code>.signedIn</code>, with the user's account now linked to both providers, all handled transparently.</li>
+            </ul>
+            
+            <h4 class="mt-md mb-sm">Secure Biometric Authentication:</h4>
+            <ul class="service-list">
+                <li><strong><code>BiometricController</code></strong>: A dedicated controller that manages user preferences for biometrics.</li>
+                <li><strong><code>SecureStorageProtocol</code></strong>: An abstraction over <code>KeychainStorage</code> that securely stores the last authenticated user's ID, associating the biometric preference with a specific account on the device.</li>
+                <li><strong>Client-Controlled Policy</strong>: The library provides the <em>capability</em> but lets the consuming app decide <em>when</em> to require biometrics (e.g., on app launch), giving developers full control over the user experience.</li>
+            </ul>
+            
+            <h4 class="mt-md mb-sm">Test-Driven Architecture:</h4>
+            <ul class="service-list">
+                <li><strong><code>MockFirebaseAuthenticator</code> & <code>MockFirebaseAuthClient</code></strong>: Complete mock implementations of all Firebase-interacting protocols.</li>
+                <li><strong>Behavioral Simulation</strong>: Mocks can be configured to return specific users or errors, allowing for testing of every path, including complex ones like account linking and merge conflicts.</li>
+                <li><strong>State Transition Verification</strong>: Tests (<code>AuthServiceTests.swift</code>) verify every state transition, ensuring the UI will always behave predictably. For example, <code>testCreateAccountWithEmail_Failure_EmailAlreadyInUse_setsStateToEmailInUseSuggestSignIn</code>.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Results & Impact -->
+<div class="process-step">
+    <div class="process-step-content">
+        <div class="process-step-header">
+            <div class="expertise-icon-container">
+                <svg class="icon expertise-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+            </div>
+            <h3>Results & Impact</h3>
+        </div>
+        <div class="process-step-content-body">
+            <p>ASimpleAuthKit successfully transforms Firebase authentication from a major integration hurdle into a streamlined, plug-and-play experience.</p>
+            
+            <!-- Key Metrics -->
+            <div class="about-stats mt-md">
+                <div class="stat-item">
+                    <div class="stat-number">95%+</div>
+                    <div class="stat-label">Test Coverage</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">2-3 Weeks</div>
+                    <div class="stat-label">Avg. Dev Time Saved Per Project</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">7</div>
+                    <div class="stat-label">Critical Auth States Managed</div>
+                </div>
+            </div>
+            
+            <p class="mt-md">The library's impact is significant:</p>
+            <ul class="service-list">
+                <li><strong>Drastically Simplified Integration</strong>: Reduced Firebase auth setup from weeks of complex, error-prone work to just a few hours of configuration.</li>
+                <li><strong>Enhanced Security</strong>: Provides a robust biometric authentication layer with secure keychain management, a feature not offered natively by Firebase.</li>
+                <li><strong>Superior User Experience</strong>: Replaces confusing technical errors with clear, actionable guidance, reducing user frustration and support requests.</li>
+                <li><strong>Unprecedented Reliability</strong>: The protocol-based architecture and comprehensive test suite ensure robust, predictable behavior across all authentication scenarios.</li>
+                <li><strong>Increased Developer Productivity</strong>: The SwiftUI-native API and automated complex flows allow developers to focus on building features, not authentication boilerplate.</li>
+            </ul>
+            
+            <div class="testimonial">
+                <div class="testimonial-content">The decision to extract authentication logic into this reusable library has paid dividends. What once required weeks of careful Firebase integration now takes an afternoon to implement, with better security and a more polished user experience than our previous custom implementations.</div>
+                <div class="testimonial-author">— Internal Project Assessment</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Usage Example -->
+<div class="process-step">
+    <div class="process-step-content">
+        <div class="process-step-header">
+            <div class="expertise-icon-container">
+                <svg class="icon expertise-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+            </div>
+            <h3>Usage Example</h3>
+        </div>
+        <div class="process-step-content-body">
+            <p>The result of this architecture is code that is clean, declarative, and idiomatic to SwiftUI. ASimpleAuthKit completely hides the underlying complexity, boilerplate, and architectural mismatch of the Firebase SDK.</p>
+            
+            <h4 class="mt-md mb-sm">Declarative UI Driven by State:</h4>
+            <pre style="background-color: var(--neutral-50); padding: var(--space-md); border-radius: var(--radius-sm); font-size: 0.8rem; overflow-x: auto;">
+// The 'authService' object handles all the complex Firebase logic internally.
+// The view only needs to react to its simple '.state' property.
+
+struct LoginView: View {
+    @StateObject private var authService = AuthService(config: AuthConfig())
+    
+    var body: some View {
+        switch authService.state {
+        case .signedOut:
+            // Show the login form
+            loginForm
+        case .authenticating(let message):
+            // Show a loading indicator
+            ProgressView(message ?? "Authenticating...")
+        case .signedIn(let user):
+            // Show the main app content
+            Text("Welcome, \(user.displayName ?? "User")!")
+        case .requiresAccountLinking(let email, _):
+            // Show a dedicated UI to handle linking
+            accountLinkingPrompt(email: email)
+        // ... other states
+        }
+    }
+    // ... (form implementation)
+}</pre>
+        </div>
+    </div>
+</div>
+
+
+<!-- GitHub Link -->
+<div class="index-cta mt-xl">
+    <h3 class="mb-sm">Explore the Implementation</h3>
+    <p class="mb-md">ASimpleAuthKit is a powerful example of how thoughtful architecture can solve complex, recurring problems in mobile development.</p>
+    <a href="https://github.com/chuckfinca/ASimpleAuthKit" class="cta-button" target="_blank" rel="noopener">
+        View Project on GitHub
+    </a>
+</div>
+
+<!-- CTA for services -->
+<div class="process-cta">
+    <h3>Need a robust, secure mobile application?</h3>
+    <p>My experience building production-grade systems like ASimpleAuthKit enables me to architect and implement secure, user-friendly, and highly testable mobile applications. Whether you need sophisticated Firebase integration, custom security flows, or a scalable app architecture, I can build a solution that prioritizes quality and long-term maintainability.</p>
+    <a href="/contact" class="process-cta-button">Discuss Your Project</a>
+</div>
+{% endblock %}

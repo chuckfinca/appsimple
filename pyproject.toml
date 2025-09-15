@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "appsimple-website"
+version = "0.1.0"
+description = "Portfolio website for AppSimple, built with FastAPI."
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "setuptools>=61.0",
+    "fastapi",
+    "uvicorn[standard]",
+    "gunicorn",
+    "jinja2",
+    "python-multipart", # Required by FastAPI for forms
+]
+
+[project.scripts]
+# This creates the `website` command
+website = "appsimple_website.runner:main"
+
+[project.optional-dependencies]
+dev = [
+    "black>=24.0",
+    "ruff>=0.1",
+    "mypy>=1.0",
+    "pytest>=8.0",
+    "httpx", # For testing FastAPI endpoints
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-dir]
+"" = "src"
+
+[tool.ruff]
+line-length = 88
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]

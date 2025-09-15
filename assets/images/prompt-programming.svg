@@ -1,0 +1,62 @@
+<svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <circle cx="200" cy="200" r="150" fill="none" stroke="#e0e0e0" stroke-width="2"/>
+  
+  <!-- Title -->
+  <text x="200" y="380" font-family="Arial" font-size="18" text-anchor="middle" font-weight="bold">LLM Evaluation</text>
+  
+  <!-- Center point -->
+  <circle cx="200" cy="200" r="8" fill="#1F2937"/>
+  
+  <!-- Key points on the circle -->
+  <!-- Base (8 o'clock) -->
+  <circle cx="69" cy="276" r="10" fill="#7DA2C5"/>
+  <text x="50" y="310" font-family="Arial" font-size="16" text-anchor="end" font-weight="bold">Base</text>
+  <text x="130" y="286" font-family="Arial" font-size="14" text-anchor="end">67.0%</text>
+  
+  <!-- Prompt Engineering (12 o'clock) -->
+  <circle cx="200" cy="50" r="10" fill="#4682B4"/>
+  <text x="200" y="30" font-family="Arial" font-size="16" text-anchor="middle" font-weight="bold">Prompt Engineering</text>
+  <text x="200" y="80" font-family="Arial" font-size="14" text-anchor="middle">68.3%</text>
+  
+  <!-- Prompt Programming (4 o'clock) -->
+  <circle cx="329" cy="276" r="10" fill="#FF7F50"/>
+  <text x="330" y="310" font-family="Arial" font-size="16" font-weight="bold">Prompt</text>
+  <text x="282" y="335" font-family="Arial" font-size="16" font-weight="bold">Programming</text>
+  <text x="270" y="286" font-family="Arial" font-size="14">71.1%</text>
+  
+  <!-- Dial/needle - Using constant length with rotation -->
+  <line id="dial" x1="200" y1="200" x2="200" y2="50" stroke="#1F2937" stroke-width="3">
+    <!-- Starting at Base (8 o'clock) -->
+    <animateTransform 
+      attributeName="transform"
+      type="rotate"
+      from="-120 200 200"
+      to="-120 200 200"
+      dur="0.5s"
+      begin="0s"
+      fill="freeze"
+      id="startAtBase"/>
+    
+    <!-- Move to Prompt Engineering (12 o'clock) -->
+    <animateTransform 
+      attributeName="transform"
+      type="rotate"
+      from="-120 200 200"
+      to="0 200 200"
+      dur="2s"
+      begin="startAtBase.end"
+      fill="freeze"
+      id="toPromptEng"/>
+    
+    <!-- Move to Prompt Programming (4 o'clock) -->
+    <animateTransform 
+      attributeName="transform"
+      type="rotate"
+      from="0 200 200"
+      to="120 200 200"
+      dur="2s"
+      begin="toPromptEng.end"
+      fill="freeze"/>
+  </line>
+</svg>

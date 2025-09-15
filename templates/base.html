@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="AppSimple: Practical AI implementation and mobile app development by Charles Feinn. Get user-focused tech solutions that deliver real business value." />
+    <title>{% block title %}AppSimple{% endblock %}</title>
+    
+    <!-- FAVICON -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png">
+    <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+    <link rel="icon" type="image/png" sizes="96x96" href="/static/favicon-96x96.png">
+    <link rel="manifest" href="/static/site.webmanifest">
+    <link rel="shortcut icon" href="/favicon.ico"> <!-- This one uses the special route -->
+    
+    <!-- Main stylesheet -->
+    <link rel="stylesheet" href="/assets/css/main.css" />
+    
+    <!-- Page-specific styles -->
+    {% block extra_css %}{% endblock %}
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C04ZYS5CZP"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-C04ZYS5CZP');
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            {% include "components/navigation.html" %}
+            
+            <div class="content-inner">
+                {% block content %}{% endblock %}
+            </div>
+            
+            <footer class="app-footer">
+                <div class="footer-content">
+                    <span id="copyright">Copyright © 2025 <a href="/">Charles Feinn (AppSimple)</a> - 
+                        <a href="mailto:support@appsimple.io">support@appsimple.io</a> - 
+                        <a href="/privacy">Privacy</a> - 
+                        <a href="/terms">Terms</a></span>
+                </div>
+            </footer>
+        </div>
+    </div>
+    
+    <script src="/assets/js/modules/navigation.js"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

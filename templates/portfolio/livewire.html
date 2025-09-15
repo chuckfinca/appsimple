@@ -1,0 +1,317 @@
+{% extends "base.html" %}
+
+{% block title %}WWOZ Livewire Case Study - Charles Feinn // AppSimple{% endblock %}
+
+{# No extra_css needed as case-study styles should be in main.css #}
+
+{% block content %}
+<div class="back-navigation">
+    <a href="/portfolio" class="back-link">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="back-arrow">
+        <path d="M19 12H5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M12 19L5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>Back to Portfolio</span>
+    </a>
+  </div>
+<!-- Case Study Header with compact metadata -->
+<div class="case-study-header">
+    <h1 class="page-title mb-md">Case Study: WWOZ Livewire</h1>
+
+    <!-- Title and description at the top -->
+    <div class="app-description">
+    <h2 class="app-title mb-sm">New Orleans Music Calendar</h2>
+    <p class="page-intro">Creating a mobile guide to live local music in and around New Orleans, featuring venue and artist information from WWOZ's music calendar.</p>
+    </div>
+
+    <!-- App icon and compact metadata grid in a row -->
+    <div class="metadata-container">
+    <!-- App icon on the left -->
+    <div class="app-icon-container">
+        <img src="/assets/images/livewire.png" alt="WWOZ Livewire Icon" class="app-icon">
+    </div>
+
+    <!-- Compact metadata grid to the right -->
+    <div class="project-metadata-grid">
+        <div class="metadata-column">
+        <div class="metadata-label">Client:</div>
+        <div class="metadata-value">WWOZ New Orleans</div>
+        </div>
+        <div class="metadata-column">
+        <div class="metadata-label">Platform:</div>
+        <div class="metadata-value">iOS</div>
+        </div>
+        <div class="metadata-column">
+        <div class="metadata-label">Timeline:</div>
+        <div class="metadata-value">3 months</div>
+        </div>
+        <div class="metadata-column">
+        <div class="metadata-label">Role:</div>
+        <div class="metadata-value">Lead Developer</div>
+        </div>
+    </div>
+    </div>
+</div>
+
+<!-- App Screenshots -->
+<div class="mb-lg">
+    <h3 class="section-heading mb-md">Project Results</h3>
+    <div class="screenshots-grid">
+    <img src="/assets/images/iPhone_L_1.png" alt="Livewire screenshot" class="app-screenshot">
+    <img src="/assets/images/iPhone_L_2.png" alt="Livewire screenshot" class="app-screenshot">
+    <img src="/assets/images/iPhone_L_3.png" alt="Livewire screenshot" class="app-screenshot">
+    <img src="/assets/images/iPhone_L_4.png" alt="Livewire screenshot" class="app-screenshot">
+    </div>
+</div>
+
+<!-- The Challenge -->
+<div class="process-step">
+    <div class="process-step-content">
+        <div class="process-step-header">
+            <div class="expertise-icon-container">
+                <svg class="icon expertise-icon" viewBox="0 0 24 24">
+                    <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
+                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                    <line x1="12" y1="17" x2="12.01" y2="17"/>
+                </svg>
+            </div>
+            <h3>The Challenge</h3>
+        </div>
+        <div class="process-step-content-body">
+            <p>WWOZ, a renowned community radio station in New Orleans, needed a mobile solution to share their extensive "Livewire Music Calendar" with local and visiting music enthusiasts. The project presented several key challenges:</p>
+            <ul class="service-list">
+                <li><strong>Dynamic data presentation</strong>: Finding intuitive ways to organize and display hundreds of daily music events across the city</li>
+                <li><strong>Complex information architecture</strong>: Creating relationships between venues, artists, and performances</li>
+                <li><strong>Local navigation needs</strong>: Helping users discover music in New Orleans' unique geography</li>
+                <li><strong>Offline functionality</strong>: Ensuring the app remained useful while tourists were exploring without reliable data connections</li>
+                <li><strong>Preserving the WWOZ brand</strong>: Maintaining the station's distinctive community-focused identity in a digital format</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- The Approach -->
+<div class="process-step">
+    <div class="process-step-content">
+        <div class="process-step-header">
+            <div class="expertise-icon-container">
+                <svg class="icon expertise-icon" viewBox="0 0 24 24">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                </svg>
+            </div>
+            <h3>My Approach</h3>
+        </div>
+        <div class="process-step-content-body">
+            <p>After collaborative discovery sessions with the WWOZ team, I developed a user-centered approach focused on both tourists and locals:</p>
+            <h4 class="mt-md mb-sm">Experience Design:</h4>
+            <ul class="service-list">
+                <li><strong>Time-based navigation</strong>: Prioritizing "today's music" as the primary entry point for users</li>
+                <li><strong>Dual discovery paths</strong>: Allowing users to browse both by venue and by performer</li>
+                <li><strong>User preference tracking</strong>: Enabling users to follow favorite acts and learn about upcoming performances</li>
+                <li><strong>Rich content integration</strong>: Incorporating videos, social media links, and artist information</li>
+            </ul>
+            <h4 class="mt-md mb-sm">Development Approach:</h4>
+            <p>I leveraged a rapid development methodology with frequent stakeholder feedback loops to ensure the app met both user and client expectations:</p>
+            <ul class="service-list">
+                <li><strong>API-first implementation</strong>: Building a robust communication layer with WWOZ's calendar system</li>
+                <li><strong>Offline caching strategy</strong>: Designing a system that would store recent queries for offline use</li>
+                <li><strong>Performance optimization</strong>: Ensuring smooth scrolling and transitions despite large dataset</li>
+                <li><strong>Collaborative UI design</strong>: Working with WWOZ's designer to create an interface that felt true to the brand</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Technical Implementation -->
+<div class="process-step">
+    <div class="process-step-content">
+        <div class="process-step-header">
+            <div class="expertise-icon-container">
+                <svg class="icon expertise-icon" viewBox="0 0 24 24">
+                    <path d="M16 18l6-6-6-6"/>
+                    <path d="M8 6l-6 6 6 6"/>
+                </svg>
+            </div>
+            <h3>Technical Implementation</h3>
+        </div>
+        <div class="process-step-content-body">
+            <p>Developing the WWOZ Livewire app required several technical solutions to address the project's unique requirements:</p>
+            <h4 class="mt-md mb-sm">iOS Native Development:</h4>
+            <p>I built a native iOS application to ensure the best possible performance and user experience:</p>
+            <ul class="service-list">
+                <li><strong>Custom calendar interface</strong> optimized for music events</li>
+                <li><strong>Location-aware venue discovery</strong> using CoreLocation</li>
+                <li><strong>Efficient caching system</strong> for offline browsing</li>
+                <li><strong>Dynamic list management</strong> for handling large datasets smoothly</li>
+                <li><strong>Optimized image handling</strong> for artist and venue photos</li>
+            </ul>
+            <h4 class="mt-md mb-sm">Data Architecture:</h4>
+            <p>The app's data structure was carefully designed to handle the complex relationships between events, venues, and artists:</p>
+            <ul class="service-list">
+                <li><strong>Real-time API integration</strong> with WWOZ's events database</li>
+                <li><strong>Intelligent caching layer</strong> for both performance and offline access</li>
+                <li><strong>Custom search indexing</strong> for quick lookup by various criteria</li>
+                <li><strong>Favorite synchronization</strong> across app sessions</li>
+            </ul>
+            <h4 class="mt-md mb-sm">Media Integration:</h4>
+            <p>A key feature was connecting users with artists' content beyond just event listings:</p>
+            <ul class="service-list">
+                <li><strong>YouTube video integration</strong> for artist performances</li>
+                <li><strong>Social media profile linking</strong> to connect with artists</li>
+                <li><strong>Website deep linking</strong> for venues and performers</li>
+            </ul>
+            <h4 class="mt-md mb-sm">Technologies Used:</h4>
+            <ul class="service-list">
+                <li>Objective-C and UIKit for iOS development</li>
+                <li>REST API integration with caching layer</li>
+                <li>CoreLocation for mapping and proximity features</li>
+                <li>YouTube Player integration</li>
+                <li>Custom persistence layer for favorites</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Results & Impact -->
+<div class="process-step">
+    <div class="process-step-content">
+        <div class="process-step-header">
+            <div class="expertise-icon-container">
+                <svg class="icon expertise-icon" viewBox="0 0 24 24">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                    <polyline points="22 4 12 14.01 9 11.01"/>
+                </svg>
+            </div>
+            <h3>Results & Impact</h3>
+        </div>
+        <div class="process-step-content-body">
+            <p>The WWOZ Livewire app successfully transformed how people discover live music in New Orleans:</p>
+            
+            <!-- Key Metrics -->
+            <div class="about-stats mt-md">
+                <div class="stat-item">
+                    <div class="stat-number">18K+</div>
+                    <div class="stat-label">App installations</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">100+</div>
+                    <div class="stat-label">Venues featured</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">4.5</div>
+                    <div class="stat-label">App Store rating</div>
+                </div>
+            </div>
+            
+            <p class="mt-md">For music venues and artists, the platform provided significant benefits:</p>
+            <ul class="service-list">
+                <li><strong>Increased visibility</strong> for smaller venues and up-and-coming artists</li>
+                <li><strong>Greater attendance</strong> at local music events, particularly from tourists</li>
+                <li><strong>Direct connection</strong> between performers and new audiences</li>
+                <li><strong>Promotion of New Orleans' rich musical heritage</strong> through a digital medium</li>
+            </ul>
+            
+            <p>For WWOZ, the app represented a successful extension of their mission:</p>
+            <ul class="service-list">
+                <li>Modernized their brand while maintaining their community focus</li>
+                <li>Expanded their reach beyond radio listeners to app users</li>
+                <li>Strengthened their position as the definitive source for New Orleans music information</li>
+                <li>Created a new digital touchpoint with their audience</li>
+            </ul>
+            
+            <div class="testimonial">
+                <div class="testimonial-content">"The Livewire app has been a game-changer for how visitors and locals alike discover live music in New Orleans. It puts the entire scene at their fingertips in a way that's true to the spontaneous, vibrant nature of our musical culture."</div>
+                <div class="testimonial-author">— WWOZ Station Representative</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Key Learnings -->
+<div class="process-step">
+    <div class="process-step-content">
+        <div class="process-step-header">
+            <div class="expertise-icon-container">
+                <svg class="icon expertise-icon" viewBox="0 0 24 24">
+                    <path d="M18 8h1a4 4 0 0 1 0 8h-1"/>
+                    <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
+                    <line x1="6" y1="1" x2="6" y2="4"/>
+                    <line x1="10" y1="1" x2="10" y2="4"/>
+                    <line x1="14" y1="1" x2="14" y2="4"/>
+                </svg>
+            </div>
+            <h3>Key Learnings</h3>
+        </div>
+        <div class="process-step-content-body">
+            <p>This project provided valuable insights into developing location-based event apps:</p>
+            <h4 class="mt-md mb-sm">User Experience Insights:</h4>
+            <ul class="service-list">
+                <li><strong>Contextual relevance is crucial</strong> - Users primarily wanted to know "what's happening tonight near me"</li>
+                <li><strong>Multiple discovery paths</strong> - Different user groups (tourists vs. locals, venue-focused vs. artist-focused) needed different navigation options</li>
+                <li><strong>Offline functionality matters</strong> - Visitors with limited data plans or in areas with poor reception still needed access to information</li>
+                <li><strong>Simplicity wins</strong> - Despite the complex data relationships, the interface needed to remain straightforward</li>
+            </ul>
+            <h4 class="mt-md mb-sm">Technical Learnings:</h4>
+            <ul class="service-list">
+                <li><strong>Data optimization is essential</strong> - Event apps require careful consideration of how to structure and cache data</li>
+                <li><strong>Location services add complexity</strong> - Map integration and geolocation features required additional performance considerations</li>
+                <li><strong>Content freshness balance</strong> - Finding the right balance between real-time updates and cached content</li>
+                <li><strong>Media integration tradeoffs</strong> - Incorporating rich media while maintaining performance required careful implementation</li>
+            </ul>
+            <p>These learnings have informed my approach to subsequent event and location-based applications, particularly in how I structure data and create contextually relevant user experiences.</p>
+        </div>
+    </div>
+</div>
+
+<!-- If I Were Building This Today Section -->
+<div class="process-step">
+    <div class="process-step-content">
+        <div class="process-step-header">
+            <div class="expertise-icon-container">
+                <svg class="icon expertise-icon" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="10"/>
+                    <line x1="12" y1="8" x2="12" y2="12"/>
+                    <line x1="12" y1="16" x2="12.01" y2="16"/>
+                </svg>
+            </div>
+            <h3>If I Were Building This Today</h3>
+        </div>
+        <div class="process-step-content-body">
+            <p>If I were developing the WWOZ Livewire app today, I would leverage several AI capabilities to significantly enhance the user experience:</p>
+            <h4 class="mt-md mb-sm">Personalized Recommendations:</h4>
+            <ul class="service-list">
+                <li><strong>Music Taste Prediction</strong> - Using machine learning to analyze user behavior and suggest events based on their musical preferences</li>
+                <li><strong>Smart Itinerary Creation</strong> - AI-powered tools to build optimized music crawls based on location, timing, and preferences</li>
+                <li><strong>Sentiment Analysis</strong> - Processing reviews and social media to highlight events generating the most positive buzz</li>
+                <li><strong>Personalized Notifications</strong> - ML models that learn when and how often to notify users about relevant events</li>
+            </ul>
+            <h4 class="mt-md mb-sm">Enhanced Discovery:</h4>
+            <ul class="service-list">
+                <li><strong>Music Style Classification</strong> - Automatically categorizing artists by genre and style based on audio samples and descriptions</li>
+                <li><strong>Similar Artist Suggestions</strong> - "If you like this artist, you might also enjoy..." recommendations</li>
+                <li><strong>Natural Language Search</strong> - Conversational interfaces to find events (e.g., "Find me jazz near Frenchmen Street tomorrow night")</li>
+                <li><strong>Image Recognition</strong> - Using venue photos to understand the atmosphere and match to user preferences</li>
+            </ul>
+            <h4 class="mt-md mb-sm">Content Enrichment:</h4>
+            <ul class="service-list">
+                <li><strong>Automated Artist Profiles</strong> - Using AI to gather and synthesize information about performers from across the web</li>
+                <li><strong>Music Preview Generation</strong> - Creating brief audio previews of an artist's style using generative AI</li>
+                <li><strong>Automated Event Summaries</strong> - Generating concise descriptions of events based on venue, performer, and historical data</li>
+                <li><strong>Cross-Platform Content Aggregation</strong> - Automatically collecting and featuring artist videos, reviews, and social media content</li>
+            </ul>
+            <p class="mt-md">These AI enhancements would transform what was initially a digital event calendar into an intelligent music concierge that understands each user's unique preferences and helps them discover exactly the right musical experiences in New Orleans. The technology would amplify the human element rather than replace it—making it easier for people to connect with the authentic cultural experiences the city has to offer.</p>
+        </div>
+    </div>
+</div>
+
+<!-- CTA for services -->
+<div class="process-cta">
+    <h3>Need a location-based or event discovery application?</h3>
+    <p>My experience creating intuitive event discovery apps like WWOZ Livewire has given me deep insights into developing location-aware applications that connect users with local experiences. Now I'm focused on implementing AI technologies to make these connections even more personalized and intelligent. Let's discuss how I can help with your next project.</p>
+    <a href="/contact" class="process-cta-button">Get in Touch</a>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<!-- No additional JavaScript needed for this case study -->
+{% endblock %}

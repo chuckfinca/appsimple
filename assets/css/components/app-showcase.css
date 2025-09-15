@@ -1,0 +1,116 @@
+/* components/app-showcase.css - Shared styles for app showcase pages */
+
+/* Mobile app navigation */
+.app-nav {
+    padding: var(--space-sm) 0;
+  }
+  
+  .app-nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    gap: var(--space-xs);
+    justify-content: center;
+    margin-bottom: 0;
+    padding-left: 0;
+  }
+  
+  .app-nav a {
+    text-decoration: none;
+    padding: var(--space-xs) var(--space-sm);
+    position: relative;
+    color: var(--neutral-500);
+    transition: color var(--transition-normal);
+    font-size: var(--text-sm);
+  }
+  
+  .app-nav a:hover,
+  .app-nav a.active {
+    color: var(--primary);
+    font-weight: var(--font-bold);
+  }
+  
+  /* App case study header */
+  .app-header {
+    text-align: center;
+    padding: var(--space-md) var(--space-sm);
+  }
+  
+  .app-header h1 {
+    font-size: calc(var(--text-2xl) * 0.85);
+  }
+  
+  .app-header h2 {
+    font-size: calc(var(--text-xl) * 0.85);
+  }
+  
+  /* App store buttons */
+  .store-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    justify-content: center;
+    margin: var(--space-md) 0;
+  }
+  
+  .store-button {
+    display: inline-block;
+    transition: transform var(--transition-normal);
+  }
+  
+  .store-button:hover {
+    transform: translateY(-2px);
+  }
+  
+  .store-button img {
+    height: 40px;
+    width: auto;
+  }
+  
+  /* App detail styling */
+  .app-detail-section {
+    margin-bottom: var(--space-lg);
+  }
+  
+  .app-detail-section h3 {
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-sm);
+  }
+  
+  .app-features {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: var(--space-md);
+  }
+  
+  .app-features li {
+    position: relative;
+    padding-left: var(--space-md);
+    margin-bottom: var(--space-xs);
+  }
+  
+  .app-features li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--primary);
+    font-weight: bold;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 480px) {
+    .app-nav ul {
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .app-nav a {
+      font-size: var(--text-xs);
+      padding: var(--space-xs) var(--space-xs);
+    }
+    
+    .store-buttons {
+      flex-direction: column;
+      align-items: center;
+    }
+  }

@@ -1,0 +1,302 @@
+{% extends "base.html" %}
+
+{% block title %}FOT Intervention Recommender Case Study - Charles Feinn // AppSimple{% endblock %}
+
+{% block content %}
+<div class="back-navigation">
+    <a href="/portfolio" class="back-link">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="back-arrow">
+        <path d="M19 12H5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M12 19L5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>Back to Portfolio</span>
+    </a>
+</div>
+
+<!-- Case Study Header -->
+<div class="case-study-header">
+    <h1 class="page-title mb-md">Case Study: Freshman On-Track Intervention Recommender</h1>
+
+    <!-- Title and description at the top -->
+    <div class="app-description">
+        <h2 class="app-title mb-sm">AI-Powered Educational Intervention System</h2>
+        <p class="page-intro">A production-grade RAG (Retrieval-Augmented Generation) system that transforms student narratives into evidence-based intervention recommendations, helping educators systematically support at-risk 9th graders.</p>
+    </div>
+
+    <!-- Visual (Animation or Demo Screenshot) -->
+    <div class="mb-lg text-center">
+        <img src="/assets/images/fot-demo.svg" alt="FOT Recommender Interface" style="max-width: 100%; height: auto; border-radius: var(--radius-md); box-shadow: var(--shadow-md);">
+    </div>
+
+    <!-- Metadata Grid -->
+    <div class="metadata-container">
+        <!-- Project Icon -->
+        <div class="app-icon-container">
+            <div class="placeholder-icon" style="font-size: 1.5rem; font-weight: 600; background-color: var(--primary-light); color: var(--primary);">FOT</div>
+        </div>
+
+        <!-- Compact metadata grid -->
+        <div class="project-metadata-grid">
+            <div class="metadata-column">
+                <div class="metadata-label">Project Type:</div>
+                <div class="metadata-value">AI Engineering / EdTech</div>
+            </div>
+            <div class="metadata-column">
+                <div class="metadata-label">Technology Stack:</div>
+                <div class="metadata-value">Python, RAG, FAISS, Gemini</div>
+            </div>
+            <div class="metadata-column">
+                <div class="metadata-label">Deployment:</div>
+                <div class="metadata-value">Hugging Face Spaces</div>
+            </div>
+            <div class="metadata-column">
+                <div class="metadata-label">Timeline:</div>
+                <div class="metadata-value">5 days (PoC)</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- The Challenge -->
+<div class="process-step">
+    <div class="process-step-content">
+        <div class="process-step-header">
+            <div class="expertise-icon-container">
+                <svg class="icon expertise-icon" viewBox="0 0 24 24">
+                    <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
+                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                    <line x1="12" y1="17" x2="12.01" y2="17"/>
+                </svg>
+            </div>
+            <h3>The Challenge</h3>
+        </div>
+        <div class="process-step-content-body">
+            <p>Freshman year performance is the strongest predictor of high school graduation, yet educators often lack systematic tools to match at-risk 9th graders with evidence-based interventions. The challenge was creating a system that could bridge the gap between educational research and practical classroom application.</p>
+            <ul class="service-list">
+                <li><strong>Inconsistent Intervention Selection</strong>: Educators relied on intuition rather than proven best practices, leading to varied and potentially ineffective support</li>
+                <li><strong>Information Overload</strong>: Educational research was scattered across numerous documents, making it difficult for busy educators to quickly find relevant strategies</li>
+                <li><strong>Time Constraints</strong>: Teachers needed immediate, actionable guidance but lacked the time for extensive research</li>
+                <li><strong>Communication Barriers</strong>: Different stakeholders (teachers, parents, administrators) required recommendations tailored to their specific roles and perspectives</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- My Approach -->
+<div class="process-step">
+    <div class="process-step-content">
+        <div class="process-step-header">
+            <div class="expertise-icon-container">
+                <svg class="icon expertise-icon" viewBox="0 0 24 24">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                </svg>
+            </div>
+            <h3>My Approach</h3>
+        </div>
+        <div class="process-step-content-body">
+            <p>I designed a sophisticated RAG system to transform educational research into an intelligent, conversational interface. The approach centered on making evidence-based interventions immediately accessible and actionable, augmenting rather than replacing educator expertise.</p>
+            
+            <h4 class="mt-md mb-sm">Strategic Design Decisions:</h4>
+            <ul class="service-list">
+                <li><strong>Quality-First Data Strategy</strong>: Instead of building a complex PDF extraction pipeline, I manually curated a high-quality knowledge base from authoritative sources to guarantee maximum accuracy</li>
+                <li><strong>Semantic Chunking</strong>: Developed a concept-based chunking strategy that groups related interventions together, creating more meaningful and contextually rich data</li>
+                <li><strong>Persona-Based Generation</strong>: Implemented distinct prompt templates for teachers, parents, and principals, ensuring recommendations were appropriately tailored for each audience</li>
+                <li><strong>Evidence-Based Foundation</strong>: Grounded all recommendations in peer-reviewed research from organizations like Network for College Success and IES</li>
+            </ul>
+
+            <h4 class="mt-md mb-sm">AI-Human Collaboration Methodology:</h4>
+            <p>This project leveraged AI as a strategic co-pilot throughout development. I engaged multiple models in iterative dialogue to refine architecture and implementation decisions, while carefully managing conversational context to maintain high standards and drastically reduce hallucination, leading to better, more consistent code quality.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Technical Implementation -->
+<div class="process-step">
+    <div class="process-step-content">
+        <div class="process-step-header">
+            <div class="expertise-icon-container">
+                <svg class="icon expertise-icon" viewBox="0 0 24 24">
+                    <path d="M16 18l6-6-6-6"/>
+                    <path d="M8 6l-6 6 6 6"/>
+                </svg>
+            </div>
+            <h3>Technical Implementation</h3>
+        </div>
+        <div class="process-step-content-body">
+            <p>The system was built with a modern Python stack and deployed as a live, interactive application. The architecture prioritizes accuracy, maintainability, and a clear path to production scaling.</p>
+            
+            <h4 class="mt-md mb-sm">Core RAG Architecture:</h4>
+            <ul class="service-list">
+                <li><strong>Knowledge Base</strong>: Built from 6 authoritative educational sources, manually curated into 27 high-relevance intervention chunks using semantic clustering</li>
+                <li><strong>Retrieval Engine</strong>: Utilizes the all-MiniLM-L6-v2 sentence transformer with FAISS vector database for efficient semantic search</li>
+                <li><strong>Generation Engine</strong>: Integrates Google's Gemini 1.5 Flash model with three distinct, persona-optimized prompt templates</li>
+                <li><strong>Quality Controls</strong>: Implements similarity score filtering to ensure only the most relevant evidence is used in recommendations</li>
+            </ul>
+            
+            <h4 class="mt-md mb-sm">Production Features:</h4>
+            <ul class="service-list">
+                <li><strong>Live Interactive Demo</strong>: Deployed on Hugging Face Spaces with Gradio interface and example scenarios</li>
+                <li><strong>Modern Python Stack</strong>: Python 3.12 with fast dependency management via uv, formatted with black and ruff</li>
+                <li><strong>Source Attribution</strong>: Full transparency with page numbers and relevance scores for all recommendations</li>
+                <li><strong>Secure Access</strong>: Protected demo environment with access key authentication</li>
+            </ul>
+            
+            <h4 class="mt-md mb-sm">Technologies Used:</h4>
+            <ul class="service-list">
+                <li>Python 3.12 with sentence-transformers and FAISS for retrieval</li>
+                <li>Google Gemini 1.5 Flash for natural language generation</li>
+                <li>Gradio for interactive web interface</li>
+                <li>Hugging Face Spaces for deployment and hosting</li>
+                <li>Comprehensive testing suite with pytest and quality tooling</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Results & Impact -->
+<div class="process-step">
+    <div class="process-step-content">
+        <div class="process-step-header">
+            <div class="expertise-icon-container">
+                <svg class="icon expertise-icon" viewBox="0 0 24 24">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                    <polyline points="22 4 12 14.01 9 11.01"/>
+                </svg>
+            </div>
+            <h3>Results & Impact</h3>
+        </div>
+        <div class="process-step-content-body">
+            <p>The FOT Intervention Recommender successfully transforms scattered educational research into an intelligent, accessible tool that empowers educators with evidence-based guidance.</p>
+            
+            <!-- Key Metrics -->
+            <div class="about-stats mt-md">
+                <div class="stat-item">
+                    <div class="stat-number">27</div>
+                    <div class="stat-label">Curated Intervention Strategies</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">6</div>
+                    <div class="stat-label">Authoritative Source Documents</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">Persona-Specific Output Types</div>
+                </div>
+            </div>
+            
+            <p class="mt-md">The system delivers significant value to educational stakeholders:</p>
+            <ul class="service-list">
+                <li><strong>Immediate Access to Best Practices</strong>: Transforms hours of research into seconds of targeted recommendations based on student narratives</li>
+                <li><strong>Improved Intervention Quality</strong>: Grounds recommendations in peer-reviewed research, moving beyond intuition-based decisions</li>
+                <li><strong>Enhanced Stakeholder Communication</strong>: Tailored outputs ensure teachers, parents, and administrators receive relevant, actionable guidance</li>
+                <li><strong>Complete Transparency</strong>: Full source attribution with page numbers and relevance scores builds trust and enables verification</li>
+                <li><strong>Scalable Architecture</strong>: Production-ready codebase with comprehensive testing enables easy expansion and deployment</li>
+            </ul>
+            
+            <div class="testimonial">
+                <div class="testimonial-content">This PoC successfully de-risked our primary technical questions. It proved that a RAG-based approach could deliver accurate, evidence-based results on this specialized knowledge domain, establishing a clear path to a production-ready tool.</div>
+                <div class="testimonial-author">— Internal Project Assessment</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Key Learnings -->
+<div class="process-step">
+    <div class="process-step-content">
+        <div class="process-step-header">
+            <div class="expertise-icon-container">
+                <svg class="icon expertise-icon" viewBox="0 0 24 24">
+                    <path d="M18 8h1a4 4 0 0 1 0 8h-1"/>
+                    <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
+                    <line x1="6" y1="1" x2="6" y2="4"/>
+                    <line x1="10" y1="1" x2="10" y2="4"/>
+                    <line x1="14" y1="1" x2="14" y2="4"/>
+                </svg>
+            </div>
+            <h3>Key Learnings</h3>
+        </div>
+        <div class="process-step-content-body">
+            <p>This project reinforced several important principles for building domain-specific AI systems:</p>
+            <ul class="service-list">
+                <li><strong>Quality Over Quantity</strong>: Manual curation of high-quality knowledge significantly outperformed automated extraction in accuracy and relevance</li>
+                <li><strong>Domain Expertise Matters</strong>: Understanding the educational context was crucial for designing effective chunking strategies and prompt templates</li>
+                <li><strong>User-Centric Design</strong>: Different stakeholders need different types of information presented in different ways—one size doesn't fit all</li>
+                <li><strong>Transparency Builds Trust</strong>: Providing source attribution and confidence scores was essential for adoption in high-stakes educational contexts</li>
+                <li><strong>AI as Co-Pilot</strong>: Using AI strategically throughout development accelerated progress while maintaining quality through careful context management</li>
+            </ul>
+            <p>These insights directly inform how I approach building AI systems for other knowledge-intensive domains where accuracy and trust are paramount.</p>
+        </div>
+    </div>
+</div>
+
+<!-- REVISED: From PoC to Production -->
+<div class="process-step">
+    <div class="process-step-content">
+        <div class="process-step-header">
+            <div class="expertise-icon-container">
+                <svg class="icon expertise-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="19" x2="12" y2="5"></line>
+                    <polyline points="5 12 12 5 19 12"></polyline>
+                </svg>
+            </div>
+            <h3>From PoC to Production: Next Steps</h3>
+        </div>
+        <div class="process-step-content-body">
+            <p>This proof-of-concept establishes a strong foundation. To evolve this tool into a robust, production-grade system, I would focus on the following key areas:</p>
+
+            <h4 class="mt-md mb-sm">1. Containerization & API Deployment</h4>
+            <p>Package the application into a formal REST API using FastAPI and containerize it with Docker. This enables deployment to a scalable, serverless platform like Google Cloud Run, ensuring high availability and cost-effective operation.</p>
+
+            <h4 class="mt-md mb-sm">2. Building the "Data Flywheel" for Evaluation</h4>
+            <p>True long-term value comes from learning and improving. I would implement an observability layer to capture input/output pairs. This data would then be used to:</p>
+            <ul class="service-list">
+                <li>Create a system for subject-matter experts (educators) to label and rate the quality of recommendations.</li>
+                <li>Establish a continuous evaluation pipeline to measure model performance against this "golden dataset," creating a data flywheel that drives ongoing improvements.</li>
+            </ul>
+
+            <h4 class="mt-md mb-sm">3. Enhancing System Modularity & Scalability</h4>
+            <p>To ensure the system is adaptable and future-proof, I would refactor the core logic to be more modular. This includes:</p>
+            <ul class="service-list">
+                <li>Abstracting the core components to easily swap out embedding models, generative models (e.g., GPT, Claude), or vector databases (e.g., Pinecone, Weaviate) to leverage the best technology as it evolves.</li>
+                <li>Developing more advanced data preparation and semantic chunking strategies to handle a larger and more diverse knowledge base.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<!-- REVISED: CTA Section with Live Demo and Notebook Links -->
+<div class="index-cta mt-xl">
+    <h3 class="mb-sm">Explore the Project</h3>
+    <p class="mb-md">
+        Dive into the technical implementation on GitHub, interact with the live demo, or review the original proof-of-concept notebook.
+    </p>
+    <div class="cta-buttons">
+        <a href="https://huggingface.co/spaces/chuckfinca/fot-recommender-api" class="cta-button" target="_blank" rel="noopener">
+            Launch Live Demo
+        </a>
+        <a href="https://github.com/chuckfinca/fot-intervention-recommender" class="cta-button-outline" target="_blank" rel="noopener">
+            View on GitHub
+        </a>
+    </div>
+    <p class="mt-md">
+        For a step-by-step technical walkthrough of the core retrieval logic, you can <a href="https://colab.research.google.com/github/chuckfinca/fot-intervention-recommender/blob/main/notebooks/fot_recommender_poc.ipynb" target="_blank" rel="noopener">explore the original proof-of-concept notebook</a>.
+    </p>
+    <p class="mt-sm" style="font-size: var(--text-xs); color: var(--neutral-500);">
+        <em>Note: The live demo is access-key protected to ensure a dedicated review experience. Please feel free to request access via the project's GitHub repository or by reaching out on my <a href="/contact">contact page</a>, and I'll be happy to provide a key.</em>
+    </p>
+</div>
+
+
+<!-- CTA for services -->
+<div class="process-cta">
+    <h3>Need an intelligent knowledge management system?</h3>
+    <p>My experience building domain-specific RAG systems like this one enables me to create AI solutions that transform complex knowledge into accessible, actionable guidance. Whether for education, healthcare, or business intelligence, I build systems that enhance human expertise with AI-powered insights.</p>
+    <a href="/contact" class="process-cta-button">Discuss Your AI Project</a>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<!-- No additional JavaScript needed for this case study -->
+{% endblock %}

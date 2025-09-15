@@ -1,0 +1,258 @@
+{% extends "base.html" %}
+
+{% block title %}Portfolio - Charles Feinn // AppSimple{% endblock %} {# Updated Title #}
+
+{% block extra_css %}
+<link rel="stylesheet" href="/assets/css/pages/portfolio.css" />
+{% endblock %}
+
+{% block content %}
+<!-- Portfolio Section -->
+<h1 class="page-title">Portfolio</h1>
+<p class="page-intro">My work spans across mobile application development and applied AI solutions. Below you'll find a collection of projects that showcase my technical expertise and problem-solving approach across different domains.</p>
+
+<!-- Portfolio Filter -->
+<div class="portfolio-filter">
+    <button class="filter-button active" data-filter="all">All Projects</button>
+    <button class="filter-button" data-filter="mobile">Mobile Apps</button>
+    <button class="filter-button" data-filter="ai">AI Engineering</button> {# Changed label slightly #}
+    <button class="filter-button" data-filter="hybrid">Hybrid Projects</button>
+</div>
+
+<!-- Portfolio Grid -->
+<div class="portfolio-grid">
+    
+    <!-- FOT Intervention Recommender -->
+    <div class="portfolio-item" data-categories="ai hybrid">
+        <div class="portfolio-card">
+            <div class="portfolio-image">
+                <div class="placeholder-icon" style="font-size: 1.5rem; font-weight: 600;">FOT</div>
+            </div>
+            <div class="portfolio-content">
+                <h3>Freshman On-Track Recommender</h3>
+                <p class="portfolio-type">AI Engineering / EdTech</p>
+                <p class="portfolio-description">
+                    A high-quality RAG system that transforms student narratives into evidence-based intervention recommendations for educators.
+                </p>
+                <div class="portfolio-tags">
+                    <span class="tag">RAG</span>
+                    <span class="tag">Python</span>
+                    <span class="tag">Gemini</span>
+                    <span class="tag">FAISS</span>
+                </div>
+                <a href="/portfolio/fot-recommender" class="portfolio-link">View Case Study</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- ASimpleAuthKit -->
+    <div class="portfolio-item" data-categories="mobile">
+        <div class="portfolio-card">
+            <div class="portfolio-image">
+                <div class="placeholder-icon" style="font-size: 1.5rem; font-weight: 600;">Auth</div>
+            </div>
+            <div class="portfolio-content">
+                <h3>ASimpleAuthKit</h3>
+                <p class="portfolio-type">Mobile App / Swift Package</p>
+                <p class="portfolio-description">
+                    A production-ready Swift Package to streamline Firebase Authentication in SwiftUI apps.
+                </p>
+                <div class="portfolio-tags">
+                    <span class="tag">Swift</span>
+                    <span class="tag">SwiftUI</span>
+                    <span class="tag">Firebase</span>
+                    <span class="tag">API Design</span>
+                </div>
+                <a href="/portfolio/a-simple-auth-kit" class="portfolio-link">View Case Study</a>
+            </div>
+            
+        </div>
+    </div>
+    
+    <!-- DSPy Prompt Optimization -->
+    <div class="portfolio-item" data-categories="ai hybrid">
+        <div class="portfolio-card">
+            <div class="app-icon-container">
+                <img src="/assets/images/dspy_logo.png" alt="DSPy Logo" class="app-icon">
+            </div>
+            <div class="portfolio-content">
+                <h3>Automating LLM Prompt Optimization</h3>
+                <p class="portfolio-type">AI Engineering / LLM Optimization</p>
+                <p class="portfolio-description">Using the DSPy framework to programmatically optimize prompts, significantly improving Llama 3.1 8B performance on the MMLU benchmark over manual methods.</p>
+                <div class="portfolio-tags">
+                    <span class="tag">DSPy</span>
+                    <span class="tag">Prompt Optimization</span>
+                    <span class="tag">LLM Evaluation</span>
+                    <span class="tag">Automation</span>
+                </div>
+                <a href="/portfolio/dspy-prompt-optimization" class="portfolio-link">View Case Study</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- LLM Evaluation & Prompting -->
+    <div class="portfolio-item" data-categories="ai hybrid">
+        <div class="portfolio-card">
+            <div class="portfolio-image">
+                 <div class="placeholder-icon" style="font-size: 1.5rem; font-weight: 600;">Eval</div>
+            </div>
+            <div class="portfolio-content">
+                <h3>Building & Refining an LLM Evaluation System</h3>
+                <p class="portfolio-type">AI Engineering / LLM Evaluation</p>
+                <p class="portfolio-description">Developed a custom framework for MMLU benchmarking and investigated the critical impact of prompt engineering on LLM evaluation reproducibility.</p>
+                <div class="portfolio-tags">
+                    <span class="tag">LLM Evaluation</span>
+                    <span class="tag">Benchmarking</span>
+                    <span class="tag">Prompt Engineering</span>
+                    <span class="tag">Python</span>
+                </div>
+                <a href="/portfolio/llm-evaluation-prompting" class="portfolio-link">View Case Study</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bodhi Mind -->
+    <div class="portfolio-item" data-categories="mobile">
+        <div class="portfolio-card">
+            <div class="portfolio-image">
+                <img src="/assets/images/bodhiMind.png" alt="Bodhi Mind App" class="portfolio-icon">
+            </div>
+            <div class="portfolio-content">
+                <h3>Bodhi Mind</h3>
+                <p class="portfolio-type">Mobile App Development</p>
+                <p class="portfolio-description">Subscription-based meditation content platform with intelligent content organization for iOS.</p>
+                <div class="portfolio-tags">
+                    <span class="tag">iOS</span>
+                    <span class="tag">Content Platform</span>
+                    <span class="tag">Subscription</span>
+                </div>
+                <a href="/portfolio/bodhimind" class="portfolio-link">View Case Study</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Guided Mind -->
+    <div class="portfolio-item" data-categories="mobile">
+        <div class="portfolio-card">
+            <div class="portfolio-image">
+                <img src="/assets/images/guidedMind.png" alt="Guided Mind App" class="portfolio-icon">
+            </div>
+            <div class="portfolio-content">
+                <h3>Guided Mind</h3>
+                <p class="portfolio-type">Mobile App Development</p>
+                <p class="portfolio-description">Meditation content marketplace connecting multiple teachers with users across iOS and Android.</p>
+                <div class="portfolio-tags">
+                    <span class="tag">iOS</span>
+                    <span class="tag">Android</span>
+                    <span class="tag">Marketplace</span>
+                </div>
+                <a href="/portfolio/guidedmind" class="portfolio-link">View Case Study</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Livewire -->
+    <div class="portfolio-item" data-categories="mobile">
+        <div class="portfolio-card">
+            <div class="portfolio-image">
+                <img src="/assets/images/livewire.png" alt="WWOZ Livewire App" class="portfolio-icon">
+            </div>
+            <div class="portfolio-content">
+                <h3>WWOZ Livewire</h3>
+                <p class="portfolio-type">Mobile App Development</p>
+                <p class="portfolio-description">New Orleans music calendar app providing venue and event information for local performances.</p>
+                <div class="portfolio-tags">
+                    <span class="tag">iOS</span>
+                    <span class="tag">Calendar</span>
+                    <span class="tag">Local Events</span>
+                </div>
+                <a href="/portfolio/livewire" class="portfolio-link">View Case Study</a>
+            </div>
+        </div>
+    </div>
+
+</div> <!-- End Portfolio Grid -->
+
+
+<!-- Hybrid Capabilities Section -->
+<h2 class="section-heading">Combining Mobile Development & Applied AI</h2>
+<p class="section-intro">My background in creating intuitive mobile applications combined with expertise in developing applied AI solutions allows me to deliver unique value through solutions that integrate both domains:</p>
+
+<div class="hybrid-capabilities">
+    <div class="hybrid-capability">
+        <div class="expertise-icon-container">
+            <svg class="icon expertise-icon" viewBox="0 0 24 24">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                <line x1="8" y1="21" x2="16" y2="21"></line>
+                <line x1="12" y1="17" x2="12" y2="21"></line>
+            </svg>
+        </div>
+        <div class="hybrid-content">
+            <h4>Mobile Apps with AI Capabilities</h4>
+            <p>Designing and building mobile applications that leverage AI for enhanced personalization, content recommendations, and user experience.</p>
+        </div>
+    </div>
+
+    <div class="hybrid-capability">
+        <div class="expertise-icon-container">
+            <svg class="icon expertise-icon" viewBox="0 0 24 24">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+        </div>
+        <div class="hybrid-content">
+            <h4>AI-Powered Business Tools</h4>
+            <p>Creating specialized business applications that combine intuitive mobile interfaces with powerful AI processing capabilities.</p>
+        </div>
+    </div>
+
+    <div class="hybrid-capability">
+        <div class="expertise-icon-container">
+            <svg class="icon expertise-icon" viewBox="0 0 24 24">
+                <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>
+            </svg>
+        </div>
+        <div class="hybrid-content">
+            <h4>Enhanced User Experiences</h4>
+            <p>Developing solutions that use AI to create more intelligent, responsive, and personalized mobile experiences.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Portfolio CTA -->
+<div class="process-cta">
+    <h3>Looking for mobile, AI, or hybrid solutions?</h3>
+    <p>Whether you need a mobile application, an AI-powered solution, or a solution that combines both, let's discuss how my experience can help bring your project to life.</p>
+    <a href="/contact" class="process-cta-button">Start a Conversation</a>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  // Portfolio Filtering Logic
+  document.addEventListener('DOMContentLoaded', function() {
+    const filterButtons = document.querySelectorAll('.portfolio-filter .filter-button');
+    const portfolioItems = document.querySelectorAll('.portfolio-grid .portfolio-item');
+
+    filterButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        // Update active button state
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        this.classList.add('active');
+
+        const filterValue = this.getAttribute('data-filter');
+
+        // Show/hide portfolio items
+        portfolioItems.forEach(item => {
+          const categories = item.getAttribute('data-categories');
+          if (filterValue === 'all' || (categories && categories.split(' ').includes(filterValue))) {
+            item.style.display = 'block'; // Or restore original display value
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      });
+    });
+  });
+</script>
+{% endblock %}

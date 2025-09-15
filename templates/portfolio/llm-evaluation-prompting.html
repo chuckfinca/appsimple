@@ -1,0 +1,237 @@
+{% extends "base.html" %}
+
+{% block title %}LLM Evaluation & Prompt Engineering Case Study - Charles Feinn // AppSimple{% endblock %}
+
+{# No extra_css needed as case-study styles should be in main.css #}
+
+{% block content %}
+<div class="back-navigation">
+    <a href="/portfolio" class="back-link">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="back-arrow">
+        <path d="M19 12H5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M12 19L5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>Back to Portfolio</span>
+    </a>
+</div>
+
+<!-- Case Study Header -->
+<div class="case-study-header">
+    <h1 class="page-title mb-md">Case Study: Building and Refining an LLM Evaluation System</h1>
+
+    <!-- Title and description at the top -->
+    <div class="app-description">
+        <h2 class="app-title mb-sm">Navigating MMLU Benchmarking Challenges</h2>
+        <p class="page-intro">An internal R&D project focused on developing a custom framework for evaluating Large Language Models (LLMs) against the MMLU benchmark, and subsequently investigating the complexities of prompt engineering and results reproducibility.</p>
+    </div>
+
+    <!-- Visual (Placeholder or relevant chart/diagram) -->
+    <div class="mb-lg text-center"> {# Center the visual #}
+        <img src="/assets/images/prompt-programming.svg" alt="DSPy Optimization Process Animation" style="max-width: 100%; height: 15rem; margin: auto; border-radius: var(--radius-md); box-shadow: var(--shadow-md);">
+        {# Consider adding a caption if needed #}
+    </div>
+
+    <!-- Metadata Grid -->
+    <div class="metadata-container">
+         <!-- Placeholder Icon -->
+        <div class="app-icon-container">
+            <img src="/assets/images/guage.svg" alt="Evaluation icon" class="app-icon">
+        </div>
+
+        <!-- Compact metadata grid -->
+        <div class="project-metadata-grid">
+            <div class="metadata-column">
+                <div class="metadata-label">Project Type:</div>
+                <div class="metadata-value">Internal R&D / AI Engineering</div>
+            </div>
+            <div class="metadata-column">
+                <div class="metadata-label">Technology Focus:</div>
+                <div class="metadata-value">LLM Evaluation, Prompt Engineering</div>
+            </div>
+             <div class="metadata-column">
+                <div class="metadata-label">Core Tools:</div>
+                <div class="metadata-value">Python, Hugging Face, PyTorch</div>
+            </div>
+            <div class="metadata-column">
+                <div class="metadata-label">Model/Benchmark:</div>
+                <div class="metadata-value">Llama 3.1 8B / MMLU</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- The Challenge -->
+<div class="process-step">
+    <div class="process-step-content">
+        <div class="process-step-header">
+            <div class="expertise-icon-container">
+                 <svg class="icon expertise-icon" viewBox="0 0 24 24">
+                    <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
+                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                    <line x1="12" y1="17" x2="12.01" y2="17"/>
+                </svg>
+            </div>
+            <h3>The Challenge</h3>
+        </div>
+        <div class="process-step-content-body">
+            <p>Accurately evaluating and comparing Large Language Models (LLMs) is crucial for selecting the right tool for a given task, yet it presents significant practical challenges. Standard benchmarks like MMLU exist, but simply running a model isn't enough.</p>
+            <p>This project initially aimed to gain hands-on experience by building a functional evaluation framework capable of running models like Llama 3.1 8B against the MMLU benchmark. However, upon achieving initial results (67.0 macro average), a new challenge emerged: the score was substantially lower than Meta's published 73.0 score.</p>
+            <p>This discrepancy highlighted several key difficulties:</p>
+            <ul class="service-list">
+                <li>The need for a robust, flexible framework to conduct evaluations systematically.</li>
+                <li>The sensitivity of LLM performance to subtle variations in prompting and evaluation methodology.</li>
+                <li>The difficulty in exactly reproducing published benchmark scores due to potential differences in implementation details.</li>
+                 <li>Understanding the factors that influence benchmark results beyond the model itself.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- My Approach / Solution -->
+<div class="process-step">
+    <div class="process-step-content">
+        <div class="process-step-header">
+            <div class="expertise-icon-container">
+                 <svg class="icon expertise-icon" viewBox="0 0 24 24">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                </svg>
+            </div>
+            <h3>My Approach / Solution</h3>
+        </div>
+        <div class="process-step-content-body">
+            <p>The project proceeded in two main phases:</p>
+
+            <h4 class="mt-md mb-sm">Phase 1: Evaluation Framework Development</h4>
+            <ul class="service-list">
+                <li><strong>Design:</strong> Developed a Python-based evaluation framework using an orchestrator pattern to handle benchmark-specific logic (starting with MMLU).</li>
+                <li><strong>Technology Stack:</strong> Utilized Hugging Face Hub for model/tokenizer access, Transformers for inference, and PyTorch for calculations. Google Colab (A100/L4 GPU) was used for execution.</li>
+                <li><strong>Core Functionality:</strong> Implemented logic for loading benchmarks, formatting prompts (initially 0-shot), running model inference, extracting probabilities via logits (constrained decoding), and calculating accuracy scores.</li>
+                <li><strong>Initial Run:</strong> Successfully ran Llama 3.1 8B Instruct on MMLU, establishing a baseline score.</li>
+            </ul>
+
+            <h4 class="mt-md mb-sm">Phase 2: Discrepancy Investigation & Prompt Refinement</h4>
+             <ul class="service-list">
+                <li><strong>Framework Refinement:</strong> Refactored the framework to easily configure and test different prompt structures, moving away from hardcoded prompts.</li>
+                <li><strong>Systematic Prompt Testing:</strong> Evaluated several prompt variations:
+                    <ul>
+                        <li>A basic instructional prompt.</li>
+                        <li>A chat-template based prompt inspired by recent research.</li>
+                        <li>A prompt designed to mimic the "original MMLU prompt" structure.</li>
+                    </ul>
+                </li>
+                <li><strong>Evaluation Method Consideration:</strong> Investigated potential differences between constrained decoding (logit-based) and open-ended generation, based on descriptions in Meta's documentation.</li>
+                <li><strong>Analysis:</strong> Compared the scores produced by different prompts to understand sensitivity and identify more effective structures.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<!-- Results & Impact -->
+<div class="process-step">
+    <div class="process-step-content">
+        <div class="process-step-header">
+            <div class="expertise-icon-container">
+                 <svg class="icon expertise-icon" viewBox="0 0 24 24">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                    <polyline points="22 4 12 14.01 9 11.01"/>
+                </svg>
+            </div>
+            <h3>Results & Impact</h3>
+        </div>
+        <div class="process-step-content-body">
+            <p>This two-phased project yielded both a functional tool and critical insights:</p>
+
+            <!-- Key Metrics/Findings -->
+            <div class="about-stats mt-md mb-lg">
+                 <div class="stat-item">
+                    <div class="stat-number">✓</div>
+                    <div class="stat-label">Functional Evaluation Framework Built</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">67.0%</div>
+                    <div class="stat-label">Initial MMLU Score (Macro Avg)</div>
+                </div>
+                <div class="stat-item" style="background-color: var(--secondary-light);">
+                     <div class="stat-number" style="color: var(--secondary);">68.3%</div>
+                    <div class="stat-label">Improved Score via Prompt Tuning</div>
+                </div>
+            </div>
+
+            <p>Key outcomes and impacts:</p>
+            <ul class="service-list">
+                <li><strong>Framework Capability:</strong> Successfully developed a reusable framework for benchmarking LLMs.</li>
+                <li><strong>Prompt Sensitivity Demonstrated:</strong> Testing revealed significant variations in MMLU scores based solely on prompt structure (ranging from 61.0% to 68.3%), underscoring the critical nature of prompt engineering.</li>
+                <li><strong>Improved Baseline:</strong> Identified a more effective prompt ("original MMLU" structure) that improved the score from 67.0% to 68.3%.</li>
+                <li><strong>Reproducibility Insights:</strong> While the published 73.0% score wasn't exactly matched, the investigation highlighted the likely role of subtle, undocumented implementation details (specific prompt nuances, exact generation strategy) in achieving top benchmark scores.</li>
+                <li><strong>Enhanced Expertise:</strong> Gained deep practical understanding of the complexities involved in LLM evaluation, going beyond surface-level execution.</li>
+            </ul>
+             <p>This project serves as a practical demonstration of the meticulous approach required for reliable LLM evaluation and the significant impact of careful prompt design.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Key Learnings -->
+<div class="process-step">
+    <div class="process-step-content">
+        <div class="process-step-header">
+            <div class="expertise-icon-container">
+                <svg class="icon expertise-icon" viewBox="0 0 24 24">
+                    <path d="M18 8h1a4 4 0 0 1 0 8h-1"/>
+                    <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
+                    <line x1="6" y1="1" x2="6" y2="4"/>
+                    <line x1="10" y1="1" x2="10" y2="4"/>
+                    <line x1="14" y1="1" x2="14" y2="4"/>
+                </svg>
+            </div>
+            <h3>Key Learnings</h3>
+        </div>
+        <div class="process-step-content-body">
+            <p>This project reinforced several important principles for working with LLMs:</p>
+            <ul class="service-list">
+                <li><strong>Evaluation is Foundational:</strong> Building reliable systems requires the ability to measure performance systematically. Custom frameworks can provide necessary control and flexibility.</li>
+                <li><strong>Prompts Matter Immensely:</strong> LLM performance is highly sensitive to prompt structure and wording. Effective prompt engineering is crucial but can be complex.</li>
+                 <li><strong>Reproducibility is Hard:</strong> Exactly matching published benchmark scores can be challenging due to subtle, often undocumented, differences in evaluation setup and prompting strategies.</li>
+                 <li><strong>Look Under the Hood:</strong> Never blindly trust default templates or assumptions. Understanding the exact input being sent to the model is critical for debugging and optimization.</li>
+                 <li><strong>Focus on Relative Performance:</strong> While striving for accuracy is important, comparing models or prompts <em>within the same consistent evaluation framework</em> often provides more actionable insights than chasing exact published scores.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Applying This to Client Solutions -->
+<div class="process-step">
+    <div class="process-step-content">
+        <div class="process-step-header">
+            <div class="expertise-icon-container">
+               <svg class="icon expertise-icon" viewBox="0 0 24 24">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <polyline points="19 12 12 19 5 12"></polyline>
+                </svg>
+            </div>
+            <h3>Applying This to Client Solutions</h3>
+        </div>
+        <div class="process-step-content-body">
+            <p>The experience gained from building this evaluation framework and investigating benchmark discrepancies directly translates into value for client projects:</p>
+            <ul class="service-list">
+                <li><strong>Rigorous Model Selection:</strong> Ability to set up custom evaluations to compare different models (commercial or open-source) specifically on data relevant to the <em>client's</em> task, not just generic benchmarks.</li>
+                 <li><strong>Informed Prompt Engineering:</strong> Deep understanding of how prompt structure impacts performance, leading to more effective and reliable prompts for client applications.</li>
+                <li><strong>Realistic Expectations:</strong> Ability to advise clients on the achievable performance and the inherent variability in LLM results, setting realistic project goals.</li>
+                 <li><strong>Troubleshooting Expertise:</strong> Experience in diagnosing performance issues related to prompts or evaluation setup.</li>
+                 <li><strong>Focus on Business Value:</strong> While benchmarks are useful, the ultimate goal is building solutions that solve real business problems. This experience reinforces the need to define and measure success based on client-specific metrics.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- CTA for services -->
+<div class="process-cta">
+    <h3>Need help evaluating or optimizing AI for your business?</h3>
+    <p>Choosing the right LLM and crafting effective prompts requires careful testing and a deep understanding of how these models work. My experience in building evaluation systems and navigating benchmarking complexities can help ensure your AI solution is built on a solid, well-understood foundation.</p>
+    <a href="/contact" class="process-cta-button">Discuss Your Evaluation Needs</a>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<!-- No additional JavaScript needed for this case study -->
+{% endblock %}

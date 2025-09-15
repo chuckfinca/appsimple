@@ -1,0 +1,85 @@
+/* typography-system.css - Consistent typography classes */
+
+/* Page titles - used for main page headings */
+.page-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--neutral-800);
+  margin: 2.5rem 0 1.5rem 0;
+  width: 100%;
+  line-height: 1.2;
+}
+
+/* Page intro text - used for introductory paragraphs */
+.page-intro {
+  width: 100%;
+  font-size: var(--text-md);
+  line-height: var(--leading-relaxed);
+  color: var(--neutral-600);
+  margin-bottom: 3rem;
+}
+
+/* Section headings - used for major content divisions */
+.section-heading {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: var(--neutral-800);
+  margin: 2.5rem 0 1.25rem 0;
+  width: 100%;
+}
+
+/* Section intro text - used after section headings */
+.section-intro {
+  width: 100%;
+  font-size: var(--text-md);
+  line-height: var(--leading-relaxed);
+  color: var(--neutral-600);
+  margin-bottom: 2rem;
+}
+
+/* Subsection headings - used for content grouping within sections */
+.subsection-heading {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--neutral-800);
+  margin: 1.5rem 0 1rem 0;
+  width: 100%;
+}
+
+/* Consistent paragraph spacing */
+p {
+  margin-bottom: 1rem;
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .page-title {
+    font-size: 2rem;
+    margin: 2rem 0 1.25rem 0;
+  }
+  
+  .page-intro {
+    font-size: calc(var(--text-md) * 0.9);
+    margin-bottom: 2.5rem;
+  }
+  
+  .section-heading {
+    font-size: 1.5rem;
+    margin: 2rem 0 1rem 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-title {
+    font-size: 1.75rem;
+    margin: 1.5rem 0 1rem 0;
+  }
+  
+  .section-heading {
+    font-size: 1.35rem;
+  }
+}

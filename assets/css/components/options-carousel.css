@@ -1,0 +1,115 @@
+.options-container {
+    width: 100%;
+    max-width: var(--container-default);
+    opacity: 0;
+    height: auto;
+    position: relative;
+    /* Ensure the transition targets opacity */
+    transition: opacity 0.75s ease 0.3s; /* Original transition */
+    text-align: left;
+  }
+  
+  .options-container.visible {
+    opacity: 1; /* This makes the container visible */
+  }
+  
+  .carousel-item {
+    margin-top: var(--space-md);
+    position: relative; /* Needed for potential transforms */
+    top: 0;
+    opacity: 0;
+    /* Optional: Add a slight upward movement */
+    transform: translateY(10px);
+    /* Define transitions for opacity AND transform */
+    transition: opacity 0.8s ease-in-out, transform 0.6s ease-in-out;
+  }
+  
+  .carousel-item.visible {
+    opacity: 1;
+    transform: translateY(0); /* Move to final position */
+  }
+  
+  /* Styles for prompt and link remain the same */
+  .carousel-prompt {
+    font-size: var(--text-md);
+    font-weight: var(--font-light);
+    color: var(--neutral-700);
+    line-height: var(--leading-relaxed);
+    margin-bottom: var(--space-xs);
+    padding-left: 1.2rem;
+    position: relative;
+    display: block;
+  }
+  
+  .carousel-prompt::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.2em;
+    bottom: 0.2em;
+    width: 2px;
+    background-color: var(--neutral-300);
+    opacity: 0.8;
+  }
+  
+  /* --- Link Styling with Delayed Animation --- */
+.carousel-link {
+    display: inline-block;
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    color: var(--primary);
+    text-decoration: none;
+    position: relative;
+    padding-bottom: 2px;
+    border-bottom: 1px solid transparent;
+  
+    /* 1. Initial State: Link is hidden */
+    opacity: 0;
+    transform: translateY(5px); /* Optional subtle move up */
+  
+    /* 2. Define Transition for the Link */
+    transition: opacity 1s ease-out, /* How long link fade takes */
+                transform 0.5s ease-out, /* How long link move takes */
+                color var(--transition-normal), /* Keep hover transitions */
+                border-color var(--transition-normal);
+  
+    /* 3. IMPORTANT: Add Delay */
+    /* This delay starts AFTER the parent .carousel-item starts its transition */
+    /* Adjust this value. It should likely be less than the item's transition duration (0.8s) */
+    transition-delay: 0.4s, 0.4s, 0s, 0s; /* Delay opacity and transform, but not hover effects */
+  
+  }
+  
+  /* 4. Final State: Trigger link animation when PARENT item has .visible */
+  .carousel-item.visible .carousel-link {
+    opacity: 1; /* Make link visible */
+    transform: translateY(0); /* Move to final position */
+  }
+  
+  .carousel-link:hover {
+    color: var(--primary-dark);
+    border-bottom-color: var(--primary-dark); /* Underline appears on hover */
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .options-container {
+      height: 6em; /* Adjust height if needed */
+    }
+    .carousel-prompt {
+      font-size: var(--text-sm);
+      padding-left: 1rem;
+    }
+    .carousel-link {
+      font-size: var(--text-xs);
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .options-container {
+      height: 7em; /* May need more height on small screens */
+    }
+     .carousel-prompt {
+      font-size: calc(var(--text-sm) * 0.95);
+     }
+  }

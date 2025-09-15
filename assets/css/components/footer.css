@@ -1,0 +1,39 @@
+/* components/footer.css - Footer styling */
+
+.app-footer {
+    padding: var(--space-sm) 0;
+    text-align: center;
+    background-color: var(--neutral-transparent);
+    border-top: 1px solid var(--neutral-100);
+    color: var(--neutral-500);
+    width: 100%;
+    margin-top: auto; /* Push to bottom when in a flex container */
+  }
+  
+  .footer-content {
+    max-width: var(--container-default);
+    margin: 0 auto;
+    padding: 0 var(--space-md);
+    font-size: var(--text-xs);
+  }
+  
+  .app-footer a {
+    text-decoration: none;
+    color: var(--neutral-500);
+    transition: color var(--transition-normal);
+  }
+  
+  .app-footer a:hover {
+    color: var(--neutral-700);
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .app-footer {
+      padding: var(--space-sm) 0;
+    }
+    
+    .footer-content {
+      font-size: var(--text-xs);
+    }
+  }

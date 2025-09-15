@@ -1,0 +1,93 @@
+
+.error-page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 60vh; /* Ensures it takes up a good portion of the viewport */
+    padding: var(--space-md);
+}
+
+.error-icon-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    background-color: var(--primary-light);
+    border-radius: 50%;
+    margin-bottom: var(--space-md);
+}
+
+.error-icon {
+    width: 40px;
+    height: 40px;
+    color: var(--primary);
+}
+
+.error-page-container .page-title {
+    margin-top: 0;
+    margin-bottom: var(--space-sm);
+    color: var(--neutral-800);
+}
+
+.error-page-container .page-intro {
+    max-width: 500px;
+    color: var(--neutral-600);
+    margin-bottom: var(--space-lg);
+}
+
+.error-actions .cta-button {
+    margin-bottom: var(--space-md);
+}
+
+.helpful-links p {
+    margin-bottom: var(--space-xs);
+    color: var(--neutral-500);
+    font-size: var(--text-sm);
+}
+
+.helpful-links a {
+    color: var(--neutral-600);
+    font-weight: var(--font-medium);
+    text-decoration: none;
+    transition: color var(--transition-normal);
+}
+
+.helpful-links a:hover {
+    color: var(--primary);
+    text-decoration: underline;
+}
+
+.link-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap; /* Allows links to wrap on small screens */
+}
+
+.link-group span {
+    color: var(--neutral-300);
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    .error-icon-container {
+        width: 60px;
+        height: 60px;
+    }
+
+    .error-icon {
+        width: 30px;
+        height: 30px;
+    }
+
+    .error-page-container .page-title {
+        font-size: var(--text-xl);
+    }
+
+    .error-page-container .page-intro {
+        font-size: var(--text-sm);
+    }
+}

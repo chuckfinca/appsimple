@@ -1,0 +1,90 @@
+/* pages/process.css - Process page specific styles */
+
+/* Process page intro */
+.process-intro {
+  width: 100%; /* Full width of parent container */
+  margin-bottom: var(--space-lg);
+  font-size: var(--text-md);
+  line-height: var(--leading-relaxed);
+  color: var(--neutral-600);
+}
+
+/* Timeline section header */
+.timeline-section-header {
+  margin-top: var(--space-xl);
+  margin-bottom: var(--space-md);
+  width: 100%;
+}
+
+/* FAQ section */
+.process-faq {
+  margin-top: var(--space-xl);
+  margin-bottom: var(--space-xl);
+  width: 100%;
+}
+
+.faq-item {
+  margin-bottom: var(--space-md);
+  border-bottom: 1px solid var(--neutral-200);
+  padding-bottom: var(--space-md);
+}
+
+.faq-question {
+  font-weight: var(--font-medium);
+  color: var(--neutral-800);
+  margin-bottom: var(--space-xs);
+  font-size: var(--text-md);
+}
+
+.faq-answer {
+  color: var(--neutral-600);
+}
+
+/* CTA section */
+.process-cta {
+  background-color: var(--primary-light);
+  padding: var(--space-lg);
+  text-align: center;
+  border-radius: var(--radius-md);
+  margin-top: var(--space-xl);
+  width: 100%;
+}
+
+.process-cta h3 {
+  margin-bottom: var(--space-md);
+}
+
+.process-cta p {
+  margin-bottom: var(--space-md);
+  max-width: 600px; /* Constrained width for CTA */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.process-cta-button {
+  display: inline-block;
+  padding: var(--space-sm) var(--space-lg);
+  background-color: var(--primary);
+  color: white;
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+  font-weight: var(--font-medium);
+  transition: background-color var(--transition-normal),
+              transform var(--transition-normal);
+}
+
+.process-cta-button:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .process-intro {
+    font-size: var(--text-sm);
+  }
+  
+  .process-cta {
+    padding: var(--space-md);
+  }
+}

@@ -1,0 +1,255 @@
+
+/* ========== DESKTOP NAVIGATION (BASE STYLES) ========== */
+.site-nav {
+    position: sticky;
+    top: 0;
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(8px); /* Subtle blur for modern browsers */
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 100;
+    border-bottom: 1px solid var(--neutral-200);
+    width: 100%;
+    margin-bottom: var(--space-lg);
+}
+  
+.nav-container {
+    max-width: var(--container-wide);
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-sm) var(--space-md);
+}
+  
+/* --- NEW LOGO + TEXT STYLING --- */
+
+/* Main container for the logo and text */
+.site-logo {
+    display: flex; /* This is the key: aligns items horizontally */
+    align-items: center; /* Vertically centers the logo and text */
+    gap: var(--space-xs); /* Creates a small space between the logo and text */
+    text-decoration: none;
+}
+
+/* Style for the logo image itself */
+.logo-image {
+    height: 32px; /* Adjust size as needed */
+    width: auto;
+    display: block;
+    transition: transform var(--transition-normal);
+}
+
+/* Style for the text next to the logo */
+.logo-text {
+    font-weight: var(--font-bold);
+    font-size: var(--text-md);
+    color: var(--neutral-800);
+    transition: color var(--transition-normal);
+}
+
+/* Hover effects for the combined logo */
+.site-logo:hover .logo-text {
+    color: var(--primary); /* Text changes color on hover */
+}
+
+.site-logo:hover .logo-image {
+    transform: scale(1.05); /* Logo slightly grows on hover */
+}
+  
+.nav-menu {
+    display: block;
+}
+  
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: var(--space-md);
+    margin: 0;
+    padding: 0;
+    align-items: center;
+}
+
+.nav-links li {
+    margin-bottom: 0;
+}
+  
+.nav-links a {
+    text-decoration: none;
+    padding: var(--space-xs) 0;
+    color: var(--neutral-600);
+    font-size: var(--text-sm);
+    transition: color var(--transition-normal);
+    position: relative;
+}
+  
+.nav-links a::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--primary);
+    transition: width var(--transition-normal);
+}
+  
+.nav-links a:hover,
+.nav-links a.active {
+    color: var(--primary);
+}
+  
+.nav-links a:hover::after,
+.nav-links a.active::after {
+    width: 100%;
+}
+
+/* --- Desktop Dropdown --- */
+.dropdown {
+    position: relative;
+}
+  
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    border-radius: var(--radius-md);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    padding: var(--space-xs);
+    min-width: 220px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+    z-index: 10;
+    pointer-events: none;
+}
+  
+.dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+  
+.dropdown-menu a {
+    font-size: 0.9rem;
+    display: block;
+    padding: 0.6rem 0.8rem;
+    border-radius: var(--radius-sm);
+}
+.dropdown-menu a::after {
+    display: none; /* No underline for dropdown items */
+}
+
+/* --- Mobile Menu Toggle (Hidden on Desktop) --- */
+.menu-toggle {
+    display: none;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    z-index: 1001; /* Must be above the menu overlay */
+}
+  
+.hamburger-bar {
+    display: block;
+    width: 24px;
+    height: 2px;
+    margin: 5px 0;
+    background-color: var(--neutral-800);
+    border-radius: 2px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* ========== MOBILE NAVIGATION (STYLES FOR SMALL SCREENS) ========== */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+
+    .nav-container {
+      padding: var(--space-sm);
+    }
+  
+    .nav-menu {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 0.3s ease, visibility 0.3s;
+        z-index: 1000;
+    }
+  
+    .nav-menu.active {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+    }
+    
+    .nav-links {
+        flex-direction: column;
+        text-align: center;
+        gap: var(--space-sm);
+    }
+    
+    .nav-links a {
+        font-size: 1.5rem;
+        font-weight: var(--font-medium);
+    }
+
+    .nav-links a::after {
+        display: none; /* No underline effect on mobile */
+    }
+
+    /* --- Mobile Dropdown --- */
+    .dropdown-menu {
+        position: static;
+        background: none;
+        box-shadow: none;
+        width: 100%;
+        display: none; /* Hide by default */
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        padding-top: var(--space-xs);
+        padding-bottom: 0;
+        text-align: center;
+    }
+
+    /* When dropdown parent is active, show the menu */
+    .dropdown.active .dropdown-menu {
+        display: block;
+    }
+
+    .dropdown-menu a {
+        font-size: 1.1rem;
+        color: var(--neutral-500);
+        padding: 0.5rem;
+    }
+
+    /* Prevent scrolling when mobile menu is open */
+    body.menu-open {
+        overflow: hidden;
+    }
+
+    /* Hamburger icon animation to 'X' */
+    .menu-toggle.active .hamburger-bar:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+    }
+    .menu-toggle.active .hamburger-bar:nth-child(2) {
+        opacity: 0;
+    }
+    .menu-toggle.active .hamburger-bar:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+    }
+}

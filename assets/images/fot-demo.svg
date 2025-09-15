@@ -1,0 +1,152 @@
+<svg viewBox="0 0 900 320" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .pipeline-box {
+        fill: #f8f9fa;
+        stroke: #2563eb;
+        stroke-width: 2;
+        rx: 8;
+      }
+      .inference-box {
+        fill: #fef3e2;
+        stroke: #d97706;
+        stroke-width: 2;
+        rx: 8;
+      }
+      .api-box {
+        fill: #e0f2fe;
+        stroke: #0284c7;
+        stroke-width: 3;
+        rx: 8;
+      }
+      .pipeline-text {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 13px;
+        font-weight: 600;
+        fill: #1f2937;
+        text-anchor: middle;
+        dominant-baseline: central;
+      }
+      .section-title {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 14px;
+        font-weight: 700;
+        fill: #374151;
+        text-anchor: start;
+      }
+      .arrow {
+        fill: none;
+        stroke: #6b7280;
+        stroke-width: 2.5;
+        marker-end: url(#arrowhead);
+      }
+      .inference-arrow {
+        fill: none;
+        stroke: #d97706;
+        stroke-width: 2.5;
+        marker-end: url(#arrowhead-orange);
+      }
+      .main-title {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 18px;
+        font-weight: 700;
+        fill: #1f2937;
+        text-anchor: middle;
+      }
+      .process-label {
+        font-family: 'Segoe UI', sans-serif; 
+        font-size: 10px; 
+        fill: #6b7280; 
+        text-anchor: middle;
+      }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" 
+            refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#6b7280"/>
+    </marker>
+    <marker id="arrowhead-orange" markerWidth="10" markerHeight="7" 
+            refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#d97706"/>
+    </marker>
+  </defs>
+  
+  <!-- Main Title -->
+  <text x="450" y="25" class="main-title">Complete Data Pipeline &amp; Inference Flow</text>
+  
+  <!-- Section Labels -->
+  <text x="60" y="55" class="section-title">Data Preparation Pipeline:</text>
+  <text x="60" y="175" class="section-title">Inference Pipeline:</text>
+  
+  <!-- DATA PREPARATION PIPELINE -->
+  <!-- Source PDFs -->
+  <rect x="73" y="66" width="115" height="58" class="pipeline-box"/>
+  <text x="130" y="95" class="pipeline-text">Source PDFs</text>
+  
+  <!-- Curated JSON -->
+  <rect x="238" y="66" width="115" height="58" class="pipeline-box"/>
+  <text x="295" y="95" class="pipeline-text">Curated JSON</text>
+  
+  <!-- Semantic Chunker -->
+  <rect x="403" y="66" width="115" height="58" class="pipeline-box"/>
+  <text x="460" y="87" class="pipeline-text">Semantic</text>
+  <text x="460" y="103" class="pipeline-text">Chunker</text>
+  
+  <!-- FAISS Index -->
+  <rect x="568" y="66" width="115" height="58" class="pipeline-box"/>
+  <text x="625" y="95" class="pipeline-text">FAISS Index</text>
+  
+  <!-- API (Central Hub) -->
+  <rect x="733" y="66" width="115" height="58" class="api-box"/>
+  <text x="790" y="95" class="pipeline-text">API</text>
+  
+  <!-- Data prep arrows -->
+  <line x1="191" y1="95" x2="235" y2="95" class="arrow"/>
+  <line x1="356" y1="95" x2="400" y2="95" class="arrow"/>
+  <line x1="521" y1="95" x2="565" y2="95" class="arrow"/>
+  <line x1="686" y1="95" x2="730" y2="95" class="arrow"/>
+  
+  <!-- Data prep process labels -->
+  <text x="213" y="145" class="process-label">Extract</text>
+  <text x="378" y="145" class="process-label">Chunk</text>
+  <text x="543" y="145" class="process-label">Index</text>
+  <text x="708" y="145" class="process-label">Serve</text>
+  
+  <!-- INFERENCE PIPELINE -->
+  <!-- User Prompt -->
+  <rect x="73" y="186" width="115" height="58" class="inference-box"/>
+  <text x="130" y="207" class="pipeline-text">User Prompt</text>
+  <text x="130" y="223" class="pipeline-text">(Student Narrative)</text>
+  
+  <!-- API Query -->
+  <rect x="238" y="186" width="115" height="58" class="inference-box"/>
+  <text x="295" y="207" class="pipeline-text">API Query</text>
+  <text x="295" y="223" class="pipeline-text">(FAISS Search)</text>
+  
+  <!-- LLM Processing -->
+  <rect x="403" y="186" width="115" height="58" class="inference-box"/>
+  <text x="460" y="207" class="pipeline-text">LLM</text>
+  <text x="460" y="223" class="pipeline-text">(+ Persona)</text>
+  
+  <!-- Response -->
+  <rect x="568" y="186" width="115" height="58" class="inference-box"/>
+  <text x="625" y="207" class="pipeline-text">Response</text>
+  <text x="625" y="223" class="pipeline-text">(Interventions)</text>
+  
+  <!-- Inference arrows -->
+  <line x1="191" y1="215" x2="235" y2="215" class="inference-arrow"/>
+  <line x1="356" y1="215" x2="400" y2="215" class="inference-arrow"/>
+  <line x1="521" y1="215" x2="565" y2="215" class="inference-arrow"/>
+  
+  <!-- Connection from API to inference pipeline -->
+  <line x1="790" y1="124" x2="790" y2="150" stroke="#6b7280" stroke-width="2.5" fill="none"/>
+  <line x1="790" y1="150" x2="295" y2="150" stroke="#6b7280" stroke-width="2.5" fill="none"/>
+  <line x1="295" y1="150" x2="295" y2="186" class="arrow"/>
+  
+  <!-- Inference process labels -->
+  <text x="213" y="265" class="process-label">Submit</text>
+  <text x="378" y="265" class="process-label">Retrieve Context</text>
+  <text x="543" y="265" class="process-label">Generate</text>
+  
+  <!-- Connection label -->
+  <text x="580" y="165" class="process-label">Provides Similar Content</text>
+</svg>

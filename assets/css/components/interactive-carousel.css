@@ -1,0 +1,272 @@
+/* assets/css/components/interactive-carousel.css */
+
+.options-container {
+    width: 100%;
+    max-width: var(--container-default);
+    opacity: 0; /* Start hidden */
+    position: relative;
+    transition: opacity 0.75s ease 0.3s; /* Fade in after typing */
+    text-align: left;
+    margin-top: var(--space-md); /* Space below typing text */
+    padding-bottom: 4rem; /* Space for controls */
+}
+
+.options-container.visible {
+    opacity: 1;
+}
+
+.carousel-items-wrapper {
+    position: relative;
+    /* Use fixed height to prevent layout shifts */
+    height: 6rem; /* Adjust this based on tallest item content */
+    transition: height 0.4s ease; /* Smooth height change ONLY if expanding */
+    overflow: hidden; /* Helps contain absolutely positioned elements */
+}
+
+/* --- Item State & Visibility --- */
+
+.carousel-item {
+    position: absolute; /* Keep absolute for stacking */
+    top: 0;
+    left: 0;
+    width: 100%;
+    opacity: 0; /* Start invisible */
+    pointer-events: none; /* Prevent interaction when invisible */
+    z-index: 1;
+    /* Overall item fade out */
+    transition: opacity 0.5s ease-in-out; /* Duration for fade OUT */
+}
+
+.carousel-item.active {
+    opacity: 1; /* Becomes visible when active */
+    pointer-events: auto;
+    z-index: 2;
+    /* Override overall item transition for fade IN - handled by sub-elements or lack thereof */
+    transition: none;
+}
+
+
+/* --- Prompt and Link Base Styles & Initial State --- */
+
+.carousel-prompt {
+    font-size: var(--text-md);
+    font-weight: var(--font-light);
+    color: var(--neutral-700);
+    line-height: var(--leading-relaxed);
+    margin-bottom: var(--space-sm);
+    padding-left: 1.2rem;
+    position: relative;
+    display: block;
+    /* Initial state (hidden, slightly moved) */
+    opacity: 0;
+    transform: translateY(8px);
+    /* NO TRANSITION BY DEFAULT */
+    transition: none;
+}
+
+.carousel-prompt::before { /* Keep this */
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.2em;
+    bottom: 0.2em;
+    width: 2px;
+    background-color: var(--neutral-300);
+    opacity: 0.8;
+}
+
+.carousel-link {
+    display: inline-block;
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    color: var(--primary);
+    text-decoration: none;
+    position: relative;
+    padding-bottom: 2px;
+    border-bottom: 1px solid transparent;
+    /* Initial state (hidden, slightly moved) */
+    opacity: 0;
+    transform: translateY(5px);
+    /* NO TRANSITION BY DEFAULT, only keep hover transitions */
+    transition: color var(--transition-normal), border-color var(--transition-normal);
+}
+
+.carousel-link:hover { /* Keep this */
+    color: var(--primary-dark);
+    border-bottom-color: var(--primary-dark);
+}
+
+
+/* --- INSTANT VISIBILITY when active (NO animation class) --- */
+/* This rule handles the manual navigation case (arrows) */
+.carousel-item.active .carousel-prompt,
+.carousel-item.active .carousel-link {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- APPLY TRANSITIONS ONLY when .animate-item-in is present --- */
+/* This rule handles the automatic cycling / resume case */
+.carousel-item.active.animate-item-in .carousel-prompt {
+    /* Re-apply transition ONLY when animating */
+    transition: opacity 0.6s ease-out, transform 0.5s ease-out;
+}
+
+.carousel-item.active.animate-item-in .carousel-link {
+    /* Re-apply transition with delay ONLY when animating */
+    /* Need to re-add hover transitions here too */
+    transition: opacity 0.6s ease-out 0.4s, transform 0.5s ease-out 0.4s, color var(--transition-normal), border-color var(--transition-normal);
+}
+
+/* --- Reset visibility instantly when item is no longer active --- */
+/* Your existing rule is good for this */
+.carousel-item:not(.active) .carousel-prompt,
+.carousel-item:not(.active) .carousel-link {
+    transition: none; /* Ensure no fade out animation for children */
+    opacity: 0; /* Instantly hide content */
+    /* You might want to reset transform too, although opacity:0 hides it */
+    /* transform: translateY(8px); */ /* Reset prompt position */
+}
+/* .carousel-item:not(.active) .carousel-link { transform: translateY(5px); } */ /* Reset link position */
+
+
+/* --- Controls Styling --- */
+/* (Your existing controls styles are fine) */
+.carousel-controls {
+    display: flex;
+    align-items: center;
+    justify-content: left; /* Your change preserved */
+    gap: var(--space-sm);
+    opacity: 0;
+    transition: opacity 0.5s ease 0.2s;
+    /* Removed position: absolute and bottom/left/width to allow natural flow */
+    margin-top: var(--space-xs); /* Add margin if needed now */
+}
+
+.options-container.visible .carousel-controls {
+    opacity: 1;
+}
+
+.control-btn {
+    background-color: transparent;
+    border: 1px solid var(--neutral-300);
+    color: var(--neutral-600);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast), opacity var(--transition-fast);
+    padding: 0;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.control-btn:hover {
+    background-color: var(--neutral-100);
+    color: var(--primary);
+    border-color: var(--primary);
+}
+
+.control-btn:active {
+    transform: scale(0.95);
+}
+
+.control-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.control-btn .icon {
+    width: 20px;
+    height: 20px;
+}
+
+/* Pause/Play Icon Toggling */
+.control-btn.pause-play-btn .play-icon {
+    display: none;
+}
+.control-btn.pause-play-btn .pause-icon {
+    display: inline-block;
+}
+.control-btn.pause-play-btn.paused .play-icon {
+    display: inline-block;
+}
+.control-btn.pause-play-btn.paused .pause-icon {
+    display: none;
+}
+
+/* --- Expanded State Styling --- */
+/* (Your existing expanded styles are fine) */
+.options-container.expanded .carousel-items-wrapper {
+    height: auto;
+    min-height: unset;
+    overflow: visible;
+}
+.options-container.expanded .carousel-item {
+    position: relative;
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+    margin-bottom: var(--space-md);
+    transition: none !important;
+}
+.options-container.expanded .carousel-item .carousel-prompt,
+.options-container.expanded .carousel-item .carousel-link {
+    opacity: 1;
+    transform: translateY(0);
+    transition: none;
+}
+.options-container.expanded .carousel-item:last-child { margin-bottom: 0; }
+
+.options-container.expanded .control-btn.prev-btn,
+.options-container.expanded .control-btn.next-btn,
+.options-container.expanded .control-btn.pause-play-btn {
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+.options-container:not(.expanded) .control-btn.prev-btn,
+.options-container:not(.expanded) .control-btn.next-btn,
+.options-container:not(.expanded) .control-btn.pause-play-btn {
+     opacity: 1;
+     pointer-events: auto;
+}
+
+/* Toggle Expand/Collapse Icon Visibility */
+.options-container.expanded .control-btn.toggle-expand-btn .expand-icon { display: none; }
+.options-container.expanded .control-btn.toggle-expand-btn .collapse-icon { display: inline-block; }
+.options-container:not(.expanded) .control-btn.toggle-expand-btn .expand-icon { display: inline-block; }
+.options-container:not(.expanded) .control-btn.toggle-expand-btn .collapse-icon { display: none; }
+
+
+/* --- Responsive Adjustments --- */
+/* (Your existing responsive styles are fine) */
+@media (max-width: 768px) {
+    .carousel-prompt { font-size: var(--text-sm); padding-left: 1rem; }
+    .carousel-link { font-size: var(--text-xs); }
+    .control-btn { width: 36px; height: 36px; }
+    .control-btn .icon { width: 18px; height: 18px; }
+    .options-container { padding-bottom: 3.5rem; }
+    .carousel-items-wrapper {
+         height: 7rem;
+    }
+     /* Adjust controls spacing/layout if needed for left alignment */
+    .carousel-controls {
+        justify-content: flex-start; /* Keep left aligned */
+        gap: var(--space-xs); /* Reduce gap slightly maybe */
+    }
+}
+
+@media (max-width: 480px) {
+   .carousel-prompt { font-size: calc(var(--text-sm) * 0.95); }
+   .carousel-items-wrapper {
+        height: 8rem;
+    }
+    .carousel-controls {
+        /* Maybe wrap controls if needed on very small screens */
+        /* flex-wrap: wrap; */
+    }
+}
