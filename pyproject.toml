@@ -18,8 +18,8 @@ dependencies = [
 ]
 
 [project.scripts]
-# This creates the `run-appsimple-website` command
-run-appsimple-website = "appsimple_website.runner:main"
+# This creates the `website` command
+website = "appsimple_website.runner:main"
 
 [project.optional-dependencies]
 dev = [

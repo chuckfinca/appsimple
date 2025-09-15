@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const menuToggle = document.querySelector('.menu-toggle');
     const navMenu = document.querySelector('.nav-menu');
-    const portfolioLink = document.getElementById('portfolio-link');f
+    const portfolioLink = document.getElementById('portfolio-link');
     const allLinks = document.querySelectorAll('.nav-links a');
 
     // 1. Mobile Menu Toggle

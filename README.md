@@ -48,7 +48,7 @@ uv pip install -e ".[dev]"
 After setup, run the application using its console script entry point. This command starts the web server with hot-reloading enabled.
 
 ```bash
-uv run run-appsimple-website
+uv run website
 ```
 
 ### 4. Viewing Your Website

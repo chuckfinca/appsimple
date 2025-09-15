@@ -27,6 +27,8 @@ __pycache__
 *.dll
 /dist
 /crates/uv-build/dist
+*.egg-info/
+build/
 
 # Profiling
 flamegraph.svg

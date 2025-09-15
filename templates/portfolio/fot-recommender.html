@@ -25,7 +25,7 @@
 
     <!-- Visual (Animation or Demo Screenshot) -->
     <div class="mb-lg text-center">
-        <img src="/assets/images/fot-demo.png" alt="FOT Recommender Interface" style="max-width: 100%; height: auto; border-radius: var(--radius-md); box-shadow: var(--shadow-md);">
+        <img src="/assets/images/fot-demo.svg" alt="FOT Recommender Interface" style="max-width: 100%; height: auto; border-radius: var(--radius-md); box-shadow: var(--shadow-md);">
     </div>
 
     <!-- Metadata Grid -->
@@ -194,7 +194,7 @@
             </ul>
             
             <div class="testimonial">
-                <div class="testimonial-content">This system represents exactly the kind of practical AI application education needs—it doesn't replace educator judgment but enhances it with immediate access to research-backed strategies.</div>
+                <div class="testimonial-content">This PoC successfully de-risked our primary technical questions. It proved that a RAG-based approach could deliver accurate, evidence-based results on this specialized knowledge domain, establishing a clear path to a production-ready tool.</div>
                 <div class="testimonial-author">— Internal Project Assessment</div>
             </div>
         </div>
@@ -230,41 +230,64 @@
     </div>
 </div>
 
-<!-- If I Were Building This Today -->
+<!-- REVISED: From PoC to Production -->
 <div class="process-step">
     <div class="process-step-content">
         <div class="process-step-header">
             <div class="expertise-icon-container">
-                <svg class="icon expertise-icon" viewBox="0 0 24 24">
-                    <circle cx="12" cy="12" r="10"/>
-                    <line x1="12" y1="8" x2="12" y2="12"/>
-                    <line x1="12" y1="16" x2="12.01" y2="16"/>
+                <svg class="icon expertise-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="19" x2="12" y2="5"></line>
+                    <polyline points="5 12 12 5 19 12"></polyline>
                 </svg>
             </div>
-            <h3>If I Were Building This Today</h3>
+            <h3>From PoC to Production: Next Steps</h3>
         </div>
         <div class="process-step-content-body">
-            <p>With the rapid advancement in AI capabilities, several enhancements would significantly expand the system's value:</p>
+            <p>This proof-of-concept establishes a strong foundation. To evolve this tool into a robust, production-grade system, I would focus on the following key areas:</p>
+
+            <h4 class="mt-md mb-sm">1. Containerization & API Deployment</h4>
+            <p>Package the application into a formal REST API using FastAPI and containerize it with Docker. This enables deployment to a scalable, serverless platform like Google Cloud Run, ensuring high availability and cost-effective operation.</p>
+
+            <h4 class="mt-md mb-sm">2. Building the "Data Flywheel" for Evaluation</h4>
+            <p>True long-term value comes from learning and improving. I would implement an observability layer to capture input/output pairs. This data would then be used to:</p>
             <ul class="service-list">
-                <li><strong>Automated Knowledge Management</strong>: Leverage modern document AI to automatically extract and structure interventions from new research papers, keeping the knowledge base continuously updated</li>
-                <li><strong>Advanced Personalization</strong>: Implement feedback loops to track intervention effectiveness for different student profiles, allowing the system to learn and refine recommendations over time</li>
-                <li><strong>Intelligent Implementation Support</strong>: Generate step-by-step implementation plans with timelines, resource requirements, and success metrics tailored to specific school contexts</li>
-                <li><strong>Predictive Analytics Integration</strong>: Connect with student information systems to proactively flag at-risk students and suggest interventions before performance declines</li>
-                <li><strong>Multi-Modal Inputs</strong>: Accept not just text narratives but also academic data, attendance patterns, and behavioral indicators for more comprehensive recommendations</li>
+                <li>Create a system for subject-matter experts (educators) to label and rate the quality of recommendations.</li>
+                <li>Establish a continuous evaluation pipeline to measure model performance against this "golden dataset," creating a data flywheel that drives ongoing improvements.</li>
             </ul>
-            <p class="mt-md">These enhancements would transform the system from a sophisticated lookup tool into an intelligent educational partner that actively supports the entire intervention lifecycle, from identification through implementation and outcome tracking.</p>
+
+            <h4 class="mt-md mb-sm">3. Enhancing System Modularity & Scalability</h4>
+            <p>To ensure the system is adaptable and future-proof, I would refactor the core logic to be more modular. This includes:</p>
+            <ul class="service-list">
+                <li>Abstracting the core components to easily swap out embedding models, generative models (e.g., GPT, Claude), or vector databases (e.g., Pinecone, Weaviate) to leverage the best technology as it evolves.</li>
+                <li>Developing more advanced data preparation and semantic chunking strategies to handle a larger and more diverse knowledge base.</li>
+            </ul>
         </div>
     </div>
 </div>
 
-<!-- GitHub Link -->
+
+<!-- REVISED: CTA Section with Live Demo and Notebook Links -->
 <div class="index-cta mt-xl">
-    <h3 class="mb-sm">Explore the Implementation</h3>
-    <p class="mb-md">The FOT Intervention Recommender demonstrates advanced RAG architecture and AI engineering best practices in an educational context.</p>
-    <a href="https://github.com/chuckfinca/fot-intervention-recommender" class="cta-button" target="_blank" rel="noopener">
-        View Project on GitHub
-    </a>
+    <h3 class="mb-sm">Explore the Project</h3>
+    <p class="mb-md">
+        Dive into the technical implementation on GitHub, interact with the live demo, or review the original proof-of-concept notebook.
+    </p>
+    <div class="cta-buttons">
+        <a href="https://huggingface.co/spaces/chuckfinca/fot-recommender-api" class="cta-button" target="_blank" rel="noopener">
+            Launch Live Demo
+        </a>
+        <a href="https://github.com/chuckfinca/fot-intervention-recommender" class="cta-button-outline" target="_blank" rel="noopener">
+            View on GitHub
+        </a>
+    </div>
+    <p class="mt-md">
+        For a step-by-step technical walkthrough of the core retrieval logic, you can <a href="https://colab.research.google.com/github/chuckfinca/fot-intervention-recommender/blob/main/notebooks/fot_recommender_poc.ipynb" target="_blank" rel="noopener">explore the original proof-of-concept notebook</a>.
+    </p>
+    <p class="mt-sm" style="font-size: var(--text-xs); color: var(--neutral-500);">
+        <em>Note: The live demo is access-key protected to ensure a dedicated review experience. Please feel free to request access via the project's GitHub repository or by reaching out on my <a href="/contact">contact page</a>, and I'll be happy to provide a key.</em>
+    </p>
 </div>
+
 
 <!-- CTA for services -->
 <div class="process-cta">
