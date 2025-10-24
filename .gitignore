@@ -19,7 +19,11 @@ target-alpine/
 *.pdb
 
 # Python tmp files
-__pycache__
+__pycache__/
+*.pyc
+*.pyo
+*.py[cod]
+*$py.class
 
 # Maturin builds, and other native editable builds
 *.so
@@ -28,6 +32,7 @@ __pycache__
 /dist
 /crates/uv-build/dist
 *.egg-info/
+src/*.egg-info/
 build/
 
 # Profiling
@@ -46,3 +51,15 @@ profile.json
 .idea
 .vscode
 
+# Testing
+.pytest_cache/
+.coverage
+.tox/
+htmlcov/
+
+# Environment
+.env
+.venv
+env/
+venv/
+ENV/

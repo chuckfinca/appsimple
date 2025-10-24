@@ -16,4 +16,4 @@ def test_read_portfolio():
     """Test that the portfolio page loads successfully."""
     response = client.get("/portfolio")
     assert response.status_code == 200
-    assert "<h1>Portfolio</h1>" in response.text
+    assert '<h1 class="page-title">Portfolio</h1>' in response.text

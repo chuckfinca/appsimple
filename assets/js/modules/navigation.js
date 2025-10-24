@@ -73,16 +73,14 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('home-link')?.classList.add('active');
     }
 
-    // 5. Cleanup on resize
-    // If the user resizes to a desktop view with the menu open, close it.
+    // 5. Cleanup on resize - close menu immediately to prevent flash
     window.addEventListener('resize', () => {
-        if (window.innerWidth > 768) {
-            if (navMenu.classList.contains('active')) {
-                menuToggle.classList.remove('active');
-                navMenu.classList.remove('active');
-                document.body.classList.remove('menu-open');
-                menuToggle.setAttribute('aria-expanded', 'false');
-            }
+        // Close the mobile menu on any resize to prevent flash
+        if (navMenu.classList.contains('active')) {
+            menuToggle.classList.remove('active');
+            navMenu.classList.remove('active');
+            document.body.classList.remove('menu-open');
+            menuToggle.setAttribute('aria-expanded', 'false');
         }
     });
 });
