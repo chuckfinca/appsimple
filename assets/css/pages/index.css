@@ -221,6 +221,11 @@
     margin-top: var(--space-xs);
   }
 
+  .chat-tool-status {
+    color: var(--neutral-400);
+    font-size: var(--text-xs);
+  }
+
   .chat-error {
     color: var(--error);
     font-size: var(--text-xs);

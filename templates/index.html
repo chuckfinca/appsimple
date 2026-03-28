@@ -197,6 +197,7 @@
         chatHistory.appendChild(turn);
         turn.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 
+        // Start the streaming call
         fetch(API_BASE + '/gradio_api/call/ask', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -204,51 +205,72 @@
         })
         .then(function(r) { return r.json(); })
         .then(function(result) {
-            return fetch(API_BASE + '/gradio_api/call/ask/' + result.event_id);
-        })
-        .then(function(r) { return r.text(); })
-        .then(function(text) {
-            // Gradio SSE format: "event: ...\ndata: ...\n\n"
-            var lines = text.split('\n');
-            var dataLine = lines.find(function(l) { return l.startsWith('data:'); });
-            var parsed = JSON.parse(dataLine.substring(5).trim());
-            return JSON.parse(parsed[0]);
-        })
-        .then(function(data) {
+            // Open SSE stream for this event
+            var eventSource = new EventSource(API_BASE + '/gradio_api/call/ask/' + result.event_id);
+            var answerEl = document.createElement('div');
+            answerEl.className = 'chat-answer';
+            turn.appendChild(answerEl);
+            var accumulated = '';
+            var toolCount = 0;
 
-            if (data.error === 'daily_limit') {
-                turn.innerHTML += '<div class="chat-error">Daily question limit reached. Check back tomorrow.</div>';
-                stopThinkingAnimation();
-                chatInput.disabled = true;
-                chatInput.placeholder = 'Daily limit reached';
-                return;
-            }
-            if (data.error) {
-                turn.innerHTML += '<div class="chat-error">Error: ' + escapeHtml(data.error) + '</div>';
-                stopThinkingAnimation();
-                return;
+            function handleEvent(e) {
+                var raw = JSON.parse(e.data);
+                var eventData = JSON.parse(Array.isArray(raw) ? raw[0] : raw);
+
+                if (eventData.type === 'delta') {
+                    accumulated += eventData.content;
+                    answerEl.innerHTML = markdownToHtml(accumulated);
+                    answerEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                } else if (eventData.type === 'tool_call') {
+                    toolCount = eventData.count;
+                    answerEl.innerHTML = '<em class="chat-tool-status">Exploring documents (' + toolCount + ' tool calls)...</em>';
+                    accumulated = '';
+                } else if (eventData.type === 'error') {
+                    eventSource.close();
+                    if (eventData.error === 'daily_limit') {
+                        answerEl.innerHTML = '<span class="chat-error">Daily question limit reached. Check back tomorrow.</span>';
+                        stopThinkingAnimation();
+                        chatInput.disabled = true;
+                        chatInput.placeholder = 'Daily limit reached';
+                    } else {
+                        answerEl.innerHTML = '<span class="chat-error">Error: ' + escapeHtml(eventData.error) + '</span>';
+                        stopThinkingAnimation();
+                    }
+                } else if (eventData.type === 'done') {
+                    eventSource.close();
+                    var finalHtml = '<div class="chat-answer">' + markdownToHtml(eventData.answer || accumulated) + '</div>';
+                    if (eventData.stats) {
+                        finalHtml += '<div class="chat-stats">' + eventData.stats.replace(/\*/g, '') + '</div>';
+                    }
+                    if (eventData.trace_html) {
+                        finalHtml += '<button class="chat-trace-toggle" onclick="this.nextElementSibling.classList.toggle(\'open\')">trace</button>';
+                        finalHtml += '<div class="chat-trace">' + eventData.trace_html + '</div>';
+                    }
+                    turn.innerHTML = '<div class="chat-question">' + escapeHtml(question) + '</div>' + finalHtml;
+                    if (eventData.remaining != null) {
+                        chatRemaining.textContent = eventData.remaining + ' question' + (eventData.remaining !== 1 ? 's' : '') + ' remaining today';
+                    }
+                    stopThinkingAnimation();
+                    chatInput.focus();
+                    setTimeout(function() {
+                        chatInput.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }, 100);
+                }
             }
 
-            var answerHtml = '<div class="chat-answer">' + markdownToHtml(data.answer) + '</div>';
-            if (data.stats) {
-                answerHtml += '<div class="chat-stats">' + data.stats.replace(/\*/g, '') + '</div>';
-            }
-            if (data.trace_html) {
-                answerHtml += '<button class="chat-trace-toggle" onclick="this.nextElementSibling.classList.toggle(\'open\')">trace</button>';
-                answerHtml += '<div class="chat-trace">' + data.trace_html + '</div>';
-            }
-            turn.innerHTML = '<div class="chat-question">' + escapeHtml(question) + '</div>' + answerHtml;
-            if (data.remaining != null) {
-                chatRemaining.textContent = data.remaining + ' question' + (data.remaining !== 1 ? 's' : '') + ' remaining today';
-            }
-            stopThinkingAnimation();
-            chatInput.focus();
-            setTimeout(function() {
-                chatInput.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }, 100);
+            // Gradio SSE uses named event types, not the default 'message' type
+            eventSource.addEventListener('generating', handleEvent);
+            eventSource.addEventListener('complete', handleEvent);
+
+            eventSource.onerror = function() {
+                eventSource.close();
+                if (!accumulated) {
+                    answerEl.innerHTML = '<span class="chat-error">Connection error. The service may be starting up — try again in a moment.</span>';
+                }
+                stopThinkingAnimation();
+            };
         })
         .catch(function(err) {
-
             turn.innerHTML += '<div class="chat-error">Connection error. The service may be starting up — try again in a moment.</div>';
             stopThinkingAnimation();
         });
@@ -256,13 +278,7 @@
 
     var thinkingInterval = null;
     function startThinkingAnimation() {
-        var dots = 0;
-        var base = 'Exploring documents';
-        chatInput.placeholder = base;
-        thinkingInterval = setInterval(function() {
-            dots = (dots + 1) % 4;
-            chatInput.placeholder = base + '.'.repeat(dots);
-        }, 400);
+        chatInput.placeholder = '';
     }
     function stopThinkingAnimation() {
         if (thinkingInterval) clearInterval(thinkingInterval);
@@ -280,12 +296,20 @@
 
     function markdownToHtml(text) {
         if (!text) return '';
-        return text
-            .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        var escaped = text
+            .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        // Convert bullet lists (lines starting with * or -) before inline formatting
+        escaped = escaped.replace(/^[\*\-] (.+)$/gm, '<li>$1</li>');
+        escaped = escaped.replace(/((?:<li>.*<\/li>\n?)+)/g, '<ul>$1</ul>');
+        // Inline formatting
+        escaped = escaped
             .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
             .replace(/\*(.+?)\*/g, '<em>$1</em>')
             .replace(/`(.+?)`/g, '<code>$1</code>')
             .replace(/\n/g, '<br>');
+        // Clean up <br> inside lists
+        escaped = escaped.replace(/<ul><br>/g, '<ul>').replace(/<br><\/ul>/g, '</ul>');
+        return escaped;
     }
 })();
 </script>
