@@ -5,19 +5,24 @@ document.addEventListener("DOMContentLoaded", function() {
   if (typingElement) {
       const config = window.PAGE_CONFIG || {};
 
-      // Function to initialize and reveal the interactive carousel
-      function initializeAndRevealCarousel() {
-          console.log("Typing complete! Initializing interactive carousel...");
-          const carouselInstance = InteractiveCarouselModule.init({
-              containerId: 'interactive-options-container',
-              // Options data isn't strictly needed by the module anymore
-              // as items are already in the HTML, but keep structure if useful elsewhere
-          });
+      function onTypingComplete() {
+          var modeToggle = document.getElementById('mode-toggle');
+          var chatContainer = document.getElementById('chat-container');
+          var chatInput = document.getElementById('chat-input');
 
-          if (carouselInstance) {
-              carouselInstance.reveal(); // Make the carousel visible
-          } else {
-              console.error("Failed to initialize InteractiveCarouselModule.");
+          // Reveal toggle and chat
+          modeToggle.style.display = 'flex';
+          modeToggle.style.opacity = '1';
+          chatContainer.style.display = 'block';
+          if (chatInput) chatInput.focus();
+
+          // Initialize carousel for Browse mode
+          try {
+              InteractiveCarouselModule.init({
+                  containerId: 'interactive-options-container',
+              });
+          } catch (e) {
+              console.warn("Carousel init deferred:", e);
           }
       }
 
@@ -32,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function() {
           shortPauseDuration: config.shortPauseDuration,
           wordPauseProbability: config.wordPauseProbability,
           thinkingDuration: config.thinkingDuration,
-          onComplete: initializeAndRevealCarousel // Use the new callback
+          onComplete: onTypingComplete
       });
 
   } else {

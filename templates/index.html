@@ -15,8 +15,15 @@
         </div>
     </div>
 
+    <!-- Mode Toggle (hidden until typing completes) -->
+    <div class="mode-toggle" id="mode-toggle" style="display: none; opacity: 0;">
+        <button class="mode-btn active" data-mode="chat">ask</button>
+        <span class="mode-separator">&middot;</span>
+        <button class="mode-btn" data-mode="carousel">browse</button>
+    </div>
+
     <!-- Updated Options Container -->
-    <div class="options-container" id="interactive-options-container">
+    <div class="options-container" id="interactive-options-container" style="display: none;">
         <div class="carousel-items-wrapper">
             <!-- Carousel Items (data-index attribute added) -->
             <div class="carousel-item" data-index="0">
@@ -80,10 +87,37 @@
             </button>
         </div>
     </div>
+
+    <!-- Chat Container -->
+    <div class="chat-container" id="chat-container" style="display: none;">
+        <div class="chat-input-wrapper" id="chat-input-top">
+            <input
+                type="text"
+                id="chat-input"
+                class="chat-input"
+                placeholder="Ask a question..."
+                autocomplete="off"
+            />
+            <div class="chat-remaining" id="chat-remaining"></div>
+        </div>
+        <div class="chat-history" id="chat-history"></div>
+        <div class="chat-input-wrapper" id="chat-input-bottom" style="display: none;">
+        </div>
+        <div class="chat-footer">
+            LLMs can make mistakes.
+            Want to try it with your own documents?
+            <a href="https://huggingface.co/spaces/chuckfinca/document-explorer" target="_blank">Open the Document Explorer</a>
+            — contact <a href="mailto:charles@appsimple.io">charles@appsimple.io</a> for an access token.
+        </div>
+    </div>
 </div>
 {% endblock %}
 
 {% block extra_js %}
+<!-- Wake up the Space early while typing animation plays -->
+<script>
+    fetch('https://chuckfinca-appsimple-assistant.hf.space/', { mode: 'no-cors' }).catch(function(){});
+</script>
 <!-- Configuration script for typing module (Keep as is) -->
 <script>
     window.PAGE_CONFIG = {
@@ -103,4 +137,156 @@
 <script src="/assets/js/modules/typing.js"></script>
 <script src="/assets/js/modules/interactive-carousel.js"></script>
 <script src="/assets/js/main.js"></script>
+<script>
+(function() {
+    var API_BASE = 'https://chuckfinca-appsimple-assistant.hf.space';
+    var toggle = document.getElementById('mode-toggle');
+    var carousel = document.getElementById('interactive-options-container');
+    var controls = document.getElementById('carousel-controls');
+    var chatContainer = document.getElementById('chat-container');
+    var chatInput = document.getElementById('chat-input');
+    var chatHistory = document.getElementById('chat-history');
+    var chatInputTop = document.getElementById('chat-input-top');
+    var chatInputBottom = document.getElementById('chat-input-bottom');
+    var chatRemaining = document.getElementById('chat-remaining');
+    var hasAsked = false;
+
+    // Mode toggle
+    toggle.addEventListener('click', function(e) {
+        var btn = e.target.closest('.mode-btn');
+        if (!btn || btn.classList.contains('active')) return;
+        toggle.querySelectorAll('.mode-btn').forEach(function(b) { b.classList.remove('active'); });
+        btn.classList.add('active');
+        if (btn.dataset.mode === 'chat') {
+            carousel.style.display = 'none';
+            chatContainer.style.display = 'block';
+            chatInput.focus();
+        } else {
+            chatContainer.style.display = 'none';
+            carousel.style.display = 'block';
+        }
+    });
+
+    // Submit question
+    chatInput.addEventListener('keydown', function(e) {
+        if (e.key !== 'Enter' || !chatInput.value.trim() || chatInput.disabled) return;
+        e.preventDefault();
+        var question = chatInput.value.trim();
+        chatInput.value = '';
+        chatInput.disabled = true;
+        chatInput.classList.add('thinking');
+        startThinkingAnimation();
+        askQuestion(question);
+    });
+
+    function moveInputBelow() {
+        if (hasAsked) return;
+        hasAsked = true;
+        chatInputTop.style.display = 'none';
+        chatInputBottom.style.display = 'block';
+        chatInputBottom.appendChild(chatInput);
+        chatInputBottom.appendChild(chatRemaining);
+    }
+
+    function askQuestion(question) {
+        moveInputBelow();
+
+        var turn = document.createElement('div');
+        turn.className = 'chat-turn';
+        turn.innerHTML = '<div class="chat-question">' + escapeHtml(question) + '</div>';
+        chatHistory.appendChild(turn);
+        turn.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+        fetch(API_BASE + '/gradio_api/call/ask', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ data: [question] })
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(result) {
+            return fetch(API_BASE + '/gradio_api/call/ask/' + result.event_id);
+        })
+        .then(function(r) { return r.text(); })
+        .then(function(text) {
+            // Gradio SSE format: "event: ...\ndata: ...\n\n"
+            var lines = text.split('\n');
+            var dataLine = lines.find(function(l) { return l.startsWith('data:'); });
+            var parsed = JSON.parse(dataLine.substring(5).trim());
+            return JSON.parse(parsed[0]);
+        })
+        .then(function(data) {
+
+            if (data.error === 'daily_limit') {
+                turn.innerHTML += '<div class="chat-error">Daily question limit reached. Check back tomorrow.</div>';
+                stopThinkingAnimation();
+                chatInput.disabled = true;
+                chatInput.placeholder = 'Daily limit reached';
+                return;
+            }
+            if (data.error) {
+                turn.innerHTML += '<div class="chat-error">Error: ' + escapeHtml(data.error) + '</div>';
+                stopThinkingAnimation();
+                return;
+            }
+
+            var answerHtml = '<div class="chat-answer">' + markdownToHtml(data.answer) + '</div>';
+            if (data.stats) {
+                answerHtml += '<div class="chat-stats">' + data.stats.replace(/\*/g, '') + '</div>';
+            }
+            if (data.trace_html) {
+                answerHtml += '<button class="chat-trace-toggle" onclick="this.nextElementSibling.classList.toggle(\'open\')">trace</button>';
+                answerHtml += '<div class="chat-trace">' + data.trace_html + '</div>';
+            }
+            turn.innerHTML = '<div class="chat-question">' + escapeHtml(question) + '</div>' + answerHtml;
+            if (data.remaining != null) {
+                chatRemaining.textContent = data.remaining + ' question' + (data.remaining !== 1 ? 's' : '') + ' remaining today';
+            }
+            stopThinkingAnimation();
+            chatInput.focus();
+            setTimeout(function() {
+                chatInput.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 100);
+        })
+        .catch(function(err) {
+
+            turn.innerHTML += '<div class="chat-error">Connection error. The service may be starting up — try again in a moment.</div>';
+            stopThinkingAnimation();
+        });
+    }
+
+    var thinkingInterval = null;
+    function startThinkingAnimation() {
+        var dots = 0;
+        var base = 'Exploring documents';
+        chatInput.placeholder = base;
+        thinkingInterval = setInterval(function() {
+            dots = (dots + 1) % 4;
+            chatInput.placeholder = base + '.'.repeat(dots);
+        }, 400);
+    }
+    function stopThinkingAnimation() {
+        if (thinkingInterval) clearInterval(thinkingInterval);
+        thinkingInterval = null;
+        chatInput.classList.remove('thinking');
+        chatInput.placeholder = 'Ask a question...';
+        chatInput.disabled = false;
+    }
+
+    function escapeHtml(str) {
+        var d = document.createElement('div');
+        d.textContent = str;
+        return d.innerHTML;
+    }
+
+    function markdownToHtml(text) {
+        if (!text) return '';
+        return text
+            .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+            .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+            .replace(/\*(.+?)\*/g, '<em>$1</em>')
+            .replace(/`(.+?)`/g, '<code>$1</code>')
+            .replace(/\n/g, '<br>');
+    }
+})();
+</script>
 {% endblock %}
