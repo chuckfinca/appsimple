@@ -160,7 +160,7 @@
         if (btn.dataset.mode === 'chat') {
             carousel.style.display = 'none';
             chatContainer.style.display = 'block';
-            chatInput.focus();
+            chatInput.focus({ preventScroll: true });
         } else {
             chatContainer.style.display = 'none';
             carousel.style.display = 'block';
