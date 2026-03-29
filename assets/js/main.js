@@ -21,12 +21,13 @@ document.addEventListener("DOMContentLoaded", function() {
           // Slide text up and fade in content below
           setTimeout(function() {
               hero.style.transition = 'padding-top 0.6s ease';
-              hero.style.paddingTop = '80px';
+              var isMobile = window.innerWidth <= 768;
+              hero.style.paddingTop = isMobile ? '40px' : '80px';
               setTimeout(function() {
                   modeToggle.style.display = 'flex';
                   modeToggle.style.opacity = '1';
                   chatContainer.style.display = 'block';
-                  if (chatInput) chatInput.focus();
+                  if (!isMobile && chatInput) chatInput.focus();
               }, 350);
           }, 50);
 
