@@ -136,7 +136,7 @@
 <script src="/assets/js/modules/utils.js"></script>
 <script src="/assets/js/modules/typing.js"></script>
 <script src="/assets/js/modules/interactive-carousel.js"></script>
-<script src="/assets/js/main.js"></script>
+<script src="/assets/js/main.js?v=3"></script>
 <script>
 (function() {
     var API_BASE = 'https://chuckfinca-appsimple-assistant.hf.space';
@@ -164,6 +164,7 @@
         } else {
             chatContainer.style.display = 'none';
             carousel.style.display = 'block';
+            if (window._carousel) window._carousel.reveal();
         }
     });
 
