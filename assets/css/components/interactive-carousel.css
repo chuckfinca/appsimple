@@ -54,25 +54,12 @@
     color: var(--neutral-700);
     line-height: var(--leading-relaxed);
     margin-bottom: var(--space-sm);
-    padding-left: 1.2rem;
-    position: relative;
     display: block;
     /* Initial state (hidden, slightly moved) */
     opacity: 0;
     transform: translateY(8px);
     /* NO TRANSITION BY DEFAULT */
     transition: none;
-}
-
-.carousel-prompt::before { /* Keep this */
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0.2em;
-    bottom: 0.2em;
-    width: 2px;
-    background-color: var(--neutral-300);
-    opacity: 0.8;
 }
 
 .carousel-link {
@@ -82,6 +69,7 @@
     color: var(--primary);
     text-decoration: none;
     position: relative;
+    padding-left: 1.2rem;
     padding-bottom: 2px;
     border-bottom: 1px solid transparent;
     /* Initial state (hidden, slightly moved) */
@@ -89,6 +77,16 @@
     transform: translateY(5px);
     /* NO TRANSITION BY DEFAULT, only keep hover transitions */
     transition: color var(--transition-normal), border-color var(--transition-normal);
+}
+
+.carousel-link::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background-color: var(--neutral-200);
 }
 
 .carousel-link:hover { /* Keep this */
