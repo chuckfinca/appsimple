@@ -240,6 +240,16 @@
                 } else if (eventData.type === 'done') {
                     eventSource.close();
                     var finalHtml = '<div class="chat-answer">' + markdownToHtml(eventData.answer || accumulated) + '</div>';
+                    if (eventData.sources && eventData.sources.length > 0) {
+                        finalHtml += '<div class="chat-sources">';
+                        eventData.sources.forEach(function(s) {
+                            var cls = s.matched ? 'chat-source' : 'chat-source unmatched';
+                            finalHtml += '<div class="' + cls + '">'
+                                + superscript(s.id) + ' ' + escapeHtml(s.doc)
+                                + ': "' + escapeHtml(s.quote) + '"</div>';
+                        });
+                        finalHtml += '</div>';
+                    }
                     if (eventData.stats) {
                         finalHtml += '<div class="chat-stats">' + eventData.stats.replace(/\*/g, '') + '</div>';
                     }
@@ -287,6 +297,11 @@
         chatInput.classList.remove('thinking');
         chatInput.placeholder = 'Ask a question...';
         chatInput.disabled = false;
+    }
+
+    function superscript(n) {
+        var digits = '\u2070\u00b9\u00b2\u00b3\u2074\u2075\u2076\u2077\u2078\u2079';
+        return String(n).split('').map(function(d) { return digits[parseInt(d)]; }).join('');
     }
 
     function escapeHtml(str) {
