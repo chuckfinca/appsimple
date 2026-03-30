@@ -189,10 +189,26 @@
     padding-left: var(--space-sm);
   }
 
+  .chat-sources-toggle {
+    font-size: 12px;
+    color: var(--neutral-400);
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    margin-top: var(--space-xs);
+    font-family: inherit;
+  }
+  .chat-sources-toggle:hover {
+    color: var(--neutral-600);
+  }
+
   .chat-sources {
     margin-top: var(--space-xs);
-    padding-top: var(--space-xs);
-    border-top: 1px solid var(--neutral-100);
+    display: none;
+  }
+  .chat-sources.open {
+    display: block;
   }
 
   .chat-source {
@@ -204,7 +220,7 @@
 
   .chat-source.unmatched {
     color: var(--neutral-300);
-    text-decoration: line-through;
+    font-style: italic;
   }
 
   .chat-stats {

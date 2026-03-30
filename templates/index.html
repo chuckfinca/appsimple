@@ -241,12 +241,14 @@
                     eventSource.close();
                     var finalHtml = '<div class="chat-answer">' + markdownToHtml(eventData.answer || accumulated) + '</div>';
                     if (eventData.sources && eventData.sources.length > 0) {
+                        finalHtml += '<button class="chat-sources-toggle" onclick="this.nextElementSibling.classList.toggle(\'open\')">'
+                            + eventData.sources.length + ' source' + (eventData.sources.length !== 1 ? 's' : '') + '</button>';
                         finalHtml += '<div class="chat-sources">';
                         eventData.sources.forEach(function(s) {
                             var cls = s.matched ? 'chat-source' : 'chat-source unmatched';
                             finalHtml += '<div class="' + cls + '">'
                                 + superscript(s.id) + ' ' + escapeHtml(s.doc)
-                                + ': "' + escapeHtml(s.quote) + '"</div>';
+                                + ' — "' + escapeHtml(s.quote) + '"</div>';
                         });
                         finalHtml += '</div>';
                     }
