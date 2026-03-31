@@ -316,9 +316,14 @@
         if (!text) return '';
         var escaped = text
             .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-        // Convert bullet lists (lines starting with * or -) before inline formatting
-        escaped = escaped.replace(/^[\*\-] (.+)$/gm, '<li>$1</li>');
-        escaped = escaped.replace(/((?:<li>.*<\/li>\n?)+)/g, '<ul>$1</ul>');
+        // Convert bullet lists at any indentation level
+        escaped = escaped.replace(/^( *)[\*\-]\s+(.+)$/gm, function(_, indent, content) {
+            var depth = Math.floor(indent.length / 4);
+            return depth > 0
+                ? '<li style="margin-left:' + (depth * 1.5) + 'em">' + content + '</li>'
+                : '<li>' + content + '</li>';
+        });
+        escaped = escaped.replace(/((?:<li[^>]*>.*<\/li>\n?)+)/g, '<ul>$1</ul>');
         // Inline formatting
         escaped = escaped
             .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
