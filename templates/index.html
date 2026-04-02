@@ -262,8 +262,8 @@
                                 ? '<a class="chat-source-link" href="#" onclick="openDoc(\'' + escapeHtml(s.file) + '\', ' + (s.line || 0) + '); return false;">' + escapeHtml(s.doc) + '</a>'
                                 : escapeHtml(s.doc);
                             finalHtml += '<div class="' + cls + '">'
-                                + superscript(s.id) + ' ' + docLink
-                                + ' — "' + escapeHtml(s.quote) + '"</div>';
+                                + superscript(s.id) + ' <strong class="chat-source-doc">' + docLink + '</strong> '
+                                + '<em class="chat-source-quote">"' + escapeHtml(s.quote) + '"</em></div>';
                         });
                         finalHtml += '</div>';
                     }

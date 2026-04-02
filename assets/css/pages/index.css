@@ -232,6 +232,15 @@
     font-style: italic;
   }
 
+  .chat-source-doc {
+    font-weight: var(--font-medium);
+    color: var(--neutral-500);
+  }
+
+  .chat-source-quote {
+    color: var(--neutral-400);
+  }
+
   .chat-source-link {
     color: var(--neutral-500);
     text-decoration: underline;
