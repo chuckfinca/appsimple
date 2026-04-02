@@ -111,6 +111,18 @@
         </div>
     </div>
 </div>
+
+<!-- Document viewer modal -->
+<div class="doc-modal" id="doc-modal">
+    <div class="doc-modal-overlay" onclick="document.getElementById('doc-modal').classList.remove('open')"></div>
+    <div class="doc-modal-content">
+        <div class="doc-modal-header">
+            <span class="doc-modal-title" id="doc-modal-title"></span>
+            <button class="doc-modal-close" onclick="document.getElementById('doc-modal').classList.remove('open')">&times;</button>
+        </div>
+        <div class="doc-modal-body" id="doc-modal-body"></div>
+    </div>
+</div>
 {% endblock %}
 
 {% block extra_js %}
@@ -246,8 +258,11 @@
                         finalHtml += '<div class="chat-sources">';
                         eventData.sources.forEach(function(s) {
                             var cls = s.matched ? 'chat-source' : 'chat-source unmatched';
+                            var docLink = s.file
+                                ? '<a class="chat-source-link" href="#" onclick="openDoc(\'' + escapeHtml(s.file) + '\', ' + (s.line || 0) + '); return false;">' + escapeHtml(s.doc) + '</a>'
+                                : escapeHtml(s.doc);
                             finalHtml += '<div class="' + cls + '">'
-                                + superscript(s.id) + ' ' + escapeHtml(s.doc)
+                                + superscript(s.id) + ' ' + docLink
                                 + ' — "' + escapeHtml(s.quote) + '"</div>';
                         });
                         finalHtml += '</div>';
@@ -332,12 +347,56 @@
             .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
             .replace(/\*(.+?)\*/g, '<em>$1</em>')
             .replace(/`(.+?)`/g, '<code>$1</code>')
+            .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>')
             .replace(/\n/g, '<br>');
         // Clean up stray <br> around block elements
         escaped = escaped.replace(/<ul><br>/g, '<ul>').replace(/<br><\/ul>/g, '</ul>');
         escaped = escaped.replace(/<br><h/g, '<h').replace(/<\/h3><br>/g, '</h3>').replace(/<\/h4><br>/g, '</h4>');
         return escaped;
     }
+
+    window.openDoc = function(filename, line) {
+        var modal = document.getElementById('doc-modal');
+        var body = document.getElementById('doc-modal-body');
+        var title = document.getElementById('doc-modal-title');
+        body.innerHTML = '<em class="chat-tool-status">Loading...</em>';
+        title.textContent = filename.replace('.md', '').replace(/-/g, ' ');
+        modal.classList.add('open');
+
+        fetch(API_BASE + '/gradio_api/call/doc', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ data: [filename] })
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(result) {
+            return fetch(API_BASE + '/gradio_api/call/doc/' + result.event_id);
+        })
+        .then(function(r) { return r.text(); })
+        .then(function(text) {
+            var lines = text.split('\n');
+            var dataLine = lines.find(function(l) { return l.startsWith('data:'); });
+            var parsed = JSON.parse(dataLine.substring(5).trim());
+            var data = JSON.parse(Array.isArray(parsed) ? parsed[0] : parsed);
+            if (data.error) {
+                body.innerHTML = '<span class="chat-error">Document not found.</span>';
+                return;
+            }
+            body.innerHTML = markdownToHtml(data.content);
+            if (line > 0) {
+                var headers = body.querySelectorAll('h3, h4, li, strong');
+                for (var i = 0; i < headers.length; i++) {
+                    if (headers[i].textContent.trim().length > 10) {
+                        headers[i].scrollIntoView({ block: 'center' });
+                        break;
+                    }
+                }
+            }
+        })
+        .catch(function() {
+            body.innerHTML = '<span class="chat-error">Could not load document.</span>';
+        });
+    };
 })();
 </script>
 {% endblock %}
