@@ -316,6 +316,9 @@
         if (!text) return '';
         var escaped = text
             .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        // Convert headers before lists and inline formatting
+        escaped = escaped.replace(/^### (.+)$/gm, '<h4>$1</h4>');
+        escaped = escaped.replace(/^## (.+)$/gm, '<h3>$1</h3>');
         // Convert bullet lists at any indentation level
         escaped = escaped.replace(/^( *)[\*\-]\s+(.+)$/gm, function(_, indent, content) {
             var depth = Math.floor(indent.length / 4);
@@ -330,8 +333,9 @@
             .replace(/\*(.+?)\*/g, '<em>$1</em>')
             .replace(/`(.+?)`/g, '<code>$1</code>')
             .replace(/\n/g, '<br>');
-        // Clean up <br> inside lists
+        // Clean up stray <br> around block elements
         escaped = escaped.replace(/<ul><br>/g, '<ul>').replace(/<br><\/ul>/g, '</ul>');
+        escaped = escaped.replace(/<br><h/g, '<h').replace(/<\/h3><br>/g, '</h3>').replace(/<\/h4><br>/g, '</h4>');
         return escaped;
     }
 })();
