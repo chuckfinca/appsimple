@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}{{ doc_title }} - AppSimple{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="/assets/css/pages/doc.css" />
+{% endblock %}
+
+{% block content %}
+<div class="doc-page">
+    <div class="doc-header">
+        <a href="/" class="doc-back">&larr; Back</a>
+        <h1 class="doc-title">{{ doc_title }}</h1>
+    </div>
+    <div class="doc-body" id="doc-body">
+        <em>Loading...</em>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+(function() {
+    var API_BASE = 'https://chuckfinca-appsimple-assistant.hf.space';
+    var filename = '{{ doc_filename }}';
+
+    function markdownToHtml(text) {
+        if (!text) return '';
+        var escaped = text
+            .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        escaped = escaped.replace(/^### (.+)$/gm, '<h4>$1</h4>');
+        escaped = escaped.replace(/^## (.+)$/gm, '<h3>$1</h3>');
+        escaped = escaped.replace(/^( *)[\*\-]\s+(.+)$/gm, function(_, indent, content) {
+            var depth = Math.floor(indent.length / 4);
+            return depth > 0
+                ? '<li style="margin-left:' + (depth * 1.5) + 'em">' + content + '</li>'
+                : '<li>' + content + '</li>';
+        });
+        escaped = escaped.replace(/((?:<li[^>]*>.*<\/li>\n?)+)/g, '<ul>$1</ul>');
+        escaped = escaped
+            .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+            .replace(/\*(.+?)\*/g, '<em>$1</em>')
+            .replace(/`(.+?)`/g, '<code>$1</code>')
+            .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>')
+            .replace(/\n/g, '<br>');
+        escaped = escaped.replace(/<ul><br>/g, '<ul>').replace(/<br><\/ul>/g, '</ul>');
+        escaped = escaped.replace(/<br><h/g, '<h').replace(/<\/h3><br>/g, '</h3>').replace(/<\/h4><br>/g, '</h4>');
+        return escaped;
+    }
+
+    fetch(API_BASE + '/gradio_api/call/doc', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ data: [filename] })
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(result) {
+        return fetch(API_BASE + '/gradio_api/call/doc/' + result.event_id);
+    })
+    .then(function(r) { return r.text(); })
+    .then(function(text) {
+        var lines = text.split('\n');
+        var dataLine = lines.find(function(l) { return l.startsWith('data:'); });
+        var parsed = JSON.parse(dataLine.substring(5).trim());
+        var data = JSON.parse(Array.isArray(parsed) ? parsed[0] : parsed);
+        if (data.error) {
+            document.getElementById('doc-body').innerHTML = 'Document not found.';
+            return;
+        }
+        document.getElementById('doc-body').innerHTML = markdownToHtml(data.content);
+    })
+    .catch(function() {
+        document.getElementById('doc-body').innerHTML = 'Could not load document.';
+    });
+})();
+</script>
+{% endblock %}

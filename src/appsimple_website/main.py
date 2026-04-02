@@ -89,6 +89,17 @@ async def mobile_privacy(request: Request):
     return templates.TemplateResponse("mobile/privacy.html", {"request": request})
 
 
+@app.get("/doc/{doc_name}", response_class=HTMLResponse)
+async def doc_viewer(request: Request, doc_name: str):
+    filename = doc_name if doc_name.endswith(".md") else f"{doc_name}.md"
+    title = doc_name.replace("-", " ").replace("_", " ")
+    return templates.TemplateResponse("doc.html", {
+        "request": request,
+        "doc_title": title,
+        "doc_filename": filename,
+    })
+
+
 VALID_CASE_STUDIES = [
     "bodhimind",
     "guidedmind",

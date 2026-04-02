@@ -252,64 +252,13 @@
     text-decoration-color: var(--primary);
   }
 
-  /* Document viewer modal */
-  .doc-modal {
-    display: none;
-    position: fixed;
-    inset: 0;
-    z-index: 1000;
-  }
-  .doc-modal.open {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .doc-modal-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.3);
-  }
-  .doc-modal-content {
+  .external-icon {
+    width: 10px;
+    height: 10px;
+    margin-left: 3px;
+    vertical-align: baseline;
     position: relative;
-    background: white;
-    border-radius: 8px;
-    width: 90%;
-    max-width: 700px;
-    max-height: 80vh;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
-  }
-  .doc-modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: var(--space-sm) var(--space-md);
-    border-bottom: 1px solid var(--neutral-100);
-  }
-  .doc-modal-title {
-    font-weight: var(--font-medium);
-    color: var(--neutral-700);
-    text-transform: capitalize;
-  }
-  .doc-modal-close {
-    background: none;
-    border: none;
-    font-size: 24px;
-    color: var(--neutral-400);
-    cursor: pointer;
-    padding: 0;
-    line-height: 1;
-  }
-  .doc-modal-close:hover {
-    color: var(--neutral-600);
-  }
-  .doc-modal-body {
-    padding: var(--space-md);
-    overflow-y: auto;
-    color: var(--neutral-600);
-    line-height: var(--leading-relaxed);
-    font-size: var(--text-sm);
+    top: -1px;
   }
 
   .chat-stats {
