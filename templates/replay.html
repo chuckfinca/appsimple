@@ -27,6 +27,8 @@
             <div class="chat-answer" id="replay-answer"></div>
             <div id="replay-sources-container"></div>
             <div class="chat-stats" id="replay-stats"></div>
+            <button class="chat-trace-toggle" id="replay-trace-toggle" style="display:none" onclick="this.nextElementSibling.classList.toggle('open')">trace</button>
+            <div class="chat-trace" id="replay-trace"></div>
         </div>
     </div>
 </div>
@@ -122,6 +124,8 @@
         document.getElementById('replay-answer').innerHTML = '';
         document.getElementById('replay-sources-container').innerHTML = '';
         document.getElementById('replay-stats').textContent = '';
+        document.getElementById('replay-trace-toggle').style.display = 'none';
+        document.getElementById('replay-trace').innerHTML = '';
 
         callApi('replay', filename).then(function(data) {
             if (data.error) {
@@ -154,6 +158,17 @@
             document.getElementById('replay-stats').textContent = data.stats;
             if (data.source_tag) {
                 document.getElementById('replay-stats').textContent += ' · ' + data.source_tag;
+            }
+
+            var traceToggle = document.getElementById('replay-trace-toggle');
+            var traceEl = document.getElementById('replay-trace');
+            if (data.trace_html) {
+                traceToggle.style.display = '';
+                traceEl.innerHTML = data.trace_html;
+                traceEl.classList.remove('open');
+            } else {
+                traceToggle.style.display = 'none';
+                traceEl.innerHTML = '';
             }
         });
     }
