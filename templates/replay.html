@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+
+{% block title %}Trace Replay - AppSimple{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="/assets/css/pages/index.css?v=2" />
+<link rel="stylesheet" href="/assets/css/pages/replay.css" />
+{% endblock %}
+
+{% block content %}
+<div class="replay-page">
+    <div class="replay-header">
+        <a href="/" class="replay-back">&larr; Home</a>
+        <h1 class="replay-title">Trace Replay</h1>
+    </div>
+
+    <div class="replay-controls">
+        <input type="text" id="trace-search" class="replay-search" placeholder="Search traces..." autocomplete="off" />
+        <select id="trace-select" class="replay-select">
+            <option value="">Select a trace...</option>
+        </select>
+    </div>
+
+    <div id="replay-output" class="replay-output" style="display: none;">
+        <div class="chat-turn">
+            <div class="chat-question" id="replay-question"></div>
+            <div class="chat-answer" id="replay-answer"></div>
+            <div id="replay-sources-container"></div>
+            <div class="chat-stats" id="replay-stats"></div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+(function() {
+    var API_BASE = 'https://chuckfinca-appsimple-assistant.hf.space';
+    var select = document.getElementById('trace-select');
+    var search = document.getElementById('trace-search');
+    var output = document.getElementById('replay-output');
+
+    function markdownToHtml(text) {
+        if (!text) return '';
+        var escaped = text
+            .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        escaped = escaped.replace(/^### (.+)$/gm, '<h4>$1</h4>');
+        escaped = escaped.replace(/^## (.+)$/gm, '<h3>$1</h3>');
+        escaped = escaped.replace(/^( *)[\*\-]\s+(.+)$/gm, function(_, indent, content) {
+            var depth = Math.floor(indent.length / 4);
+            return depth > 0
+                ? '<li style="margin-left:' + (depth * 1.5) + 'em">' + content + '</li>'
+                : '<li>' + content + '</li>';
+        });
+        escaped = escaped.replace(/((?:<li[^>]*>.*<\/li>\n?)+)/g, '<ul>$1</ul>');
+        escaped = escaped
+            .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+            .replace(/\*(.+?)\*/g, '<em>$1</em>')
+            .replace(/`(.+?)`/g, '<code>$1</code>')
+            .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>')
+            .replace(/\n/g, '<br>');
+        escaped = escaped.replace(/<ul><br>/g, '<ul>').replace(/<br><\/ul>/g, '</ul>');
+        escaped = escaped.replace(/<br><h/g, '<h').replace(/<\/h3><br>/g, '</h3>').replace(/<\/h4><br>/g, '</h4>');
+        return escaped;
+    }
+
+    function escapeHtml(str) {
+        var d = document.createElement('div');
+        d.textContent = str;
+        return d.innerHTML;
+    }
+
+    function superscript(n) {
+        var digits = '\u2070\u00b9\u00b2\u00b3\u2074\u2075\u2076\u2077\u2078\u2079';
+        return String(n).split('').map(function(d) { return digits[parseInt(d)]; }).join('');
+    }
+
+    function callApi(endpoint, data) {
+        return fetch(API_BASE + '/gradio_api/call/' + endpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ data: [data || ''] })
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(result) {
+            return fetch(API_BASE + '/gradio_api/call/' + endpoint + '/' + result.event_id);
+        })
+        .then(function(r) { return r.text(); })
+        .then(function(text) {
+            var lines = text.split('\n');
+            var dataLine = lines.find(function(l) { return l.startsWith('data:'); });
+            var parsed = JSON.parse(dataLine.substring(5).trim());
+            return JSON.parse(Array.isArray(parsed) ? parsed[0] : parsed);
+        });
+    }
+
+    // Load trace list
+    function loadTraces(query) {
+        callApi('traces', query || '').then(function(data) {
+            if (data.error) return;
+            select.innerHTML = '<option value="">Select a trace...</option>';
+            data.traces.forEach(function(f) {
+                var label = f.replace('.json', '').replace(/^\d{8}-\d{6}-\d+_?/, '').replace(/-/g, ' ') || f;
+                var date = f.substring(0, 8);
+                var dateStr = date.substring(0, 4) + '-' + date.substring(4, 6) + '-' + date.substring(6, 8);
+                var opt = document.createElement('option');
+                opt.value = f;
+                opt.textContent = dateStr + '  ' + label;
+                select.appendChild(opt);
+            });
+        });
+    }
+
+    // Load and render a trace
+    function loadTrace(filename) {
+        if (!filename) {
+            output.style.display = 'none';
+            return;
+        }
+        output.style.display = 'block';
+        document.getElementById('replay-question').textContent = 'Loading...';
+        document.getElementById('replay-answer').innerHTML = '';
+        document.getElementById('replay-sources-container').innerHTML = '';
+        document.getElementById('replay-stats').textContent = '';
+
+        callApi('replay', filename).then(function(data) {
+            if (data.error) {
+                document.getElementById('replay-question').textContent = 'Error: ' + data.error;
+                return;
+            }
+
+            document.getElementById('replay-question').textContent = data.question;
+            document.getElementById('replay-answer').innerHTML = markdownToHtml(data.answer);
+
+            var sourcesHtml = '';
+            if (data.sources && data.sources.length > 0) {
+                sourcesHtml += '<button class="chat-sources-toggle" onclick="this.nextElementSibling.classList.toggle(\'open\')">'
+                    + data.sources.length + ' source' + (data.sources.length !== 1 ? 's' : '') + '</button>';
+                sourcesHtml += '<div class="chat-sources">';
+                data.sources.forEach(function(s) {
+                    var cls = s.matched ? 'chat-source' : 'chat-source unmatched';
+                    var docLink = s.file
+                        ? '<a class="chat-source-link" href="/doc/' + encodeURIComponent(s.file.replace('.md', '')) + '" target="_blank">'
+                            + escapeHtml(s.doc) + '<svg class="external-icon" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4.5 1.5H2a.5.5 0 00-.5.5v8a.5.5 0 00.5.5h8a.5.5 0 00.5-.5V7.5M7 1.5h3.5V5M5.5 6.5l5-5"/></svg></a>'
+                        : escapeHtml(s.doc);
+                    sourcesHtml += '<div class="' + cls + '">'
+                        + superscript(s.id) + ' <strong class="chat-source-doc">' + docLink + '</strong> '
+                        + '<em class="chat-source-quote">"' + escapeHtml(s.quote) + '"</em></div>';
+                });
+                sourcesHtml += '</div>';
+            }
+            document.getElementById('replay-sources-container').innerHTML = sourcesHtml;
+
+            document.getElementById('replay-stats').textContent = data.stats;
+            if (data.source_tag) {
+                document.getElementById('replay-stats').textContent += ' · ' + data.source_tag;
+            }
+        });
+    }
+
+    // Event listeners
+    select.addEventListener('change', function() { loadTrace(select.value); });
+
+    var searchTimeout;
+    search.addEventListener('input', function() {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(function() { loadTraces(search.value); }, 300);
+    });
+
+    // Initial load
+    loadTraces();
+})();
+</script>
+{% endblock %}

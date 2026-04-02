@@ -89,6 +89,11 @@ async def mobile_privacy(request: Request):
     return templates.TemplateResponse("mobile/privacy.html", {"request": request})
 
 
+@app.get("/replay", response_class=HTMLResponse)
+async def trace_replay(request: Request):
+    return templates.TemplateResponse("replay.html", {"request": request})
+
+
 @app.get("/doc/{doc_name}", response_class=HTMLResponse)
 async def doc_viewer(request: Request, doc_name: str):
     filename = doc_name if doc_name.endswith(".md") else f"{doc_name}.md"
