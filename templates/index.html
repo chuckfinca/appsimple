@@ -3,7 +3,8 @@
 {% block title %}Applied AI Engineer{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="/assets/css/pages/index.css?v=2" />
+<link rel="stylesheet" href="/assets/css/chat-ui.css" />
+<link rel="stylesheet" href="/assets/css/pages/index.css?v=3" />
 <link rel="stylesheet" href="/assets/css/components/interactive-carousel.css?v=2" />
 {% endblock %}
 
@@ -137,6 +138,7 @@
 <script src="/assets/js/modules/typing.js"></script>
 <script src="/assets/js/modules/interactive-carousel.js"></script>
 <script src="/assets/js/main.js?v=3"></script>
+<script src="/assets/js/chat-ui.js"></script>
 <script>
 (function() {
     var API_BASE = 'https://chuckfinca-appsimple-assistant.hf.space';
@@ -240,22 +242,7 @@
                 } else if (eventData.type === 'done') {
                     eventSource.close();
                     var finalHtml = '<div class="chat-answer">' + markdownToHtml(eventData.answer || accumulated) + '</div>';
-                    if (eventData.sources && eventData.sources.length > 0) {
-                        finalHtml += '<button class="chat-sources-toggle" onclick="this.nextElementSibling.classList.toggle(\'open\')">'
-                            + eventData.sources.length + ' source' + (eventData.sources.length !== 1 ? 's' : '') + '</button>';
-                        finalHtml += '<div class="chat-sources">';
-                        eventData.sources.forEach(function(s) {
-                            var cls = s.matched ? 'chat-source' : 'chat-source unmatched';
-                            var docLink = s.file
-                                ? '<a class="chat-source-link" href="/doc/' + encodeURIComponent(s.file.replace('.md', '')) + '" target="_blank">'
-                                    + escapeHtml(s.doc) + '<svg class="external-icon" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4.5 1.5H2a.5.5 0 00-.5.5v8a.5.5 0 00.5.5h8a.5.5 0 00.5-.5V7.5M7 1.5h3.5V5M5.5 6.5l5-5"/></svg></a>'
-                                : escapeHtml(s.doc);
-                            finalHtml += '<div class="' + cls + '">'
-                                + superscript(s.id) + ' <strong class="chat-source-doc">' + docLink + '</strong> '
-                                + '<em class="chat-source-quote">"' + escapeHtml(s.quote) + '"</em></div>';
-                        });
-                        finalHtml += '</div>';
-                    }
+                    finalHtml += renderSources(eventData.sources, { docLinkBase: '/doc/' });
                     if (eventData.stats) {
                         finalHtml += '<div class="chat-stats">' + eventData.stats.replace(/\*/g, '') + '</div>';
                     }
@@ -303,45 +290,6 @@
         chatInput.classList.remove('thinking');
         chatInput.placeholder = 'Ask a question...';
         chatInput.disabled = false;
-    }
-
-    function superscript(n) {
-        var digits = '\u2070\u00b9\u00b2\u00b3\u2074\u2075\u2076\u2077\u2078\u2079';
-        return String(n).split('').map(function(d) { return digits[parseInt(d)]; }).join('');
-    }
-
-    function escapeHtml(str) {
-        var d = document.createElement('div');
-        d.textContent = str;
-        return d.innerHTML;
-    }
-
-    function markdownToHtml(text) {
-        if (!text) return '';
-        var escaped = text
-            .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-        // Convert headers before lists and inline formatting
-        escaped = escaped.replace(/^### (.+)$/gm, '<h4>$1</h4>');
-        escaped = escaped.replace(/^## (.+)$/gm, '<h3>$1</h3>');
-        // Convert bullet lists at any indentation level
-        escaped = escaped.replace(/^( *)[\*\-]\s+(.+)$/gm, function(_, indent, content) {
-            var depth = Math.floor(indent.length / 4);
-            return depth > 0
-                ? '<li style="margin-left:' + (depth * 1.5) + 'em">' + content + '</li>'
-                : '<li>' + content + '</li>';
-        });
-        escaped = escaped.replace(/((?:<li[^>]*>.*<\/li>\n?)+)/g, '<ul>$1</ul>');
-        // Inline formatting
-        escaped = escaped
-            .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-            .replace(/\*(.+?)\*/g, '<em>$1</em>')
-            .replace(/`(.+?)`/g, '<code>$1</code>')
-            .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>')
-            .replace(/\n/g, '<br>');
-        // Clean up stray <br> around block elements
-        escaped = escaped.replace(/<ul><br>/g, '<ul>').replace(/<br><\/ul>/g, '</ul>');
-        escaped = escaped.replace(/<br><h/g, '<h').replace(/<\/h3><br>/g, '</h3>').replace(/<\/h4><br>/g, '</h4>');
-        return escaped;
     }
 
 })();
