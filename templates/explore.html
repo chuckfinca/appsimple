@@ -1,0 +1,234 @@
+{% extends "base.html" %}
+
+{% block title %}Document Explorer - AppSimple{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="/assets/css/chat-ui.css" />
+<link rel="stylesheet" href="/assets/css/pages/explore.css" />
+{% endblock %}
+
+{% block content %}
+<div class="explore-page">
+    <div class="explore-header">
+        <a href="/" class="explore-back">&larr; Home</a>
+        <h1 class="explore-title">Document Explorer</h1>
+        <p class="explore-subtitle">Upload documents, ask questions. The LLM reads and analyzes them with Python. No training, no vector DB.</p>
+    </div>
+
+    <div id="setup-panel">
+        <div class="setup-field">
+            <label for="token-input">Access Token</label>
+            <input type="password" id="token-input" placeholder="Enter your access token" />
+        </div>
+        <div class="setup-field">
+            <label>Upload Documents</label>
+            <div id="drop-zone" class="drop-zone">
+                <p>Drag and drop files here, or <label for="file-input" class="file-label">browse</label></p>
+                <input type="file" id="file-input" multiple accept=".txt,.csv,.md,.json,.pdf" style="display:none" />
+                <div id="file-list"></div>
+            </div>
+        </div>
+        <button id="start-btn" class="start-btn" disabled>Start exploring</button>
+    </div>
+
+    <div id="chat-panel" style="display:none">
+        <div class="chat-container">
+            <div class="chat-history" id="chat-history"></div>
+            <div class="chat-input-wrapper">
+                <input type="text" id="chat-input" class="chat-input" placeholder="Ask a question about your documents..." autocomplete="off" />
+            </div>
+            <div class="chat-stats" id="session-cost"></div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="/assets/js/chat-ui.js"></script>
+<script>
+(function() {
+    var API_BASE = 'https://chuckfinca-document-explorer.hf.space';
+    var tokenInput = document.getElementById('token-input');
+    var fileInput = document.getElementById('file-input');
+    var dropZone = document.getElementById('drop-zone');
+    var fileListEl = document.getElementById('file-list');
+    var startBtn = document.getElementById('start-btn');
+    var setupPanel = document.getElementById('setup-panel');
+    var chatPanel = document.getElementById('chat-panel');
+    var chatInput = document.getElementById('chat-input');
+    var chatHistory = document.getElementById('chat-history');
+    var sessionCostEl = document.getElementById('session-cost');
+
+    var selectedFiles = [];
+    var workspacePath = '';
+    var scratchPath = '';
+    var sessionCost = 0;
+
+    function updateStartBtn() {
+        startBtn.disabled = !(selectedFiles.length > 0);
+    }
+
+    function showFiles() {
+        fileListEl.innerHTML = selectedFiles.map(function(f) {
+            return '<div>' + escapeHtml(f.name) + '</div>';
+        }).join('');
+        updateStartBtn();
+    }
+
+    fileInput.addEventListener('change', function() {
+        selectedFiles = Array.from(fileInput.files);
+        showFiles();
+    });
+
+    dropZone.addEventListener('click', function() { fileInput.click(); });
+    dropZone.addEventListener('dragover', function(e) { e.preventDefault(); dropZone.classList.add('drag-over'); });
+    dropZone.addEventListener('dragleave', function() { dropZone.classList.remove('drag-over'); });
+    dropZone.addEventListener('drop', function(e) {
+        e.preventDefault();
+        dropZone.classList.remove('drag-over');
+        selectedFiles = Array.from(e.dataTransfer.files);
+        showFiles();
+    });
+
+    startBtn.addEventListener('click', function() {
+        startBtn.disabled = true;
+        startBtn.textContent = 'Uploading...';
+
+        var formData = new FormData();
+        selectedFiles.forEach(function(f) { formData.append('files', f); });
+
+        fetch(API_BASE + '/gradio_api/upload', {
+            method: 'POST',
+            body: formData
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(uploadedPaths) {
+            return fetch(API_BASE + '/gradio_api/call/upload', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ data: [tokenInput.value, uploadedPaths] })
+            });
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(result) {
+            return fetch(API_BASE + '/gradio_api/call/upload/' + result.event_id);
+        })
+        .then(function(r) { return r.text(); })
+        .then(function(text) {
+            var lines = text.split('\n');
+            var dataLine = lines.find(function(l) { return l.startsWith('data:'); });
+            var parsed = JSON.parse(dataLine.substring(5).trim());
+            var data = JSON.parse(Array.isArray(parsed) ? parsed[0] : parsed);
+            if (data.error) {
+                startBtn.disabled = false;
+                startBtn.textContent = 'Start exploring';
+                alert(data.error);
+                return;
+            }
+            workspacePath = data.workspace_path;
+            setupPanel.style.display = 'none';
+            chatPanel.style.display = 'block';
+            chatInput.focus();
+        })
+        .catch(function(err) {
+            console.error(err);
+            startBtn.disabled = false;
+            startBtn.textContent = 'Start exploring';
+        });
+    });
+
+    chatInput.addEventListener('keydown', function(e) {
+        if (e.key !== 'Enter' || !chatInput.value.trim() || chatInput.disabled) return;
+        e.preventDefault();
+        var question = chatInput.value.trim();
+        chatInput.value = '';
+        chatInput.disabled = true;
+        chatInput.placeholder = '';
+
+        var turn = document.createElement('div');
+        turn.className = 'chat-turn';
+        turn.innerHTML = '<div class="chat-question">' + escapeHtml(question) + '</div>';
+        chatHistory.appendChild(turn);
+
+        var answerEl = document.createElement('div');
+        answerEl.className = 'chat-answer';
+        turn.appendChild(answerEl);
+        var accumulated = '';
+        var toolCount = 0;
+
+        fetch(API_BASE + '/gradio_api/call/ask', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ data: [question, workspacePath, scratchPath, sessionCost, tokenInput.value] })
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(result) {
+            var eventSource = new EventSource(API_BASE + '/gradio_api/call/ask/' + result.event_id);
+
+            function handleEvent(e) {
+                var raw = JSON.parse(e.data);
+                var eventData = JSON.parse(Array.isArray(raw) ? raw[0] : raw);
+
+                if (eventData.type === 'delta') {
+                    accumulated += eventData.content;
+                    answerEl.innerHTML = markdownToHtml(accumulated);
+                    answerEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                } else if (eventData.type === 'tool_call') {
+                    toolCount = eventData.count;
+                    answerEl.innerHTML = '<em class="chat-tool-status">Exploring documents (' + toolCount + ' tool calls)...</em>';
+                    accumulated = '';
+                } else if (eventData.type === 'error') {
+                    eventSource.close();
+                    answerEl.innerHTML = '<span class="chat-error">' + escapeHtml(eventData.error) + '</span>';
+                    chatInput.disabled = false;
+                    chatInput.placeholder = 'Ask a question about your documents...';
+                } else if (eventData.type === 'done') {
+                    eventSource.close();
+                    var finalHtml = '<div class="chat-answer">' + markdownToHtml(eventData.answer || accumulated) + '</div>';
+                    finalHtml += renderSources(eventData.sources);
+                    if (eventData.stats) {
+                        finalHtml += '<div class="chat-stats">' + eventData.stats + '</div>';
+                    }
+                    if (eventData.trace_html) {
+                        finalHtml += '<button class="chat-trace-toggle" onclick="this.nextElementSibling.classList.toggle(\'open\')">trace</button>';
+                        finalHtml += '<div class="chat-trace">' + eventData.trace_html + '</div>';
+                    }
+                    turn.innerHTML = '<div class="chat-question">' + escapeHtml(question) + '</div>' + finalHtml;
+
+                    if (eventData.workspace_path) workspacePath = eventData.workspace_path;
+                    if (eventData.scratch_path) scratchPath = eventData.scratch_path;
+                    if (eventData.session_cost != null) {
+                        sessionCost = eventData.session_cost;
+                        sessionCostEl.textContent = 'Session cost: $' + sessionCost.toFixed(4);
+                    }
+
+                    chatInput.disabled = false;
+                    chatInput.placeholder = 'Ask a question about your documents...';
+                    chatInput.focus({ preventScroll: true });
+                }
+            }
+
+            eventSource.addEventListener('generating', handleEvent);
+            eventSource.addEventListener('complete', handleEvent);
+
+            eventSource.onerror = function() {
+                eventSource.close();
+                if (!accumulated) {
+                    answerEl.innerHTML = '<span class="chat-error">Connection error. The service may be starting up — try again in a moment.</span>';
+                }
+                chatInput.disabled = false;
+                chatInput.placeholder = 'Ask a question about your documents...';
+            };
+        })
+        .catch(function() {
+            turn.innerHTML += '<div class="chat-error">Connection error. The service may be starting up — try again in a moment.</div>';
+            chatInput.disabled = false;
+            chatInput.placeholder = 'Ask a question about your documents...';
+        });
+    });
+
+    // Wake up the Space early
+    fetch(API_BASE + '/', { mode: 'no-cors' }).catch(function(){});
+})();
+</script>
+{% endblock %}

@@ -89,6 +89,11 @@ async def mobile_privacy(request: Request):
     return templates.TemplateResponse("mobile/privacy.html", {"request": request})
 
 
+@app.get("/explore", response_class=HTMLResponse)
+async def explore(request: Request):
+    return templates.TemplateResponse("explore.html", {"request": request})
+
+
 @app.get("/replay", response_class=HTMLResponse)
 async def trace_replay(request: Request):
     return templates.TemplateResponse("replay.html", {"request": request})
