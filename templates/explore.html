@@ -54,8 +54,7 @@
     var sessionCostEl = document.getElementById('session-cost');
 
     var selectedFiles = [];
-    var workspacePath = '';
-    var scratchPath = '';
+    var sessionId = '';
     var sessionCost = 0;
 
     function showFiles() {
@@ -99,8 +98,8 @@
         .then(function(data) {
             console.log('[explore] upload response:', data);
             if (!data || data.error) throw new Error((data && data.error) || 'Upload failed');
-            workspacePath = data.workspace_path;
-            console.log('[explore] workspace:', workspacePath);
+            sessionId = data.session_id;
+            console.log('[explore] session:', sessionId);
         });
     }
 
@@ -108,7 +107,7 @@
         if (e.key !== 'Enter' || !chatInput.value.trim() || chatInput.disabled) return;
         e.preventDefault();
 
-        if (!selectedFiles.length && !workspacePath) {
+        if (!selectedFiles.length && !sessionId) {
             chatInput.placeholder = 'Please upload documents first';
             return;
         }
@@ -130,7 +129,7 @@
         var accumulated = '';
         var toolCount = 0;
 
-        var uploadStep = workspacePath
+        var uploadStep = sessionId
             ? Promise.resolve()
             : uploadFiles();
 
@@ -139,7 +138,7 @@
             return fetch(API_BASE + '/gradio_api/call/ask', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ data: [question, workspacePath, scratchPath, sessionCost, tokenInput.value] })
+            body: JSON.stringify({ data: [question, sessionId, tokenInput.value] })
         })
         .then(function(r) { return r.json(); })
         .then(function(result) {
@@ -175,8 +174,6 @@
                     }
                     turn.innerHTML = '<div class="chat-question">' + escapeHtml(question) + '</div>' + finalHtml;
 
-                    if (eventData.workspace_path) workspacePath = eventData.workspace_path;
-                    if (eventData.scratch_path) scratchPath = eventData.scratch_path;
                     if (eventData.session_cost != null && eventData.session_cost > 0) {
                         sessionCost = eventData.session_cost;
                         sessionCostEl.textContent = 'Session cost: $' + sessionCost.toFixed(4);
