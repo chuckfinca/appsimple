@@ -177,7 +177,7 @@
 
                     if (eventData.workspace_path) workspacePath = eventData.workspace_path;
                     if (eventData.scratch_path) scratchPath = eventData.scratch_path;
-                    if (eventData.session_cost != null) {
+                    if (eventData.session_cost != null && eventData.session_cost > 0) {
                         sessionCost = eventData.session_cost;
                         sessionCostEl.textContent = 'Session cost: $' + sessionCost.toFixed(4);
                     }
