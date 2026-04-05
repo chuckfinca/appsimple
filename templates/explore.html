@@ -92,11 +92,15 @@
         })
         .then(function(r) { return r.json(); })
         .then(function(uploadedPaths) {
-            return callApi(API_BASE, 'upload', [tokenInput.value, uploadedPaths]);
+            console.log('[explore] uploaded paths:', uploadedPaths);
+            var payload = JSON.stringify({ token: tokenInput.value, paths: uploadedPaths });
+            return callApi(API_BASE, 'upload', payload);
         })
         .then(function(data) {
-            if (data.error) throw new Error(data.error);
+            console.log('[explore] upload response:', data);
+            if (!data || data.error) throw new Error((data && data.error) || 'Upload failed');
             workspacePath = data.workspace_path;
+            console.log('[explore] workspace:', workspacePath);
         });
     }
 
