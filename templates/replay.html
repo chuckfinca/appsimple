@@ -15,6 +15,7 @@
     </div>
 
     <div class="replay-controls">
+        <input type="password" id="admin-token" class="replay-search" placeholder="Admin token" autocomplete="off" style="flex:0 0 140px" />
         <input type="text" id="trace-search" class="replay-search" placeholder="Search traces..." autocomplete="off" />
         <select id="trace-select" class="replay-select">
             <option value="">Select a trace...</option>
@@ -39,12 +40,13 @@
 <script>
 (function() {
     var API_BASE = 'https://chuckfinca-appsimple-assistant.hf.space';
+    var adminToken = document.getElementById('admin-token');
     var select = document.getElementById('trace-select');
     var search = document.getElementById('trace-search');
     var output = document.getElementById('replay-output');
 
     function loadTraces(query) {
-        callApi(API_BASE, 'traces', query || '').then(function(data) {
+        callApi(API_BASE, 'traces', [adminToken.value, query || '']).then(function(data) {
             if (data.error) return;
             select.innerHTML = '<option value="">Select a trace...</option>';
             data.traces.forEach(function(f) {
@@ -73,7 +75,7 @@
         document.getElementById('replay-trace-toggle').style.display = 'none';
         document.getElementById('replay-trace').innerHTML = '';
 
-        callApi(API_BASE, 'replay', filename).then(function(data) {
+        callApi(API_BASE, 'replay', [adminToken.value, filename]).then(function(data) {
             if (data.error) {
                 document.getElementById('replay-question').textContent = 'Error: ' + data.error;
                 return;
@@ -111,8 +113,8 @@
         searchTimeout = setTimeout(function() { loadTraces(search.value); }, 300);
     });
 
-    // Initial load
-    loadTraces();
+    // Load traces when token is entered
+    adminToken.addEventListener('change', function() { loadTraces(); });
 })();
 </script>
 {% endblock %}
