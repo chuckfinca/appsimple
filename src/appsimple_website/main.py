@@ -133,6 +133,7 @@ VALID_CASE_STUDIES = [
     "llm-evaluation-prompting",
     "a-simple-auth-kit",
     "fot-recommender",
+    "llm-harness",
 ]
 
 

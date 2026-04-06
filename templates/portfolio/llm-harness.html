@@ -1,0 +1,210 @@
+{% extends "base.html" %}
+
+{% block title %}LLM Harness Case Study - Charles Feinn // AppSimple{% endblock %}
+
+{% block content %}
+<div class="back-navigation">
+    <a href="/portfolio" class="back-link">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="back-arrow">
+        <path d="M19 12H5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M12 19L5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>Back to Portfolio</span>
+    </a>
+</div>
+
+<!-- Case Study Header -->
+<div class="case-study-header">
+    <h1 class="page-title mb-md">Case Study: A Simple LLM Harness</h1>
+
+    <div class="app-description">
+        <h2 class="app-title mb-sm">Document Exploration Through Code Execution</h2>
+        <p class="page-intro">An open-source agent loop that lets LLMs explore documents by writing Python code — no vector database, no chunking, no retrieval pipeline. The model reads documents directly, cites its sources, and the system verifies every citation.</p>
+    </div>
+
+    <!-- Metadata Grid -->
+    <div class="metadata-container">
+        <div class="app-icon-container">
+            <div class="placeholder-icon" style="font-size: 1.5rem; font-weight: 600; background-color: var(--primary-light); color: var(--primary);">LH</div>
+        </div>
+
+        <div class="project-metadata-grid">
+            <div class="metadata-column">
+                <div class="metadata-label">Project Type:</div>
+                <div class="metadata-value">AI Infrastructure / Open Source</div>
+            </div>
+            <div class="metadata-column">
+                <div class="metadata-label">Technology Stack:</div>
+                <div class="metadata-value">Python, litellm, E2B, Gradio</div>
+            </div>
+            <div class="metadata-column">
+                <div class="metadata-label">Deployment:</div>
+                <div class="metadata-value">HuggingFace Spaces, Docker</div>
+            </div>
+            <div class="metadata-column">
+                <div class="metadata-label">Status:</div>
+                <div class="metadata-value">Live — try it on this site</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Try It -->
+<div class="process-step">
+    <div class="process-step-content">
+        <div class="process-step-header">
+            <div class="expertise-icon-container">
+                <svg class="icon expertise-icon" viewBox="0 0 24 24">
+                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                </svg>
+            </div>
+            <h3>Try It</h3>
+        </div>
+        <div class="process-step-content-body">
+            <p>This isn't a demo in a screenshot. The assistant on this site's <a href="/">homepage</a> runs on the harness — ask it anything about AppSimple and watch it explore, cite, and answer in real time.</p>
+            <p class="mt-sm">Want to try it with your own documents? Upload them on the <a href="/explore">Document Explorer</a> and see how the agent handles your content.</p>
+        </div>
+    </div>
+</div>
+
+<!-- The Bet -->
+<div class="process-step">
+    <div class="process-step-content">
+        <div class="process-step-header">
+            <div class="expertise-icon-container">
+                <svg class="icon expertise-icon" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                    <line x1="12" y1="17" x2="12.01" y2="17"/>
+                </svg>
+            </div>
+            <h3>The Bet</h3>
+        </div>
+        <div class="process-step-content-body">
+            <p>Most document Q&A systems use RAG: chunk documents, embed them in a vector database, retrieve the closest chunks, and pass them to the model. It works, but the model never actually reads the documents. It sees fragments chosen by a similarity algorithm.</p>
+            <p class="mt-sm">The harness takes a different approach. Give the model one tool — <code>run_python</code> — and let it read the documents itself. It writes Python to open files, search for patterns, cross-reference data, and compute answers. The model reasons about the documents rather than pattern-matching against embeddings.</p>
+            <p class="mt-sm">The trade-off is latency (multiple tool calls vs. one vector search). The payoff is dramatically better reasoning — the model can filter, compare, calculate, and verify in ways that chunked retrieval cannot.</p>
+        </div>
+    </div>
+</div>
+
+<!-- How It Works -->
+<div class="process-step">
+    <div class="process-step-content">
+        <div class="process-step-header">
+            <div class="expertise-icon-container">
+                <svg class="icon expertise-icon" viewBox="0 0 24 24">
+                    <path d="M16 18l6-6-6-6"/>
+                    <path d="M8 6l-6 6 6 6"/>
+                </svg>
+            </div>
+            <h3>How It Works</h3>
+        </div>
+        <div class="process-step-content-body">
+            <p>The harness is a minimal agent loop: call the LLM, execute its code in a sandboxed container, feed the results back, repeat until the model has an answer.</p>
+
+            <h4 class="mt-md mb-sm">Agent Loop</h4>
+            <ul class="service-list">
+                <li><strong>Model calls <code>run_python</code></strong> to read files, search content, and compute results in an E2B cloud sandbox</li>
+                <li><strong>Streaming</strong> delivers text deltas in real time via Server-Sent Events — answers type out live</li>
+                <li><strong>Nudge logic</strong> ensures the model consults the workspace rather than answering from memory</li>
+            </ul>
+
+            <h4 class="mt-md mb-sm">Citations</h4>
+            <ul class="service-list">
+                <li>The model cites evidence inline as <code>[filename: "quoted passage"]</code></li>
+                <li>Server-side regex extracts citations, verifies each quote against the source file using three-tier fuzzy matching (exact → ellipsis segments → 5-word sliding window)</li>
+                <li>Citations render as clean superscript footnotes with a collapsible source list</li>
+            </ul>
+
+            <h4 class="mt-md mb-sm">Evaluation</h4>
+            <ul class="service-list">
+                <li>Code-based assertions across 10 question categories (fact lookup, multi-doc synthesis, comparison, trend analysis, cited analysis)</li>
+                <li>Five diverse document workspaces (SEC filings, Federalist Papers, Sherlock Holmes, world data, Darwin)</li>
+                <li>Traces stored for every question — full tool call chain, token counts, citation match rates</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Architecture -->
+<div class="process-step">
+    <div class="process-step-content">
+        <div class="process-step-header">
+            <div class="expertise-icon-container">
+                <svg class="icon expertise-icon" viewBox="0 0 24 24">
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                    <line x1="8" y1="21" x2="16" y2="21"/>
+                    <line x1="12" y1="17" x2="12" y2="21"/>
+                </svg>
+            </div>
+            <h3>Architecture</h3>
+        </div>
+        <div class="process-step-content-body">
+            <p>The system spans three repos with a shared frontend:</p>
+            <ul class="service-list">
+                <li><strong>Harness library</strong> (~1,300 lines Python) — agent loop, citation parsing, telemetry, trace viewer. Imported by both apps.</li>
+                <li><strong>Assistant app</strong> — HuggingFace Space (Docker SDK) with persona prompt, curated workspace, daily rate limiting. Powers the chat on this site.</li>
+                <li><strong>Explorer app</strong> — HuggingFace Space (Docker SDK) with file upload, server-side sessions, access token auth. Powers the <a href="/explore">Document Explorer</a>.</li>
+                <li><strong>Shared frontend</strong> — vanilla JS/CSS consumed by both apps. Markdown rendering, citation display, SSE streaming.</li>
+            </ul>
+            <p class="mt-sm">The harness is model-agnostic (via litellm), sandbox-agnostic (Docker or E2B), and has no opinions about how you display results. Citation processing is the only presentation-adjacent feature, and it returns structured data — the app decides how to render it.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Results -->
+<div class="process-step">
+    <div class="process-step-content">
+        <div class="process-step-header">
+            <div class="expertise-icon-container">
+                <svg class="icon expertise-icon" viewBox="0 0 24 24">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                    <polyline points="22 4 12 14.01 9 11.01"/>
+                </svg>
+            </div>
+            <h3>Results</h3>
+        </div>
+        <div class="process-step-content-body">
+            <div class="about-stats mt-md">
+                <div class="stat-item">
+                    <div class="stat-number">99%</div>
+                    <div class="stat-label">Citation match rate across 20 eval questions</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">19</div>
+                    <div class="stat-label">Workspace files (docs + website pages)</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">~7s</div>
+                    <div class="stat-label">Average response time with streaming</div>
+                </div>
+            </div>
+
+            <ul class="service-list mt-md">
+                <li><strong>Live on appsimple.io</strong> — the assistant on the homepage uses the harness to answer questions about Charles's work, citing curated documents and raw website pages</li>
+                <li><strong>Open source</strong> — the harness library is <a href="https://github.com/chuckfinca/a-simple-llm-harness" target="_blank">publicly available</a> for anyone to use with any LLM provider</li>
+                <li><strong>Viable RAG alternative</strong> — demonstrates that code-as-tool preserves full reasoning capability while providing verifiable, cited answers</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- CTA -->
+<div class="index-cta mt-xl">
+    <h3 class="mb-sm">Explore the Project</h3>
+    <p class="mb-md">Try the assistant, upload your own documents, or dig into the source code.</p>
+    <div class="cta-buttons">
+        <a href="/" class="cta-button">
+            Ask the Assistant
+        </a>
+        <a href="/explore" class="cta-button-outline">
+            Try the Document Explorer
+        </a>
+        <a href="https://github.com/chuckfinca/a-simple-llm-harness" class="cta-button-outline" target="_blank" rel="noopener">
+            View on GitHub
+        </a>
+    </div>
+</div>
+
+{% endblock %}
