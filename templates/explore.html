@@ -91,15 +91,12 @@
         })
         .then(function(r) { return r.json(); })
         .then(function(uploadedPaths) {
-            console.log('[explore] uploaded paths:', uploadedPaths);
             var payload = JSON.stringify({ token: tokenInput.value, paths: uploadedPaths });
             return callApi(API_BASE, 'upload', payload);
         })
         .then(function(data) {
-            console.log('[explore] upload response:', data);
             if (!data || data.error) throw new Error((data && data.error) || 'Upload failed');
             sessionId = data.session_id;
-            console.log('[explore] session:', sessionId);
         });
     }
 
