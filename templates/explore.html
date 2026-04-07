@@ -16,7 +16,7 @@
     </div>
 
     <div id="setup-panel">
-        <div class="setup-field">
+        <div class="setup-field" id="token-field" style="display:none">
             <label for="token-input">Access Token</label>
             <input type="password" id="token-input" placeholder="Enter your access token" />
         </div>
@@ -156,6 +156,9 @@
                 } else if (eventData.type === 'error') {
                     eventSource.close();
                     answerEl.innerHTML = '<span class="chat-error">' + escapeHtml(eventData.error) + '</span>';
+                    if (eventData.error && eventData.error.indexOf('free limit') >= 0) {
+                        document.getElementById('token-field').style.display = '';
+                    }
                     chatInput.disabled = false;
                     chatInput.placeholder = 'Ask a question about your documents...';
                 } else if (eventData.type === 'done') {
