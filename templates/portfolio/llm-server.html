@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+
+{% block title %}LLM Server Case Study - Charles Feinn // AppSimple{% endblock %}
+
+{% block content %}
+<div class="back-navigation">
+    <a href="/portfolio" class="back-link">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="back-arrow">
+        <path d="M19 12H5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M12 19L5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>Back to Portfolio</span>
+    </a>
+</div>
+
+<!-- Case Study Header -->
+<div class="case-study-header">
+    <h1 class="page-title mb-md">Case Study: LLM Server</h1>
+
+    <div class="app-description">
+        <h2 class="app-title mb-sm">Multi-Provider API Infrastructure for Mobile Apps</h2>
+        <p class="page-intro">A FastAPI backend that gives mobile apps unified access to multiple LLM providers. Pipeline processing for multi-step workflows, circuit breaker patterns for resilient failure handling, and seamless model switching across OpenAI, Anthropic, Google, and Hugging Face.</p>
+    </div>
+
+    <!-- Metadata Grid -->
+    <div class="metadata-container">
+        <div class="app-icon-container">
+            <div class="placeholder-icon" style="font-size: 1.5rem; font-weight: 600; background-color: var(--primary-light); color: var(--primary);">LS</div>
+        </div>
+
+        <div class="project-metadata-grid">
+            <div class="metadata-column">
+                <div class="metadata-label">Project Type:</div>
+                <div class="metadata-value">AI Infrastructure</div>
+            </div>
+            <div class="metadata-column">
+                <div class="metadata-label">Technology Stack:</div>
+                <div class="metadata-value">FastAPI, Python, DSPy, Pydantic</div>
+            </div>
+            <div class="metadata-column">
+                <div class="metadata-label">Infrastructure:</div>
+                <div class="metadata-value">Docker, Modal.com, Cloudflare, Prometheus</div>
+            </div>
+            <div class="metadata-column">
+                <div class="metadata-label">Source:</div>
+                <div class="metadata-value"><a href="https://github.com/chuckfinca/a-simple-llm-kit/tree/c014c51e0429ba257a8012b2668eaf528a051f2b" target="_blank" rel="noopener">GitHub</a></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Problem -->
+<div class="process-step">
+    <div class="process-step-content">
+        <div class="process-step-header">
+            <div class="expertise-icon-container">
+                <svg class="icon expertise-icon" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                    <line x1="12" y1="17" x2="12.01" y2="17"/>
+                </svg>
+            </div>
+            <h3>The Problem</h3>
+        </div>
+        <div class="process-step-content-body">
+            <p>Mobile apps that use LLMs need a backend layer. The server provides unified LLM access for mobile applications through RESTful APIs, acting as the bridge between mobile clients and multiple LLM providers.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Architecture -->
+<div class="process-step">
+    <div class="process-step-content">
+        <div class="process-step-header">
+            <div class="expertise-icon-container">
+                <svg class="icon expertise-icon" viewBox="0 0 24 24">
+                    <path d="M16 18l6-6-6-6"/>
+                    <path d="M8 6l-6 6 6 6"/>
+                </svg>
+            </div>
+            <h3>Architecture</h3>
+        </div>
+        <div class="process-step-content-body">
+            <h4 class="mt-md mb-sm">Unified Provider Interface</h4>
+            <ul class="service-list">
+                <li><strong>Multi-provider support</strong> — OpenAI GPT-4, Anthropic Claude, Google Gemini, and Hugging Face models behind a single API</li>
+                <li><strong>Circuit breaker pattern</strong> — resilient API failure handling</li>
+                <li><strong>Seamless model switching</strong> — standardized interface enabling failover across providers</li>
+            </ul>
+
+            <h4 class="mt-md mb-sm">Pipeline Processing</h4>
+            <ul class="service-list">
+                <li><strong>Multi-step workflows</strong> — chain operations like image → text extraction → structured data in a single request</li>
+                <li><strong>DSPy integration</strong> — structured data extraction pipelines, including contact information extraction from images</li>
+                <li><strong>Versioning middleware</strong> — track which program version and model produced each result</li>
+            </ul>
+
+            <h4 class="mt-md mb-sm">Deployment</h4>
+            <ul class="service-list">
+                <li><strong>Modal.com</strong> deployment with <strong>Cloudflare tunnels</strong></li>
+                <li><strong>Prometheus</strong> monitoring</li>
+                <li><strong>GitHub Actions</strong> CI/CD</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Results -->
+<div class="process-step">
+    <div class="process-step-content">
+        <div class="process-step-header">
+            <div class="expertise-icon-container">
+                <svg class="icon expertise-icon" viewBox="0 0 24 24">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                    <polyline points="22 4 12 14.01 9 11.01"/>
+                </svg>
+            </div>
+            <h3>Results</h3>
+        </div>
+        <div class="process-step-content-body">
+            <ul class="service-list">
+                <li>Production-ready deployment with Modal.com and Cloudflare integration</li>
+                <li>Supports OpenAI GPT-4, Anthropic Claude, Google Gemini, and Hugging Face models</li>
+                <li>Pipeline processing architecture supporting image → text → structured data workflows</li>
+                <li>Comprehensive versioning system for program and model tracking</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- CTA -->
+<div class="index-cta mt-xl">
+    <h3 class="mb-sm">View the Source</h3>
+    <p class="mb-md">The server code is available on GitHub.</p>
+    <div class="cta-buttons">
+        <a href="https://github.com/chuckfinca/a-simple-llm-kit/tree/c014c51e0429ba257a8012b2668eaf528a051f2b" class="cta-button" target="_blank" rel="noopener">
+            View on GitHub
+        </a>
+        <a href="/portfolio" class="cta-button-outline">
+            Back to Portfolio
+        </a>
+    </div>
+</div>
+
+{% endblock %}

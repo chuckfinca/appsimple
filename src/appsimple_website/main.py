@@ -134,6 +134,7 @@ VALID_CASE_STUDIES = [
     "a-simple-auth-kit",
     "fot-recommender",
     "llm-harness",
+    "llm-server",
 ]
 
 
