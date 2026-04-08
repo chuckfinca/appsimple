@@ -152,6 +152,15 @@
     var hasAsked = false;
 
     // Mode toggle
+    function switchToBrowse() {
+        toggle.querySelectorAll('.mode-btn').forEach(function(b) { b.classList.remove('active'); });
+        toggle.querySelector('[data-mode="carousel"]').classList.add('active');
+        chatContainer.style.display = 'none';
+        carousel.style.display = 'block';
+        if (window._carousel) window._carousel.reveal();
+    }
+    window.switchToBrowse = switchToBrowse;
+
     toggle.addEventListener('click', function(e) {
         var btn = e.target.closest('.mode-btn');
         if (!btn || btn.classList.contains('active')) return;
@@ -162,11 +171,18 @@
             chatContainer.style.display = 'block';
             chatInput.focus({ preventScroll: true });
         } else {
-            chatContainer.style.display = 'none';
-            carousel.style.display = 'block';
-            if (window._carousel) window._carousel.reveal();
+            switchToBrowse();
         }
     });
+
+    // Check remaining questions on load
+    callApi(API_BASE, 'status', '').then(function(data) {
+        if (data && data.remaining === 0) {
+            chatInput.disabled = true;
+            chatInput.placeholder = 'Daily limit reached';
+            chatRemaining.textContent = 'Daily question limit reached. Check back tomorrow, or browse to learn more.';
+        }
+    }).catch(function() {});
 
     // Submit question
     chatInput.addEventListener('keydown', function(e) {
@@ -230,7 +246,7 @@
                 } else if (eventData.type === 'error') {
                     eventSource.close();
                     if (eventData.error === 'daily_limit') {
-                        answerEl.innerHTML = '<span class="chat-error">Daily question limit reached. Check back tomorrow.</span>';
+                        answerEl.innerHTML = '<span class="chat-error">Daily question limit reached. Check back tomorrow, or <a class="chat-error-link" href="#" onclick="switchToBrowse(); return false;">browse</a> to learn more.</span>';
                         stopThinkingAnimation();
                         chatInput.disabled = true;
                         chatInput.placeholder = 'Daily limit reached';

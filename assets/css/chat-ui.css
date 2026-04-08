@@ -187,6 +187,11 @@
   color: var(--error, #EF4444);
   font-size: var(--text-xs, 12px);
 }
+.chat-error a, .chat-error-link {
+  color: var(--error, #EF4444);
+  text-decoration: underline;
+  cursor: pointer;
+}
 
 .chat-footer {
   margin-top: var(--space-md, 24px);
