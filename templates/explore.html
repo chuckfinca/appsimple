@@ -97,6 +97,13 @@
         .then(function(data) {
             if (!data || data.error) throw new Error((data && data.error) || 'Upload failed');
             sessionId = data.session_id;
+            if (data.warnings && data.warnings.length > 0) {
+                var warn = document.createElement('div');
+                warn.className = 'chat-error';
+                warn.style.color = '#D97706';
+                warn.textContent = data.warnings.join(' ');
+                document.getElementById('chat-history').appendChild(warn);
+            }
         });
     }
 
