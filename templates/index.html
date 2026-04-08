@@ -105,8 +105,8 @@
         <div class="chat-input-wrapper" id="chat-input-bottom" style="display: none;">
         </div>
         <div class="chat-footer">
-            LLMs can make mistakes.<br>
-            Try it with your own documents — <a href="/explore">Open the Document Explorer</a>
+            <div>LLMs can make mistakes.</div>
+            <div style="margin-top: 4px">Try it with your own documents — <a href="/explore">Open the Document Explorer</a></div>
         </div>
     </div>
 </div>
@@ -195,6 +195,10 @@
         var turn = document.createElement('div');
         turn.className = 'chat-turn';
         turn.innerHTML = '<div class="chat-question">' + escapeHtml(question) + '</div>';
+        var answerEl = document.createElement('div');
+        answerEl.className = 'chat-answer';
+        answerEl.innerHTML = '<em class="chat-tool-status">Thinking...</em>';
+        turn.appendChild(answerEl);
         chatHistory.appendChild(turn);
         turn.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 
@@ -208,9 +212,6 @@
         .then(function(result) {
             // Open SSE stream for this event
             var eventSource = new EventSource(API_BASE + '/gradio_api/call/ask/' + result.event_id);
-            var answerEl = document.createElement('div');
-            answerEl.className = 'chat-answer';
-            turn.appendChild(answerEl);
             var accumulated = '';
             var toolCount = 0;
 
