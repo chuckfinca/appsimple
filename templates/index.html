@@ -3,7 +3,7 @@
 {% block title %}Applied AI Engineer{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="/assets/css/chat-ui.css" />
+<link rel="stylesheet" href="/assets/css/chat-ui.css?v=2" />
 <link rel="stylesheet" href="/assets/css/pages/index.css?v=3" />
 <link rel="stylesheet" href="/assets/css/components/interactive-carousel.css?v=2" />
 {% endblock %}
@@ -92,13 +92,22 @@
     <!-- Chat Container -->
     <div class="chat-container" id="chat-container" style="display: none;">
         <div class="chat-input-wrapper" id="chat-input-top">
-            <input
-                type="text"
-                id="chat-input"
-                class="chat-input"
-                placeholder="Ask a question..."
-                autocomplete="off"
-            />
+            <form class="chat-input-form" id="chat-form">
+                <input
+                    type="text"
+                    id="chat-input"
+                    class="chat-input"
+                    placeholder="Ask a question..."
+                    autocomplete="off"
+                    enterkeyhint="send"
+                />
+                <button type="submit" id="chat-submit" class="chat-submit" aria-label="Send" disabled>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                </button>
+            </form>
             <div class="chat-remaining" id="chat-remaining"></div>
         </div>
         <div class="chat-history" id="chat-history"></div>
@@ -145,6 +154,8 @@
     var controls = document.getElementById('carousel-controls');
     var chatContainer = document.getElementById('chat-container');
     var chatInput = document.getElementById('chat-input');
+    var chatForm = document.getElementById('chat-form');
+    var chatSubmit = document.getElementById('chat-submit');
     var chatHistory = document.getElementById('chat-history');
     var chatInputTop = document.getElementById('chat-input-top');
     var chatInputBottom = document.getElementById('chat-input-bottom');
@@ -175,23 +186,30 @@
         }
     });
 
+    function syncSubmitState() {
+        chatSubmit.disabled = chatInput.disabled || !chatInput.value.trim();
+    }
+    chatInput.addEventListener('input', syncSubmitState);
+
     // Check remaining questions on load
     callApi(API_BASE, 'status', '').then(function(data) {
         if (data && data.remaining === 0) {
             chatInput.disabled = true;
             chatInput.placeholder = 'Daily limit reached';
             chatRemaining.textContent = 'Daily question limit reached. Check back tomorrow, or browse to learn more.';
+            syncSubmitState();
         }
     }).catch(function() {});
 
-    // Submit question
-    chatInput.addEventListener('keydown', function(e) {
-        if (e.key !== 'Enter' || !chatInput.value.trim() || chatInput.disabled) return;
+    // Submit question — form submit handles both Enter (incl. iOS Send key) and the button
+    chatForm.addEventListener('submit', function(e) {
         e.preventDefault();
+        if (!chatInput.value.trim() || chatInput.disabled) return;
         var question = chatInput.value.trim();
         chatInput.value = '';
         chatInput.disabled = true;
         chatInput.classList.add('thinking');
+        syncSubmitState();
         startThinkingAnimation();
         askQuestion(question);
     });
@@ -201,7 +219,7 @@
         hasAsked = true;
         chatInputTop.style.display = 'none';
         chatInputBottom.style.display = 'block';
-        chatInputBottom.appendChild(chatInput);
+        chatInputBottom.appendChild(chatForm);
         chatInputBottom.appendChild(chatRemaining);
     }
 
@@ -305,6 +323,7 @@
         chatInput.classList.remove('thinking');
         chatInput.placeholder = 'Ask a question...';
         chatInput.disabled = false;
+        syncSubmitState();
     }
 
 })();

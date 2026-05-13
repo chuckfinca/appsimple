@@ -3,7 +3,7 @@
 {% block title %}Document Explorer - AppSimple{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="/assets/css/chat-ui.css" />
+<link rel="stylesheet" href="/assets/css/chat-ui.css?v=2" />
 <link rel="stylesheet" href="/assets/css/pages/explore.css" />
 {% endblock %}
 
@@ -33,7 +33,15 @@
     <div class="chat-container">
         <div class="chat-history" id="chat-history"></div>
         <div class="chat-input-wrapper">
-            <input type="text" id="chat-input" class="chat-input" placeholder="Upload documents above, then ask a question..." autocomplete="off" />
+            <form class="chat-input-form" id="chat-form">
+                <input type="text" id="chat-input" class="chat-input" placeholder="Upload documents above, then ask a question..." autocomplete="off" enterkeyhint="send" />
+                <button type="submit" id="chat-submit" class="chat-submit" aria-label="Send" disabled>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                </button>
+            </form>
         </div>
         <div class="chat-stats" id="session-cost"></div>
     </div>
@@ -50,8 +58,15 @@
     var dropZone = document.getElementById('drop-zone');
     var fileListEl = document.getElementById('file-list');
     var chatInput = document.getElementById('chat-input');
+    var chatForm = document.getElementById('chat-form');
+    var chatSubmit = document.getElementById('chat-submit');
     var chatHistory = document.getElementById('chat-history');
     var sessionCostEl = document.getElementById('session-cost');
+
+    function syncSubmitState() {
+        chatSubmit.disabled = chatInput.disabled || !chatInput.value.trim();
+    }
+    chatInput.addEventListener('input', syncSubmitState);
 
     var selectedFiles = [];
     var sessionId = '';
@@ -107,9 +122,9 @@
         });
     }
 
-    chatInput.addEventListener('keydown', function(e) {
-        if (e.key !== 'Enter' || !chatInput.value.trim() || chatInput.disabled) return;
+    chatForm.addEventListener('submit', function(e) {
         e.preventDefault();
+        if (!chatInput.value.trim() || chatInput.disabled) return;
 
         if (!selectedFiles.length && !sessionId) {
             chatInput.placeholder = 'Please upload documents first';
@@ -120,6 +135,7 @@
         chatInput.value = '';
         chatInput.disabled = true;
         chatInput.placeholder = '';
+        syncSubmitState();
 
         var turn = document.createElement('div');
         turn.className = 'chat-turn';
@@ -166,7 +182,7 @@
                     if (eventData.error && eventData.error.indexOf('free limit') >= 0) {
                         document.getElementById('token-field').style.display = '';
                     }
-                    chatInput.disabled = false;
+                    chatInput.disabled = false; syncSubmitState();
                     chatInput.placeholder = 'Ask a question about your documents...';
                 } else if (eventData.type === 'done') {
                     eventSource.close();
@@ -186,7 +202,7 @@
                         sessionCostEl.textContent = 'Session cost: $' + sessionCost.toFixed(4);
                     }
 
-                    chatInput.disabled = false;
+                    chatInput.disabled = false; syncSubmitState();
                     chatInput.placeholder = 'Ask a question about your documents...';
                     chatInput.focus({ preventScroll: true });
                 }
@@ -200,18 +216,18 @@
                 if (!accumulated) {
                     answerEl.innerHTML = '<span class="chat-error">Connection error. The service may be starting up — try again in a moment.</span>';
                 }
-                chatInput.disabled = false;
+                chatInput.disabled = false; syncSubmitState();
                 chatInput.placeholder = 'Ask a question about your documents...';
             };
         })
         .catch(function() {
             turn.innerHTML += '<div class="chat-error">Connection error. The service may be starting up — try again in a moment.</div>';
-            chatInput.disabled = false;
+            chatInput.disabled = false; syncSubmitState();
             chatInput.placeholder = 'Ask a question about your documents...';
         });
         }).catch(function(err) {
             answerEl.innerHTML = '<span class="chat-error">' + escapeHtml(err.message || 'Upload failed.') + '</span>';
-            chatInput.disabled = false;
+            chatInput.disabled = false; syncSubmitState();
             chatInput.placeholder = 'Ask a question about your documents...';
         });
     });
