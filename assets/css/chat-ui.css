@@ -147,6 +147,27 @@
   color: var(--neutral-400, #9CA3AF);
   line-height: 1.6;
   margin-bottom: 2px;
+  scroll-margin-top: 12px;
+  border-radius: 3px;
+  padding: 2px 4px;
+  margin-left: -4px;
+  transition: background-color 0.4s ease-out;
+}
+
+.chat-source-highlight {
+  background-color: rgba(70, 130, 180, 0.15);
+}
+
+.cite-refs {
+  margin: 0 1px;
+}
+.cite-ref {
+  color: var(--primary, #4682B4);
+  text-decoration: none;
+  cursor: pointer;
+}
+.cite-ref:hover {
+  text-decoration: underline;
 }
 
 .chat-source.unmatched {

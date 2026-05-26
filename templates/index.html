@@ -3,7 +3,7 @@
 {% block title %}Applied AI Engineer{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="/assets/css/chat-ui.css?v=2" />
+<link rel="stylesheet" href="/assets/css/chat-ui.css?v=3" />
 <link rel="stylesheet" href="/assets/css/pages/index.css?v=3" />
 <link rel="stylesheet" href="/assets/css/components/interactive-carousel.css?v=2" />
 {% endblock %}
@@ -145,7 +145,7 @@
 <script src="/assets/js/modules/typing.js"></script>
 <script src="/assets/js/modules/interactive-carousel.js"></script>
 <script src="/assets/js/main.js?v=3"></script>
-<script src="/assets/js/chat-ui.js"></script>
+<script src="/assets/js/chat-ui.js?v=3"></script>
 <script>
 (function() {
     var API_BASE = 'https://chuckfinca-appsimple-assistant.hf.space';
@@ -255,8 +255,7 @@
 
                 if (eventData.type === 'delta') {
                     accumulated += eventData.content;
-                    answerEl.innerHTML = markdownToHtml(accumulated);
-                    answerEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    answerEl.innerHTML = '<em class="chat-tool-status">Writing answer...</em>';
                 } else if (eventData.type === 'tool_call') {
                     toolCount = eventData.count;
                     answerEl.innerHTML = '<em class="chat-tool-status">Exploring documents (' + toolCount + ' tool calls)...</em>';
@@ -284,6 +283,7 @@
                         finalHtml += '<div class="chat-trace">' + eventData.trace_html + '</div>';
                     }
                     turn.innerHTML = '<div class="chat-question">' + escapeHtml(question) + '</div>' + finalHtml;
+                    wireCitationLinks(turn);
                     if (eventData.remaining != null) {
                         chatRemaining.textContent = eventData.remaining + ' question' + (eventData.remaining !== 1 ? 's' : '') + ' remaining today';
                     }

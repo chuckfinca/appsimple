@@ -3,34 +3,33 @@
  * Used by appsimple-assistant and document-explorer.
  */
 
-function superscript(n) {
-    var digits = '\u2070\u00b9\u00b2\u00b3\u2074\u2075\u2076\u2077\u2078\u2079';
-    return String(n).split('').map(function(d) { return digits[parseInt(d)]; }).join('');
-}
-
 function escapeHtml(str) {
     var d = document.createElement('div');
     d.textContent = str;
     return d.innerHTML;
 }
 
-// Hide <cite> tags from streamed text. The server replaces them with
-// numbered superscripts when the answer is finalized — until then,
-// showing the raw XML inline is ugly. Complete tags are removed; an
-// in-progress tag at the end of the buffer truncates the display so
-// no opening `<cite` ever flashes on screen.
-function stripCitationTags(text) {
-    text = text.replace(/<cite\s+file=["'][^"']+["']\s*>[\s\S]*?<\/cite\s*>/g, '');
-    text = text.replace(/<cite\s+file=["'][^"']+["']\s*\/>/g, '');
-    var partial = text.indexOf('<cite');
-    if (partial >= 0) text = text.substring(0, partial);
-    return text;
+// Unicode superscript digits the harness emits in citation positions.
+// Browser <sup> rendering gives consistent sizing and lets us swap the
+// chars for clickable links.
+var SUPER_DIGITS = '⁰¹²³⁴⁵⁶⁷⁸⁹';
+var SUPER_RUN_RE = new RegExp(
+    '[' + SUPER_DIGITS + ']+(?:,[' + SUPER_DIGITS + ']+)*', 'g'
+);
+
+function citationRunToHtml(run) {
+    return '<sup class="cite-refs">' + run.split(',').map(function(group) {
+        var digits = group.replace(/./g, function(c) {
+            return SUPER_DIGITS.indexOf(c).toString();
+        });
+        return '<a href="#" class="cite-ref" data-cite="' + digits + '">'
+            + digits + '</a>';
+    }).join(',') + '</sup>';
 }
 
 function markdownToHtml(text) {
     if (!text) return '';
-    var stripped = stripCitationTags(text);
-    var escaped = stripped
+    var escaped = text
         .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
     escaped = escaped.replace(/^### (.+)$/gm, '<h4>$1</h4>');
     escaped = escaped.replace(/^## (.+)$/gm, '<h3>$1</h3>');
@@ -46,6 +45,7 @@ function markdownToHtml(text) {
         .replace(/\*(.+?)\*/g, '<em>$1</em>')
         .replace(/`(.+?)`/g, '<code>$1</code>')
         .replace(/\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g, '<a href="$2" target="_blank">$1</a>')
+        .replace(SUPER_RUN_RE, citationRunToHtml)
         .replace(/\n/g, '<br>');
     escaped = escaped.replace(/<ul><br>/g, '<ul>').replace(/<br><\/ul>/g, '</ul>');
     escaped = escaped.replace(/<br><h/g, '<h').replace(/<\/h3><br>/g, '</h3>').replace(/<\/h4><br>/g, '</h4>');
@@ -102,10 +102,35 @@ function renderSources(sources, options) {
         var quoteHtml = s.quote
             ? ' <em class="chat-source-quote">"' + escapeHtml(s.quote) + '"</em>'
             : '';
-        html += '<div class="' + cls + '">'
-            + superscript(s.id) + ' <strong class="chat-source-doc">' + docName + '</strong>'
+        html += '<div class="' + cls + '" data-source-id="' + s.id + '">'
+            + '<sup>' + s.id + '</sup>'
+            + ' <strong class="chat-source-doc">' + docName + '</strong>'
             + quoteHtml + '</div>';
     });
     html += '</div>';
     return html;
+}
+
+/**
+ * Wire inline citation links (<a class="cite-ref">) to expand the sources
+ * panel and flash the matching source row. Scoped to the given root
+ * element so multiple chat turns can coexist without ID collisions.
+ */
+function wireCitationLinks(rootEl) {
+    var sourcesPanel = rootEl.querySelector('.chat-sources');
+    if (!sourcesPanel) return;
+    rootEl.querySelectorAll('.cite-ref').forEach(function(ref) {
+        ref.addEventListener('click', function(e) {
+            e.preventDefault();
+            var id = ref.getAttribute('data-cite');
+            sourcesPanel.classList.add('open');
+            var src = sourcesPanel.querySelector('[data-source-id="' + id + '"]');
+            if (!src) return;
+            src.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            src.classList.add('chat-source-highlight');
+            setTimeout(function() {
+                src.classList.remove('chat-source-highlight');
+            }, 1500);
+        });
+    });
 }

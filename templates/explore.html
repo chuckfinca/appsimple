@@ -3,7 +3,7 @@
 {% block title %}Document Explorer - AppSimple{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="/assets/css/chat-ui.css?v=2" />
+<link rel="stylesheet" href="/assets/css/chat-ui.css?v=3" />
 <link rel="stylesheet" href="/assets/css/pages/explore.css" />
 {% endblock %}
 
@@ -49,7 +49,7 @@
 {% endblock %}
 
 {% block extra_js %}
-<script src="/assets/js/chat-ui.js"></script>
+<script src="/assets/js/chat-ui.js?v=3"></script>
 <script>
 (function() {
     var API_BASE = 'https://chuckfinca-document-explorer.hf.space';
@@ -170,8 +170,7 @@
 
                 if (eventData.type === 'delta') {
                     accumulated += eventData.content;
-                    answerEl.innerHTML = markdownToHtml(accumulated);
-                    answerEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    answerEl.innerHTML = '<em class="chat-tool-status">Writing answer...</em>';
                 } else if (eventData.type === 'tool_call') {
                     toolCount = eventData.count;
                     answerEl.innerHTML = '<em class="chat-tool-status">Exploring documents (' + toolCount + ' tool calls)...</em>';
@@ -196,6 +195,7 @@
                         finalHtml += '<div class="chat-trace">' + eventData.trace_html + '</div>';
                     }
                     turn.innerHTML = '<div class="chat-question">' + escapeHtml(question) + '</div>' + finalHtml;
+                    wireCitationLinks(turn);
 
                     if (eventData.session_cost != null && eventData.session_cost > 0) {
                         sessionCost = eventData.session_cost;
