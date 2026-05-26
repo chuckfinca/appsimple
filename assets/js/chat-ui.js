@@ -14,9 +14,23 @@ function escapeHtml(str) {
     return d.innerHTML;
 }
 
+// Hide <cite> tags from streamed text. The server replaces them with
+// numbered superscripts when the answer is finalized — until then,
+// showing the raw XML inline is ugly. Complete tags are removed; an
+// in-progress tag at the end of the buffer truncates the display so
+// no opening `<cite` ever flashes on screen.
+function stripCitationTags(text) {
+    text = text.replace(/<cite\s+file=["'][^"']+["']\s*>[\s\S]*?<\/cite\s*>/g, '');
+    text = text.replace(/<cite\s+file=["'][^"']+["']\s*\/>/g, '');
+    var partial = text.indexOf('<cite');
+    if (partial >= 0) text = text.substring(0, partial);
+    return text;
+}
+
 function markdownToHtml(text) {
     if (!text) return '';
-    var escaped = text
+    var stripped = stripCitationTags(text);
+    var escaped = stripped
         .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
     escaped = escaped.replace(/^### (.+)$/gm, '<h4>$1</h4>');
     escaped = escaped.replace(/^## (.+)$/gm, '<h3>$1</h3>');
